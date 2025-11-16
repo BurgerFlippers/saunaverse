@@ -2,6 +2,7 @@
 set -e
 
 # Run migrations & seed data before starting services
+npm run db:push
 npm run db:migrate
 npm run db:seed
 
