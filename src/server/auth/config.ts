@@ -48,6 +48,33 @@ export const authConfig = {
             name,
           },
         });
+
+        // Assign a random sauna session to the new user
+        const saunas = await db.sauna.findMany();
+        if (saunas.length > 0) {
+          const randomSauna = saunas[Math.floor(Math.random() * saunas.length)];
+          if (randomSauna) {
+            const sessions = await db.saunaSession.findMany({
+              where: { saunaId: randomSauna.id },
+            });
+            if (sessions.length > 0) {
+              const randomSession =
+                sessions[Math.floor(Math.random() * sessions.length)];
+              if (randomSession) {
+                await db.post.create({
+                  data: {
+                    name: "My First Sauna Session!",
+                    description:
+                      "Just joined and already enjoying a great sauna session.",
+                    saunaSessionId: randomSession.id,
+                    createdById: user.id,
+                  },
+                });
+              }
+            }
+          }
+        }
+
         return user;
       },
     }),
