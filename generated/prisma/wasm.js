@@ -87,15 +87,21 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
 exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  createdById: 'createdById'
+  createdById: 'createdById',
+  saunaSessionId: 'saunaSessionId',
+  achievementId: 'achievementId'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -111,7 +117,8 @@ exports.Prisma.AccountScalarFieldEnum = {
   scope: 'scope',
   id_token: 'id_token',
   session_state: 'session_state',
-  refresh_token_expires_in: 'refresh_token_expires_in'
+  refresh_token_expires_in: 'refresh_token_expires_in',
+  email: 'email'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -139,8 +146,7 @@ exports.Prisma.SaunaScalarFieldEnum = {
   id: 'id',
   harviaDeviceId: 'harviaDeviceId',
   name: 'name',
-  location: 'location',
-  userId: 'userId'
+  location: 'location'
 };
 
 exports.Prisma.SaunaSessionScalarFieldEnum = {
@@ -152,16 +158,67 @@ exports.Prisma.SaunaSessionScalarFieldEnum = {
   durationMs: 'durationMs',
   maxTemperature: 'maxTemperature',
   avgTemperature: 'avgTemperature',
+  minTemperature: 'minTemperature',
   maxHumidity: 'maxHumidity',
-  avgHumidity: 'avgHumidity'
+  avgHumidity: 'avgHumidity',
+  minHumidity: 'minHumidity',
+  maxPresence: 'maxPresence',
+  avgPresence: 'avgPresence',
+  latestPIRTimestamp: 'latestPIRTimestamp',
+  status: 'status',
+  endedManually: 'endedManually',
+  manual: 'manual'
+};
+
+exports.Prisma.LikeScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PostImageScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  url: 'url',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AchievementScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  metric: 'metric',
+  value: 'value',
+  unit: 'unit'
 };
 
 exports.Prisma.SaunaMeasurementScalarFieldEnum = {
   id: 'id',
-  saunaSessionId: 'saunaSessionId',
+  saunaId: 'saunaId',
   timestamp: 'timestamp',
   temperature: 'temperature',
-  humidity: 'humidity'
+  humidity: 'humidity',
+  precence: 'precence'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById',
+  postId: 'postId'
+};
+
+exports.Prisma.EventScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  date: 'date',
+  location: 'location',
+  saunaId: 'saunaId',
+  createdById: 'createdById'
 };
 
 exports.Prisma.SortOrder = {
@@ -169,11 +226,20 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.SaunaSessionStatus = exports.$Enums.SaunaSessionStatus = {
+  ONGOING: 'ONGOING',
+  ENDED: 'ENDED',
+  DRAFT: 'DRAFT'
+};
 
 exports.Prisma.ModelName = {
   Post: 'Post',
@@ -183,7 +249,12 @@ exports.Prisma.ModelName = {
   VerificationToken: 'VerificationToken',
   Sauna: 'Sauna',
   SaunaSession: 'SaunaSession',
-  SaunaMeasurement: 'SaunaMeasurement'
+  Like: 'Like',
+  PostImage: 'PostImage',
+  Achievement: 'Achievement',
+  SaunaMeasurement: 'SaunaMeasurement',
+  Comment: 'Comment',
+  Event: 'Event'
 };
 /**
  * Create the Client
@@ -223,7 +294,7 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "postgresql",
   "inlineDatasources": {
     "db": {
       "url": {
@@ -232,13 +303,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below\n  // Further reading:\n  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema\n  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  createdBy   User   @relation(fields: [createdById], references: [id])\n  createdById String\n\n  @@index([name])\n}\n\n// Necessary for Next auth\nmodel Account {\n  id                       String  @id @default(cuid())\n  userId                   String\n  type                     String\n  provider                 String\n  providerAccountId        String\n  refresh_token            String? // @db.Text\n  access_token             String? // @db.Text\n  expires_at               Int?\n  token_type               String?\n  scope                    String?\n  id_token                 String? // @db.Text\n  session_state            String?\n  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n  refresh_token_expires_in Int?\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  name          String?\n  email         String?   @unique\n  emailVerified DateTime?\n  image         String?\n  accounts      Account[]\n  sessions      Session[]\n  posts         Post[]\n  saunas        Sauna[]\n}\n\nmodel VerificationToken {\n  identifier String\n  token      String   @unique\n  expires    DateTime\n\n  @@unique([identifier, token])\n}\n\nmodel Sauna {\n  id             String         @id @default(cuid())\n  harviaDeviceId String         @unique // Harvia's device ID\n  name           String\n  location       String?\n  userId         String\n  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)\n  sessions       SaunaSession[]\n}\n\nmodel SaunaSession {\n  id              String             @id @default(cuid())\n  harviaSessionId String             @unique // Harvia's session ID\n  saunaId         String\n  sauna           Sauna              @relation(fields: [saunaId], references: [id], onDelete: Cascade)\n  startTimestamp  DateTime\n  endTimestamp    DateTime\n  durationMs      Float\n  maxTemperature  Float?\n  avgTemperature  Float?\n  maxHumidity     Float?\n  avgHumidity     Float?\n  measurements    SaunaMeasurement[]\n}\n\nmodel SaunaMeasurement {\n  id             String       @id @default(cuid())\n  saunaSessionId String\n  saunaSession   SaunaSession @relation(fields: [saunaSessionId], references: [id], onDelete: Cascade)\n  timestamp      DateTime\n  temperature    Float\n  humidity       Float\n}\n",
-  "inlineSchemaHash": "cbe6c7479ec081bc2d02a7dfc15288b6770ef6a7509336c7333924da72ed222f",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below\n  // Further reading:\n  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema\n  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Post {\n  id             Int           @id @default(autoincrement())\n  name           String\n  description    String?\n  createdAt      DateTime      @default(now())\n  updatedAt      DateTime      @updatedAt\n  createdBy      User          @relation(fields: [createdById], references: [id])\n  createdById    String\n  saunaSession   SaunaSession? @relation(fields: [saunaSessionId], references: [id])\n  saunaSessionId String?\n  achievement    Achievement?  @relation(fields: [achievementId], references: [id])\n  achievementId  String?\n  likes          Like[]\n  images         PostImage[]\n  comments       Comment[]\n\n  @@index([name])\n}\n\n// Necessary for Next auth\nmodel Account {\n  id                       String  @id @default(cuid())\n  userId                   String\n  type                     String\n  provider                 String\n  providerAccountId        String\n  refresh_token            String? // @db.Text\n  access_token             String? // @db.Text\n  expires_at               Int?\n  token_type               String?\n  scope                    String?\n  id_token                 String? // @db.Text\n  session_state            String?\n  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)\n  refresh_token_expires_in Int?\n  email                    String?\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel User {\n  id                 String         @id @default(cuid())\n  name               String?\n  email              String?        @unique\n  emailVerified      DateTime?\n  image              String?\n  accounts           Account[]\n  sessions           Session[]\n  posts              Post[]\n  saunas             Sauna[]\n  saunaSessions      SaunaSession[] @relation(\"SaunaSessionToUser\")\n  likes              Like[]\n  comments           Comment[]\n  createdEvents      Event[]        @relation(\"CreatedEvents\")\n  participatedEvents Event[]        @relation(\"ParticipatedEvents\")\n}\n\nmodel VerificationToken {\n  identifier String\n  token      String   @unique\n  expires    DateTime\n\n  @@unique([identifier, token])\n}\n\nmodel Sauna {\n  id                String             @id @default(cuid())\n  harviaDeviceId    String             @unique\n  name              String\n  location          String?\n  users             User[]\n  sessions          SaunaSession[]\n  saunaMeasurements SaunaMeasurement[]\n  events            Event[]\n}\n\nmodel SaunaSession {\n  id                 String             @id @default(cuid())\n  harviaSessionId    String? // Re-adding for tracking imported Harvia sessions\n  saunaId            String\n  sauna              Sauna              @relation(fields: [saunaId], references: [id], onDelete: Cascade)\n  startTimestamp     DateTime\n  endTimestamp       DateTime? // Nullable for ongoing sessions\n  durationMs         Float? // Nullable for ongoing sessions\n  maxTemperature     Float?\n  avgTemperature     Float?\n  minTemperature     Float?\n  maxHumidity        Float?\n  avgHumidity        Float?\n  minHumidity        Float?\n  maxPresence        Float?\n  avgPresence        Float?\n  latestPIRTimestamp DateTime? // To track the last PIR activity for session ending logic\n  status             SaunaSessionStatus @default(ONGOING) // ONGOING, ENDED, DRAFT\n  endedManually      Boolean            @default(false)\n  manual             Boolean            @default(false)\n  participants       User[]             @relation(\"SaunaSessionToUser\")\n  posts              Post[]\n}\n\nenum SaunaSessionStatus {\n  ONGOING\n  ENDED\n  DRAFT\n}\n\nmodel Like {\n  id        String   @id @default(cuid())\n  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)\n  postId    Int\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId    String\n  createdAt DateTime @default(now())\n\n  @@unique([userId, postId])\n}\n\nmodel PostImage {\n  id        String   @id @default(cuid())\n  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)\n  postId    Int\n  url       String\n  createdAt DateTime @default(now())\n}\n\nmodel Achievement {\n  id          String  @id @default(cuid())\n  name        String  @unique\n  description String\n  metric      String?\n  value       String?\n  unit        String?\n  posts       Post[]\n}\n\nmodel SaunaMeasurement {\n  id          String   @id @default(cuid())\n  saunaId     String\n  sauna       Sauna    @relation(fields: [saunaId], references: [id], onDelete: Cascade)\n  timestamp   DateTime\n  temperature Float\n  humidity    Float\n  precence    Float\n\n  @@unique([saunaId, timestamp])\n}\n\nmodel Comment {\n  id          String   @id @default(cuid())\n  content     String\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n  createdBy   User     @relation(fields: [createdById], references: [id])\n  createdById String\n  post        Post     @relation(fields: [postId], references: [id])\n  postId      Int\n}\n\nmodel Event {\n  id           String   @id @default(cuid())\n  name         String\n  description  String\n  date         DateTime\n  location     String\n  sauna        Sauna    @relation(fields: [saunaId], references: [id])\n  saunaId      String\n  createdBy    User     @relation(\"CreatedEvents\", fields: [createdById], references: [id])\n  createdById  String\n  participants User[]   @relation(\"ParticipatedEvents\")\n}\n",
+  "inlineSchemaHash": "92cd3bdf2afefd5a79c5af447913b41c6e9bfb683c08acda3fed5b45fe27aeb2",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"},{\"name\":\"refresh_token_expires_in\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"},{\"name\":\"saunas\",\"kind\":\"object\",\"type\":\"Sauna\",\"relationName\":\"SaunaToUser\"}],\"dbName\":null},\"VerificationToken\":{\"fields\":[{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Sauna\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"harviaDeviceId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SaunaToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"SaunaSession\",\"relationName\":\"SaunaToSaunaSession\"}],\"dbName\":null},\"SaunaSession\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"harviaSessionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"saunaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sauna\",\"kind\":\"object\",\"type\":\"Sauna\",\"relationName\":\"SaunaToSaunaSession\"},{\"name\":\"startTimestamp\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"endTimestamp\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"durationMs\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"maxTemperature\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"avgTemperature\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"maxHumidity\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"avgHumidity\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"measurements\",\"kind\":\"object\",\"type\":\"SaunaMeasurement\",\"relationName\":\"SaunaMeasurementToSaunaSession\"}],\"dbName\":null},\"SaunaMeasurement\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"saunaSessionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"saunaSession\",\"kind\":\"object\",\"type\":\"SaunaSession\",\"relationName\":\"SaunaMeasurementToSaunaSession\"},{\"name\":\"timestamp\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"temperature\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"humidity\",\"kind\":\"scalar\",\"type\":\"Float\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"saunaSession\",\"kind\":\"object\",\"type\":\"SaunaSession\",\"relationName\":\"PostToSaunaSession\"},{\"name\":\"saunaSessionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"achievement\",\"kind\":\"object\",\"type\":\"Achievement\",\"relationName\":\"AchievementToPost\"},{\"name\":\"achievementId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"likes\",\"kind\":\"object\",\"type\":\"Like\",\"relationName\":\"LikeToPost\"},{\"name\":\"images\",\"kind\":\"object\",\"type\":\"PostImage\",\"relationName\":\"PostToPostImage\"},{\"name\":\"comments\",\"kind\":\"object\",\"type\":\"Comment\",\"relationName\":\"CommentToPost\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"},{\"name\":\"refresh_token_expires_in\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"},{\"name\":\"saunas\",\"kind\":\"object\",\"type\":\"Sauna\",\"relationName\":\"SaunaToUser\"},{\"name\":\"saunaSessions\",\"kind\":\"object\",\"type\":\"SaunaSession\",\"relationName\":\"SaunaSessionToUser\"},{\"name\":\"likes\",\"kind\":\"object\",\"type\":\"Like\",\"relationName\":\"LikeToUser\"},{\"name\":\"comments\",\"kind\":\"object\",\"type\":\"Comment\",\"relationName\":\"CommentToUser\"},{\"name\":\"createdEvents\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"CreatedEvents\"},{\"name\":\"participatedEvents\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"ParticipatedEvents\"}],\"dbName\":null},\"VerificationToken\":{\"fields\":[{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Sauna\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"harviaDeviceId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SaunaToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"SaunaSession\",\"relationName\":\"SaunaToSaunaSession\"},{\"name\":\"saunaMeasurements\",\"kind\":\"object\",\"type\":\"SaunaMeasurement\",\"relationName\":\"SaunaToSaunaMeasurement\"},{\"name\":\"events\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"EventToSauna\"}],\"dbName\":null},\"SaunaSession\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"harviaSessionId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"saunaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sauna\",\"kind\":\"object\",\"type\":\"Sauna\",\"relationName\":\"SaunaToSaunaSession\"},{\"name\":\"startTimestamp\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"endTimestamp\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"durationMs\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"maxTemperature\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"avgTemperature\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"minTemperature\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"maxHumidity\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"avgHumidity\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"minHumidity\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"maxPresence\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"avgPresence\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"latestPIRTimestamp\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"SaunaSessionStatus\"},{\"name\":\"endedManually\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"manual\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"participants\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SaunaSessionToUser\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToSaunaSession\"}],\"dbName\":null},\"Like\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"post\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"LikeToPost\"},{\"name\":\"postId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"LikeToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"PostImage\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"post\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToPostImage\"},{\"name\":\"postId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Achievement\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"metric\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"value\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"unit\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"AchievementToPost\"}],\"dbName\":null},\"SaunaMeasurement\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"saunaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sauna\",\"kind\":\"object\",\"type\":\"Sauna\",\"relationName\":\"SaunaToSaunaMeasurement\"},{\"name\":\"timestamp\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"temperature\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"humidity\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"precence\",\"kind\":\"scalar\",\"type\":\"Float\"}],\"dbName\":null},\"Comment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CommentToUser\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"post\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"CommentToPost\"},{\"name\":\"postId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Event\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sauna\",\"kind\":\"object\",\"type\":\"Sauna\",\"relationName\":\"EventToSauna\"},{\"name\":\"saunaId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CreatedEvents\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"participants\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ParticipatedEvents\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

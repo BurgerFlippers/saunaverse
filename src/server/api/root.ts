@@ -1,6 +1,8 @@
 import { postRouter } from "@/server/api/routers/post";
 import { saunaRouter } from "@/server/api/routers/sauna";
+import { userRouter } from "@/server/api/routers/user";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
+import { eventRouter } from "./routers/event";
 
 /**
  * This is the primary router for your server.
@@ -10,6 +12,8 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 export const appRouter = createTRPCRouter({
   post: postRouter,
   sauna: saunaRouter,
+  user: userRouter,
+  event: eventRouter,
 });
 
 // export type definition of API

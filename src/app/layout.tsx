@@ -5,6 +5,7 @@ import { Geist } from "next/font/google";
 import { headers } from "next/headers"; // Keep headers import for now, might be needed elsewhere
 import { TRPCReactProvider } from "@/trpc/react";
 import { SessionProvider } from "next-auth/react";
+import { BottomNavbar } from "./_components/BottomNavbar";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -22,9 +23,16 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
-      <body>
+      <body className="bg-black">
         <SessionProvider>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            <div className="min-h-screen bg-black text-white">
+              {/* Main Content */}
+              <div className="mx-auto max-w-2xl px-2 py-4">{children}</div>
+
+              <BottomNavbar />
+            </div>
+          </TRPCReactProvider>
         </SessionProvider>
       </body>
     </html>

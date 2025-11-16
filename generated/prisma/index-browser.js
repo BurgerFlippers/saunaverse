@@ -115,15 +115,21 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
 exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  createdById: 'createdById'
+  createdById: 'createdById',
+  saunaSessionId: 'saunaSessionId',
+  achievementId: 'achievementId'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -139,7 +145,8 @@ exports.Prisma.AccountScalarFieldEnum = {
   scope: 'scope',
   id_token: 'id_token',
   session_state: 'session_state',
-  refresh_token_expires_in: 'refresh_token_expires_in'
+  refresh_token_expires_in: 'refresh_token_expires_in',
+  email: 'email'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -167,8 +174,7 @@ exports.Prisma.SaunaScalarFieldEnum = {
   id: 'id',
   harviaDeviceId: 'harviaDeviceId',
   name: 'name',
-  location: 'location',
-  userId: 'userId'
+  location: 'location'
 };
 
 exports.Prisma.SaunaSessionScalarFieldEnum = {
@@ -180,16 +186,67 @@ exports.Prisma.SaunaSessionScalarFieldEnum = {
   durationMs: 'durationMs',
   maxTemperature: 'maxTemperature',
   avgTemperature: 'avgTemperature',
+  minTemperature: 'minTemperature',
   maxHumidity: 'maxHumidity',
-  avgHumidity: 'avgHumidity'
+  avgHumidity: 'avgHumidity',
+  minHumidity: 'minHumidity',
+  maxPresence: 'maxPresence',
+  avgPresence: 'avgPresence',
+  latestPIRTimestamp: 'latestPIRTimestamp',
+  status: 'status',
+  endedManually: 'endedManually',
+  manual: 'manual'
+};
+
+exports.Prisma.LikeScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PostImageScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  url: 'url',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AchievementScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  metric: 'metric',
+  value: 'value',
+  unit: 'unit'
 };
 
 exports.Prisma.SaunaMeasurementScalarFieldEnum = {
   id: 'id',
-  saunaSessionId: 'saunaSessionId',
+  saunaId: 'saunaId',
   timestamp: 'timestamp',
   temperature: 'temperature',
-  humidity: 'humidity'
+  humidity: 'humidity',
+  precence: 'precence'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById',
+  postId: 'postId'
+};
+
+exports.Prisma.EventScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  date: 'date',
+  location: 'location',
+  saunaId: 'saunaId',
+  createdById: 'createdById'
 };
 
 exports.Prisma.SortOrder = {
@@ -197,11 +254,20 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.SaunaSessionStatus = exports.$Enums.SaunaSessionStatus = {
+  ONGOING: 'ONGOING',
+  ENDED: 'ENDED',
+  DRAFT: 'DRAFT'
+};
 
 exports.Prisma.ModelName = {
   Post: 'Post',
@@ -211,7 +277,12 @@ exports.Prisma.ModelName = {
   VerificationToken: 'VerificationToken',
   Sauna: 'Sauna',
   SaunaSession: 'SaunaSession',
-  SaunaMeasurement: 'SaunaMeasurement'
+  Like: 'Like',
+  PostImage: 'PostImage',
+  Achievement: 'Achievement',
+  SaunaMeasurement: 'SaunaMeasurement',
+  Comment: 'Comment',
+  Event: 'Event'
 };
 
 /**

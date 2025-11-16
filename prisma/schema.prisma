@@ -7,7 +7,7 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -16,13 +16,20 @@ datasource db {
 }
 
 model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
+    id             Int           @id @default(autoincrement())
+    name           String
+    description    String?
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+    createdBy      User          @relation(fields: [createdById], references: [id])
+    createdById    String
+    saunaSession   SaunaSession? @relation(fields: [saunaSessionId], references: [id])
+    saunaSessionId String?
+    achievement    Achievement?  @relation(fields: [achievementId], references: [id])
+    achievementId  String?
+    likes          Like[]
+    images         PostImage[]
+    comments       Comment[]
 
     @@index([name])
 }
@@ -43,6 +50,7 @@ model Account {
     session_state            String?
     user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
     refresh_token_expires_in Int?
+    email                    String?
 
     @@unique([provider, providerAccountId])
 }
@@ -56,15 +64,20 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
-    saunas        Sauna[]
+    id                 String         @id @default(cuid())
+    name               String?
+    email              String?        @unique
+    emailVerified      DateTime?
+    image              String?
+    accounts           Account[]
+    sessions           Session[]
+    posts              Post[]
+    saunas             Sauna[]
+    saunaSessions      SaunaSession[] @relation("SaunaSessionToUser")
+    likes              Like[]
+    comments           Comment[]
+    createdEvents      Event[]  @relation("CreatedEvents")
+    participatedEvents Event[]  @relation("ParticipatedEvents")
 }
 
 model VerificationToken {
@@ -76,35 +89,107 @@ model VerificationToken {
 }
 
 model Sauna {
-    id             String         @id @default(cuid())
-    harviaDeviceId String         @unique // Harvia's device ID
-    name           String
-    location       String?
-    userId         String
-    user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-    sessions       SaunaSession[]
+    id                String             @id @default(cuid())
+    harviaDeviceId    String             @unique
+    name              String
+    location          String?
+    users             User[]
+    sessions          SaunaSession[]
+    saunaMeasurements SaunaMeasurement[]
+    events            Event[]
 }
 
 model SaunaSession {
-    id              String             @id @default(cuid())
-    harviaSessionId String             @unique // Harvia's session ID
-    saunaId         String
-    sauna           Sauna              @relation(fields: [saunaId], references: [id], onDelete: Cascade)
-    startTimestamp  DateTime
-    endTimestamp    DateTime
-    durationMs      Float
-    maxTemperature  Float?
-    avgTemperature  Float?
-    maxHumidity     Float?
-    avgHumidity     Float?
-    measurements    SaunaMeasurement[]
+    id                 String             @id @default(cuid())
+    harviaSessionId    String? // Re-adding for tracking imported Harvia sessions
+    saunaId            String
+    sauna              Sauna              @relation(fields: [saunaId], references: [id], onDelete: Cascade)
+    startTimestamp     DateTime
+    endTimestamp       DateTime? // Nullable for ongoing sessions
+    durationMs         Float? // Nullable for ongoing sessions
+    maxTemperature     Float?
+    avgTemperature     Float?
+    minTemperature     Float?
+    maxHumidity        Float?
+    avgHumidity        Float?
+    minHumidity        Float?
+    maxPresence        Float?
+    avgPresence        Float?
+    latestPIRTimestamp DateTime? // To track the last PIR activity for session ending logic
+    status             SaunaSessionStatus @default(ONGOING) // ONGOING, ENDED, DRAFT
+    endedManually      Boolean            @default(false)
+    manual             Boolean            @default(false)
+    participants       User[]             @relation("SaunaSessionToUser")
+    posts              Post[]
+}
+
+enum SaunaSessionStatus {
+    ONGOING
+    ENDED
+    DRAFT
+}
+
+model Like {
+    id        String   @id @default(cuid())
+    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+    postId    Int
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    createdAt DateTime @default(now())
+
+    @@unique([userId, postId])
+}
+
+model PostImage {
+    id        String   @id @default(cuid())
+    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+    postId    Int
+    url       String
+    createdAt DateTime @default(now())
+}
+
+model Achievement {
+    id          String @id @default(cuid())
+    name        String @unique
+    description String
+    metric      String?
+    value       String?
+    unit        String?
+    posts       Post[]
 }
 
 model SaunaMeasurement {
-    id             String       @id @default(cuid())
-    saunaSessionId String
-    saunaSession   SaunaSession @relation(fields: [saunaSessionId], references: [id], onDelete: Cascade)
-    timestamp      DateTime
-    temperature    Float
-    humidity       Float
+    id          String   @id @default(cuid())
+    saunaId     String
+    sauna       Sauna    @relation(fields: [saunaId], references: [id], onDelete: Cascade)
+    timestamp   DateTime
+    temperature Float
+    humidity    Float
+    precence    Float
+
+    @@unique([saunaId, timestamp])
+}
+
+model Comment {
+    id          String   @id @default(cuid())
+    content     String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    createdBy   User     @relation(fields: [createdById], references: [id])
+    createdById String
+    post        Post     @relation(fields: [postId], references: [id])
+    postId      Int
+}
+
+model Event {
+    id          String   @id @default(cuid())
+    name        String
+    description String
+    date        DateTime
+    location    String
+    sauna       Sauna    @relation(fields: [saunaId], references: [id])
+    saunaId     String
+    createdBy   User     @relation("CreatedEvents", fields: [createdById], references: [id])
+    createdById String
+    participants User[]   @relation("ParticipatedEvents")
 }

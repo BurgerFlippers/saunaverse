@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import annotationPlugin from "chartjs-plugin-annotation";
 
 ChartJS.register(
   CategoryScale,
@@ -21,21 +22,33 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
+  annotationPlugin,
 );
 
 interface SaunaMeasurement {
   id: string;
-  saunaSessionId: string;
+  saunaId: string;
   timestamp: Date;
   temperature: number;
   humidity: number;
+  precence: number;
+}
+
+interface SaunaSession {
+  id: string;
+  startTimestamp: Date;
+  endTimestamp: Date | null;
 }
 
 interface SaunaGraphProps {
   measurements: SaunaMeasurement[];
+  sessions?: SaunaSession[];
 }
 
-export const SaunaGraph: React.FC<SaunaGraphProps> = ({ measurements }) => {
+export const SaunaGraph: React.FC<SaunaGraphProps> = ({
+  measurements,
+  sessions,
+}) => {
   if (!measurements || measurements.length === 0) {
     return (
       <p className="text-white/70">
@@ -53,6 +66,7 @@ export const SaunaGraph: React.FC<SaunaGraphProps> = ({ measurements }) => {
   );
   const temperatures = measurements.map((m) => m.temperature);
   const humidities = measurements.map((m) => m.humidity);
+  const presences = measurements.map((m) => m.precence);
 
   const data = {
     labels,
@@ -73,6 +87,14 @@ export const SaunaGraph: React.FC<SaunaGraphProps> = ({ measurements }) => {
         yAxisID: "yHum",
         tension: 0.4,
       },
+      {
+        label: "Presence",
+        data: presences,
+        borderColor: "rgb(75, 192, 192)",
+        backgroundColor: "rgba(75, 192, 192, 0.5)",
+        yAxisID: "yPresence",
+        tension: 0.4,
+      },
     ],
   };
 
@@ -90,6 +112,26 @@ export const SaunaGraph: React.FC<SaunaGraphProps> = ({ measurements }) => {
         display: true,
         text: "Temperature and Humidity Over Time",
         color: "white",
+      },
+      annotation: {
+        annotations:
+          sessions?.map((session) => {
+            const startIndex = measurements.findIndex(
+              (m) => m.timestamp >= session.startTimestamp,
+            );
+            const endIndex = measurements.findIndex(
+              (m) => m.timestamp >= (session.endTimestamp ?? new Date()),
+            );
+
+            return {
+              type: "box" as const,
+              xMin: startIndex,
+              xMax: endIndex === -1 ? measurements.length - 1 : endIndex,
+              backgroundColor: "rgba(255, 99, 132, 0.25)",
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+            };
+          }) ?? [],
       },
     },
     scales: {
@@ -133,6 +175,22 @@ export const SaunaGraph: React.FC<SaunaGraphProps> = ({ measurements }) => {
         min: 0,
         max: 100,
       },
+    },
+    yPresence: {
+      type: "linear" as const,
+      position: "right" as const,
+      title: {
+        display: true,
+        text: "Presence",
+        color: "rgb(75, 192, 192)",
+      },
+      ticks: {
+        color: "rgb(75, 192, 192)",
+      },
+      grid: {
+        drawOnChartArea: false,
+      },
+      min: 0,
     },
   };
 

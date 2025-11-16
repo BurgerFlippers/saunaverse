@@ -234,3 +234,24 @@ export const GET_DEVICE_MEASUREMENTS_QUERY = gql`
     __typename
   }
 `;
+
+export const GET_DEVICE_STATE_QUERY = gql`
+  query devicesStatesGet($deviceId: ID!, $shadowName: String) {
+    devicesStatesGet(deviceId: $deviceId, shadowName: $shadowName) {
+      deviceId
+      shadowName
+      desired
+      reported
+      timestamp
+      version
+      clientToken
+      connectionState {
+        connected
+        updatedTimestamp
+        __typename
+      }
+      metadata
+      __typename
+    }
+  }
+`;

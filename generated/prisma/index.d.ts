@@ -49,10 +49,53 @@ export type Sauna = $Result.DefaultSelection<Prisma.$SaunaPayload>
  */
 export type SaunaSession = $Result.DefaultSelection<Prisma.$SaunaSessionPayload>
 /**
+ * Model Like
+ * 
+ */
+export type Like = $Result.DefaultSelection<Prisma.$LikePayload>
+/**
+ * Model PostImage
+ * 
+ */
+export type PostImage = $Result.DefaultSelection<Prisma.$PostImagePayload>
+/**
+ * Model Achievement
+ * 
+ */
+export type Achievement = $Result.DefaultSelection<Prisma.$AchievementPayload>
+/**
  * Model SaunaMeasurement
  * 
  */
 export type SaunaMeasurement = $Result.DefaultSelection<Prisma.$SaunaMeasurementPayload>
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
+/**
+ * Model Event
+ * 
+ */
+export type Event = $Result.DefaultSelection<Prisma.$EventPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const SaunaSessionStatus: {
+  ONGOING: 'ONGOING',
+  ENDED: 'ENDED',
+  DRAFT: 'DRAFT'
+};
+
+export type SaunaSessionStatus = (typeof SaunaSessionStatus)[keyof typeof SaunaSessionStatus]
+
+}
+
+export type SaunaSessionStatus = $Enums.SaunaSessionStatus
+
+export const SaunaSessionStatus: typeof $Enums.SaunaSessionStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -243,6 +286,36 @@ export class PrismaClient<
   get saunaSession(): Prisma.SaunaSessionDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.like`: Exposes CRUD operations for the **Like** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Likes
+    * const likes = await prisma.like.findMany()
+    * ```
+    */
+  get like(): Prisma.LikeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.postImage`: Exposes CRUD operations for the **PostImage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PostImages
+    * const postImages = await prisma.postImage.findMany()
+    * ```
+    */
+  get postImage(): Prisma.PostImageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.achievement`: Exposes CRUD operations for the **Achievement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Achievements
+    * const achievements = await prisma.achievement.findMany()
+    * ```
+    */
+  get achievement(): Prisma.AchievementDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.saunaMeasurement`: Exposes CRUD operations for the **SaunaMeasurement** model.
     * Example usage:
     * ```ts
@@ -251,6 +324,26 @@ export class PrismaClient<
     * ```
     */
   get saunaMeasurement(): Prisma.SaunaMeasurementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Comments
+    * const comments = await prisma.comment.findMany()
+    * ```
+    */
+  get comment(): Prisma.CommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.event`: Exposes CRUD operations for the **Event** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Events
+    * const events = await prisma.event.findMany()
+    * ```
+    */
+  get event(): Prisma.EventDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -699,7 +792,12 @@ export namespace Prisma {
     VerificationToken: 'VerificationToken',
     Sauna: 'Sauna',
     SaunaSession: 'SaunaSession',
-    SaunaMeasurement: 'SaunaMeasurement'
+    Like: 'Like',
+    PostImage: 'PostImage',
+    Achievement: 'Achievement',
+    SaunaMeasurement: 'SaunaMeasurement',
+    Comment: 'Comment',
+    Event: 'Event'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -718,7 +816,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "account" | "session" | "user" | "verificationToken" | "sauna" | "saunaSession" | "saunaMeasurement"
+      modelProps: "post" | "account" | "session" | "user" | "verificationToken" | "sauna" | "saunaSession" | "like" | "postImage" | "achievement" | "saunaMeasurement" | "comment" | "event"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1240,6 +1338,228 @@ export namespace Prisma {
           }
         }
       }
+      Like: {
+        payload: Prisma.$LikePayload<ExtArgs>
+        fields: Prisma.LikeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LikeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LikeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload>
+          }
+          findFirst: {
+            args: Prisma.LikeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LikeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload>
+          }
+          findMany: {
+            args: Prisma.LikeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload>[]
+          }
+          create: {
+            args: Prisma.LikeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload>
+          }
+          createMany: {
+            args: Prisma.LikeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LikeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload>[]
+          }
+          delete: {
+            args: Prisma.LikeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload>
+          }
+          update: {
+            args: Prisma.LikeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload>
+          }
+          deleteMany: {
+            args: Prisma.LikeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LikeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LikeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload>[]
+          }
+          upsert: {
+            args: Prisma.LikeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LikePayload>
+          }
+          aggregate: {
+            args: Prisma.LikeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLike>
+          }
+          groupBy: {
+            args: Prisma.LikeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LikeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LikeCountArgs<ExtArgs>
+            result: $Utils.Optional<LikeCountAggregateOutputType> | number
+          }
+        }
+      }
+      PostImage: {
+        payload: Prisma.$PostImagePayload<ExtArgs>
+        fields: Prisma.PostImageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostImageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostImageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload>
+          }
+          findFirst: {
+            args: Prisma.PostImageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostImageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload>
+          }
+          findMany: {
+            args: Prisma.PostImageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload>[]
+          }
+          create: {
+            args: Prisma.PostImageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload>
+          }
+          createMany: {
+            args: Prisma.PostImageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PostImageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload>[]
+          }
+          delete: {
+            args: Prisma.PostImageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload>
+          }
+          update: {
+            args: Prisma.PostImageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload>
+          }
+          deleteMany: {
+            args: Prisma.PostImageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostImageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PostImageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload>[]
+          }
+          upsert: {
+            args: Prisma.PostImageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostImagePayload>
+          }
+          aggregate: {
+            args: Prisma.PostImageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePostImage>
+          }
+          groupBy: {
+            args: Prisma.PostImageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostImageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PostImageCountArgs<ExtArgs>
+            result: $Utils.Optional<PostImageCountAggregateOutputType> | number
+          }
+        }
+      }
+      Achievement: {
+        payload: Prisma.$AchievementPayload<ExtArgs>
+        fields: Prisma.AchievementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AchievementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AchievementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          findFirst: {
+            args: Prisma.AchievementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AchievementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          findMany: {
+            args: Prisma.AchievementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>[]
+          }
+          create: {
+            args: Prisma.AchievementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          createMany: {
+            args: Prisma.AchievementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AchievementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>[]
+          }
+          delete: {
+            args: Prisma.AchievementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          update: {
+            args: Prisma.AchievementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          deleteMany: {
+            args: Prisma.AchievementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AchievementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AchievementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>[]
+          }
+          upsert: {
+            args: Prisma.AchievementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
+          }
+          aggregate: {
+            args: Prisma.AchievementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAchievement>
+          }
+          groupBy: {
+            args: Prisma.AchievementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AchievementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AchievementCountArgs<ExtArgs>
+            result: $Utils.Optional<AchievementCountAggregateOutputType> | number
+          }
+        }
+      }
       SaunaMeasurement: {
         payload: Prisma.$SaunaMeasurementPayload<ExtArgs>
         fields: Prisma.SaunaMeasurementFieldRefs
@@ -1311,6 +1631,154 @@ export namespace Prisma {
           count: {
             args: Prisma.SaunaMeasurementCountArgs<ExtArgs>
             result: $Utils.Optional<SaunaMeasurementCountAggregateOutputType> | number
+          }
+        }
+      }
+      Comment: {
+        payload: Prisma.$CommentPayload<ExtArgs>
+        fields: Prisma.CommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          findFirst: {
+            args: Prisma.CommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          findMany: {
+            args: Prisma.CommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          create: {
+            args: Prisma.CommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          createMany: {
+            args: Prisma.CommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          delete: {
+            args: Prisma.CommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          update: {
+            args: Prisma.CommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          aggregate: {
+            args: Prisma.CommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateComment>
+          }
+          groupBy: {
+            args: Prisma.CommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommentCountArgs<ExtArgs>
+            result: $Utils.Optional<CommentCountAggregateOutputType> | number
+          }
+        }
+      }
+      Event: {
+        payload: Prisma.$EventPayload<ExtArgs>
+        fields: Prisma.EventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          findFirst: {
+            args: Prisma.EventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          findMany: {
+            args: Prisma.EventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>[]
+          }
+          create: {
+            args: Prisma.EventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          createMany: {
+            args: Prisma.EventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>[]
+          }
+          delete: {
+            args: Prisma.EventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          update: {
+            args: Prisma.EventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          deleteMany: {
+            args: Prisma.EventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>[]
+          }
+          upsert: {
+            args: Prisma.EventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPayload>
+          }
+          aggregate: {
+            args: Prisma.EventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEvent>
+          }
+          groupBy: {
+            args: Prisma.EventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EventCountArgs<ExtArgs>
+            result: $Utils.Optional<EventCountAggregateOutputType> | number
           }
         }
       }
@@ -1417,7 +1885,12 @@ export namespace Prisma {
     verificationToken?: VerificationTokenOmit
     sauna?: SaunaOmit
     saunaSession?: SaunaSessionOmit
+    like?: LikeOmit
+    postImage?: PostImageOmit
+    achievement?: AchievementOmit
     saunaMeasurement?: SaunaMeasurementOmit
+    comment?: CommentOmit
+    event?: EventOmit
   }
 
   /* Types for Logging */
@@ -1494,6 +1967,55 @@ export namespace Prisma {
 
 
   /**
+   * Count Type PostCountOutputType
+   */
+
+  export type PostCountOutputType = {
+    likes: number
+    images: number
+    comments: number
+  }
+
+  export type PostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    likes?: boolean | PostCountOutputTypeCountLikesArgs
+    images?: boolean | PostCountOutputTypeCountImagesArgs
+    comments?: boolean | PostCountOutputTypeCountCommentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostCountOutputType
+     */
+    select?: PostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LikeWhereInput
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostImageWhereInput
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
@@ -1502,6 +2024,11 @@ export namespace Prisma {
     sessions: number
     posts: number
     saunas: number
+    saunaSessions: number
+    likes: number
+    comments: number
+    createdEvents: number
+    participatedEvents: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1509,6 +2036,11 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     posts?: boolean | UserCountOutputTypeCountPostsArgs
     saunas?: boolean | UserCountOutputTypeCountSaunasArgs
+    saunaSessions?: boolean | UserCountOutputTypeCountSaunaSessionsArgs
+    likes?: boolean | UserCountOutputTypeCountLikesArgs
+    comments?: boolean | UserCountOutputTypeCountCommentsArgs
+    createdEvents?: boolean | UserCountOutputTypeCountCreatedEventsArgs
+    participatedEvents?: boolean | UserCountOutputTypeCountParticipatedEventsArgs
   }
 
   // Custom InputTypes
@@ -1550,17 +2082,58 @@ export namespace Prisma {
     where?: SaunaWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSaunaSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaunaSessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LikeWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountParticipatedEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventWhereInput
+  }
+
 
   /**
    * Count Type SaunaCountOutputType
    */
 
   export type SaunaCountOutputType = {
+    users: number
     sessions: number
+    saunaMeasurements: number
+    events: number
   }
 
   export type SaunaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | SaunaCountOutputTypeCountUsersArgs
     sessions?: boolean | SaunaCountOutputTypeCountSessionsArgs
+    saunaMeasurements?: boolean | SaunaCountOutputTypeCountSaunaMeasurementsArgs
+    events?: boolean | SaunaCountOutputTypeCountEventsArgs
   }
 
   // Custom InputTypes
@@ -1577,8 +2150,29 @@ export namespace Prisma {
   /**
    * SaunaCountOutputType without action
    */
+  export type SaunaCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+  /**
+   * SaunaCountOutputType without action
+   */
   export type SaunaCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SaunaSessionWhereInput
+  }
+
+  /**
+   * SaunaCountOutputType without action
+   */
+  export type SaunaCountOutputTypeCountSaunaMeasurementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaunaMeasurementWhereInput
+  }
+
+  /**
+   * SaunaCountOutputType without action
+   */
+  export type SaunaCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventWhereInput
   }
 
 
@@ -1587,11 +2181,13 @@ export namespace Prisma {
    */
 
   export type SaunaSessionCountOutputType = {
-    measurements: number
+    participants: number
+    posts: number
   }
 
   export type SaunaSessionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    measurements?: boolean | SaunaSessionCountOutputTypeCountMeasurementsArgs
+    participants?: boolean | SaunaSessionCountOutputTypeCountParticipantsArgs
+    posts?: boolean | SaunaSessionCountOutputTypeCountPostsArgs
   }
 
   // Custom InputTypes
@@ -1608,8 +2204,77 @@ export namespace Prisma {
   /**
    * SaunaSessionCountOutputType without action
    */
-  export type SaunaSessionCountOutputTypeCountMeasurementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SaunaMeasurementWhereInput
+  export type SaunaSessionCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+  /**
+   * SaunaSessionCountOutputType without action
+   */
+  export type SaunaSessionCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostWhereInput
+  }
+
+
+  /**
+   * Count Type AchievementCountOutputType
+   */
+
+  export type AchievementCountOutputType = {
+    posts: number
+  }
+
+  export type AchievementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    posts?: boolean | AchievementCountOutputTypeCountPostsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AchievementCountOutputType without action
+   */
+  export type AchievementCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AchievementCountOutputType
+     */
+    select?: AchievementCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AchievementCountOutputType without action
+   */
+  export type AchievementCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostWhereInput
+  }
+
+
+  /**
+   * Count Type EventCountOutputType
+   */
+
+  export type EventCountOutputType = {
+    participants: number
+  }
+
+  export type EventCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participants?: boolean | EventCountOutputTypeCountParticipantsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EventCountOutputType without action
+   */
+  export type EventCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCountOutputType
+     */
+    select?: EventCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EventCountOutputType without action
+   */
+  export type EventCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -1640,25 +2305,34 @@ export namespace Prisma {
   export type PostMinAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
     createdAt: Date | null
     updatedAt: Date | null
     createdById: string | null
+    saunaSessionId: string | null
+    achievementId: string | null
   }
 
   export type PostMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
     createdAt: Date | null
     updatedAt: Date | null
     createdById: string | null
+    saunaSessionId: string | null
+    achievementId: string | null
   }
 
   export type PostCountAggregateOutputType = {
     id: number
     name: number
+    description: number
     createdAt: number
     updatedAt: number
     createdById: number
+    saunaSessionId: number
+    achievementId: number
     _all: number
   }
 
@@ -1674,25 +2348,34 @@ export namespace Prisma {
   export type PostMinAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     createdAt?: true
     updatedAt?: true
     createdById?: true
+    saunaSessionId?: true
+    achievementId?: true
   }
 
   export type PostMaxAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     createdAt?: true
     updatedAt?: true
     createdById?: true
+    saunaSessionId?: true
+    achievementId?: true
   }
 
   export type PostCountAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     createdAt?: true
     updatedAt?: true
     createdById?: true
+    saunaSessionId?: true
+    achievementId?: true
     _all?: true
   }
 
@@ -1785,9 +2468,12 @@ export namespace Prisma {
   export type PostGroupByOutputType = {
     id: number
     name: string
+    description: string | null
     createdAt: Date
     updatedAt: Date
     createdById: string
+    saunaSessionId: string | null
+    achievementId: string | null
     _count: PostCountAggregateOutputType | null
     _avg: PostAvgAggregateOutputType | null
     _sum: PostSumAggregateOutputType | null
@@ -1812,60 +2498,100 @@ export namespace Prisma {
   export type PostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     createdById?: boolean
+    saunaSessionId?: boolean
+    achievementId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    achievement?: boolean | Post$achievementArgs<ExtArgs>
+    likes?: boolean | Post$likesArgs<ExtArgs>
+    images?: boolean | Post$imagesArgs<ExtArgs>
+    comments?: boolean | Post$commentsArgs<ExtArgs>
+    _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
   export type PostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     createdById?: boolean
+    saunaSessionId?: boolean
+    achievementId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    achievement?: boolean | Post$achievementArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
   export type PostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     createdById?: boolean
+    saunaSessionId?: boolean
+    achievementId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    achievement?: boolean | Post$achievementArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
   export type PostSelectScalar = {
     id?: boolean
     name?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     createdById?: boolean
+    saunaSessionId?: boolean
+    achievementId?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "createdById", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "createdById" | "saunaSessionId" | "achievementId", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    achievement?: boolean | Post$achievementArgs<ExtArgs>
+    likes?: boolean | Post$likesArgs<ExtArgs>
+    images?: boolean | Post$imagesArgs<ExtArgs>
+    comments?: boolean | Post$commentsArgs<ExtArgs>
+    _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    achievement?: boolean | Post$achievementArgs<ExtArgs>
   }
   export type PostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    achievement?: boolean | Post$achievementArgs<ExtArgs>
   }
 
   export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Post"
     objects: {
       createdBy: Prisma.$UserPayload<ExtArgs>
+      saunaSession: Prisma.$SaunaSessionPayload<ExtArgs> | null
+      achievement: Prisma.$AchievementPayload<ExtArgs> | null
+      likes: Prisma.$LikePayload<ExtArgs>[]
+      images: Prisma.$PostImagePayload<ExtArgs>[]
+      comments: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      description: string | null
       createdAt: Date
       updatedAt: Date
       createdById: string
+      saunaSessionId: string | null
+      achievementId: string | null
     }, ExtArgs["result"]["post"]>
     composites: {}
   }
@@ -2261,6 +2987,11 @@ export namespace Prisma {
   export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    saunaSession<T extends Post$saunaSessionArgs<ExtArgs> = {}>(args?: Subset<T, Post$saunaSessionArgs<ExtArgs>>): Prisma__SaunaSessionClient<$Result.GetResult<Prisma.$SaunaSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    achievement<T extends Post$achievementArgs<ExtArgs> = {}>(args?: Subset<T, Post$achievementArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    likes<T extends Post$likesArgs<ExtArgs> = {}>(args?: Subset<T, Post$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    images<T extends Post$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Post$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends Post$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Post$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2292,9 +3023,12 @@ export namespace Prisma {
   interface PostFieldRefs {
     readonly id: FieldRef<"Post", 'Int'>
     readonly name: FieldRef<"Post", 'String'>
+    readonly description: FieldRef<"Post", 'String'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
     readonly updatedAt: FieldRef<"Post", 'DateTime'>
     readonly createdById: FieldRef<"Post", 'String'>
+    readonly saunaSessionId: FieldRef<"Post", 'String'>
+    readonly achievementId: FieldRef<"Post", 'String'>
   }
     
 
@@ -2524,6 +3258,7 @@ export namespace Prisma {
      * The data used to create many Posts.
      */
     data: PostCreateManyInput | PostCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -2542,6 +3277,7 @@ export namespace Prisma {
      * The data used to create many Posts.
      */
     data: PostCreateManyInput | PostCreateManyInput[]
+    skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -2689,6 +3425,116 @@ export namespace Prisma {
   }
 
   /**
+   * Post.saunaSession
+   */
+  export type Post$saunaSessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaSession
+     */
+    select?: SaunaSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaSession
+     */
+    omit?: SaunaSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaunaSessionInclude<ExtArgs> | null
+    where?: SaunaSessionWhereInput
+  }
+
+  /**
+   * Post.achievement
+   */
+  export type Post$achievementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    where?: AchievementWhereInput
+  }
+
+  /**
+   * Post.likes
+   */
+  export type Post$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    where?: LikeWhereInput
+    orderBy?: LikeOrderByWithRelationInput | LikeOrderByWithRelationInput[]
+    cursor?: LikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * Post.images
+   */
+  export type Post$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    where?: PostImageWhereInput
+    orderBy?: PostImageOrderByWithRelationInput | PostImageOrderByWithRelationInput[]
+    cursor?: PostImageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostImageScalarFieldEnum | PostImageScalarFieldEnum[]
+  }
+
+  /**
+   * Post.comments
+   */
+  export type Post$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
    * Post without action
    */
   export type PostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2743,6 +3589,7 @@ export namespace Prisma {
     id_token: string | null
     session_state: string | null
     refresh_token_expires_in: number | null
+    email: string | null
   }
 
   export type AccountMaxAggregateOutputType = {
@@ -2759,6 +3606,7 @@ export namespace Prisma {
     id_token: string | null
     session_state: string | null
     refresh_token_expires_in: number | null
+    email: string | null
   }
 
   export type AccountCountAggregateOutputType = {
@@ -2775,6 +3623,7 @@ export namespace Prisma {
     id_token: number
     session_state: number
     refresh_token_expires_in: number
+    email: number
     _all: number
   }
 
@@ -2803,6 +3652,7 @@ export namespace Prisma {
     id_token?: true
     session_state?: true
     refresh_token_expires_in?: true
+    email?: true
   }
 
   export type AccountMaxAggregateInputType = {
@@ -2819,6 +3669,7 @@ export namespace Prisma {
     id_token?: true
     session_state?: true
     refresh_token_expires_in?: true
+    email?: true
   }
 
   export type AccountCountAggregateInputType = {
@@ -2835,6 +3686,7 @@ export namespace Prisma {
     id_token?: true
     session_state?: true
     refresh_token_expires_in?: true
+    email?: true
     _all?: true
   }
 
@@ -2938,6 +3790,7 @@ export namespace Prisma {
     id_token: string | null
     session_state: string | null
     refresh_token_expires_in: number | null
+    email: string | null
     _count: AccountCountAggregateOutputType | null
     _avg: AccountAvgAggregateOutputType | null
     _sum: AccountSumAggregateOutputType | null
@@ -2973,6 +3826,7 @@ export namespace Prisma {
     id_token?: boolean
     session_state?: boolean
     refresh_token_expires_in?: boolean
+    email?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
@@ -2990,6 +3844,7 @@ export namespace Prisma {
     id_token?: boolean
     session_state?: boolean
     refresh_token_expires_in?: boolean
+    email?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
@@ -3007,6 +3862,7 @@ export namespace Prisma {
     id_token?: boolean
     session_state?: boolean
     refresh_token_expires_in?: boolean
+    email?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
@@ -3024,9 +3880,10 @@ export namespace Prisma {
     id_token?: boolean
     session_state?: boolean
     refresh_token_expires_in?: boolean
+    email?: boolean
   }
 
-  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "provider" | "providerAccountId" | "refresh_token" | "access_token" | "expires_at" | "token_type" | "scope" | "id_token" | "session_state" | "refresh_token_expires_in", ExtArgs["result"]["account"]>
+  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "provider" | "providerAccountId" | "refresh_token" | "access_token" | "expires_at" | "token_type" | "scope" | "id_token" | "session_state" | "refresh_token_expires_in" | "email", ExtArgs["result"]["account"]>
   export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -3056,6 +3913,7 @@ export namespace Prisma {
       id_token: string | null
       session_state: string | null
       refresh_token_expires_in: number | null
+      email: string | null
     }, ExtArgs["result"]["account"]>
     composites: {}
   }
@@ -3493,6 +4351,7 @@ export namespace Prisma {
     readonly id_token: FieldRef<"Account", 'String'>
     readonly session_state: FieldRef<"Account", 'String'>
     readonly refresh_token_expires_in: FieldRef<"Account", 'Int'>
+    readonly email: FieldRef<"Account", 'String'>
   }
     
 
@@ -3722,6 +4581,7 @@ export namespace Prisma {
      * The data used to create many Accounts.
      */
     data: AccountCreateManyInput | AccountCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -3740,6 +4600,7 @@ export namespace Prisma {
      * The data used to create many Accounts.
      */
     data: AccountCreateManyInput | AccountCreateManyInput[]
+    skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -4765,6 +5626,7 @@ export namespace Prisma {
      * The data used to create many Sessions.
      */
     data: SessionCreateManyInput | SessionCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -4783,6 +5645,7 @@ export namespace Prisma {
      * The data used to create many Sessions.
      */
     data: SessionCreateManyInput | SessionCreateManyInput[]
+    skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -5116,6 +5979,11 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     posts?: boolean | User$postsArgs<ExtArgs>
     saunas?: boolean | User$saunasArgs<ExtArgs>
+    saunaSessions?: boolean | User$saunaSessionsArgs<ExtArgs>
+    likes?: boolean | User$likesArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
+    createdEvents?: boolean | User$createdEventsArgs<ExtArgs>
+    participatedEvents?: boolean | User$participatedEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5149,6 +6017,11 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     posts?: boolean | User$postsArgs<ExtArgs>
     saunas?: boolean | User$saunasArgs<ExtArgs>
+    saunaSessions?: boolean | User$saunaSessionsArgs<ExtArgs>
+    likes?: boolean | User$likesArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
+    createdEvents?: boolean | User$createdEventsArgs<ExtArgs>
+    participatedEvents?: boolean | User$participatedEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5161,6 +6034,11 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       posts: Prisma.$PostPayload<ExtArgs>[]
       saunas: Prisma.$SaunaPayload<ExtArgs>[]
+      saunaSessions: Prisma.$SaunaSessionPayload<ExtArgs>[]
+      likes: Prisma.$LikePayload<ExtArgs>[]
+      comments: Prisma.$CommentPayload<ExtArgs>[]
+      createdEvents: Prisma.$EventPayload<ExtArgs>[]
+      participatedEvents: Prisma.$EventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5566,6 +6444,11 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     saunas<T extends User$saunasArgs<ExtArgs> = {}>(args?: Subset<T, User$saunasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaunaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    saunaSessions<T extends User$saunaSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$saunaSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaunaSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    likes<T extends User$likesArgs<ExtArgs> = {}>(args?: Subset<T, User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdEvents<T extends User$createdEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    participatedEvents<T extends User$participatedEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$participatedEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5829,6 +6712,7 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -5847,6 +6731,7 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -6079,6 +6964,126 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SaunaScalarFieldEnum | SaunaScalarFieldEnum[]
+  }
+
+  /**
+   * User.saunaSessions
+   */
+  export type User$saunaSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaSession
+     */
+    select?: SaunaSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaSession
+     */
+    omit?: SaunaSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaunaSessionInclude<ExtArgs> | null
+    where?: SaunaSessionWhereInput
+    orderBy?: SaunaSessionOrderByWithRelationInput | SaunaSessionOrderByWithRelationInput[]
+    cursor?: SaunaSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SaunaSessionScalarFieldEnum | SaunaSessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.likes
+   */
+  export type User$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    where?: LikeWhereInput
+    orderBy?: LikeOrderByWithRelationInput | LikeOrderByWithRelationInput[]
+    cursor?: LikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * User.comments
+   */
+  export type User$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * User.createdEvents
+   */
+  export type User$createdEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    where?: EventWhereInput
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    cursor?: EventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * User.participatedEvents
+   */
+  export type User$participatedEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    where?: EventWhereInput
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    cursor?: EventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
   }
 
   /**
@@ -6908,6 +7913,7 @@ export namespace Prisma {
      * The data used to create many VerificationTokens.
      */
     data: VerificationTokenCreateManyInput | VerificationTokenCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -6926,6 +7932,7 @@ export namespace Prisma {
      * The data used to create many VerificationTokens.
      */
     data: VerificationTokenCreateManyInput | VerificationTokenCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -7082,7 +8089,6 @@ export namespace Prisma {
     harviaDeviceId: string | null
     name: string | null
     location: string | null
-    userId: string | null
   }
 
   export type SaunaMaxAggregateOutputType = {
@@ -7090,7 +8096,6 @@ export namespace Prisma {
     harviaDeviceId: string | null
     name: string | null
     location: string | null
-    userId: string | null
   }
 
   export type SaunaCountAggregateOutputType = {
@@ -7098,7 +8103,6 @@ export namespace Prisma {
     harviaDeviceId: number
     name: number
     location: number
-    userId: number
     _all: number
   }
 
@@ -7108,7 +8112,6 @@ export namespace Prisma {
     harviaDeviceId?: true
     name?: true
     location?: true
-    userId?: true
   }
 
   export type SaunaMaxAggregateInputType = {
@@ -7116,7 +8119,6 @@ export namespace Prisma {
     harviaDeviceId?: true
     name?: true
     location?: true
-    userId?: true
   }
 
   export type SaunaCountAggregateInputType = {
@@ -7124,7 +8126,6 @@ export namespace Prisma {
     harviaDeviceId?: true
     name?: true
     location?: true
-    userId?: true
     _all?: true
   }
 
@@ -7205,7 +8206,6 @@ export namespace Prisma {
     harviaDeviceId: string
     name: string
     location: string | null
-    userId: string
     _count: SaunaCountAggregateOutputType | null
     _min: SaunaMinAggregateOutputType | null
     _max: SaunaMaxAggregateOutputType | null
@@ -7230,9 +8230,10 @@ export namespace Prisma {
     harviaDeviceId?: boolean
     name?: boolean
     location?: boolean
-    userId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    users?: boolean | Sauna$usersArgs<ExtArgs>
     sessions?: boolean | Sauna$sessionsArgs<ExtArgs>
+    saunaMeasurements?: boolean | Sauna$saunaMeasurementsArgs<ExtArgs>
+    events?: boolean | Sauna$eventsArgs<ExtArgs>
     _count?: boolean | SaunaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sauna"]>
 
@@ -7241,8 +8242,6 @@ export namespace Prisma {
     harviaDeviceId?: boolean
     name?: boolean
     location?: boolean
-    userId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sauna"]>
 
   export type SaunaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7250,8 +8249,6 @@ export namespace Prisma {
     harviaDeviceId?: boolean
     name?: boolean
     location?: boolean
-    userId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sauna"]>
 
   export type SaunaSelectScalar = {
@@ -7259,34 +8256,32 @@ export namespace Prisma {
     harviaDeviceId?: boolean
     name?: boolean
     location?: boolean
-    userId?: boolean
   }
 
-  export type SaunaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "harviaDeviceId" | "name" | "location" | "userId", ExtArgs["result"]["sauna"]>
+  export type SaunaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "harviaDeviceId" | "name" | "location", ExtArgs["result"]["sauna"]>
   export type SaunaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    users?: boolean | Sauna$usersArgs<ExtArgs>
     sessions?: boolean | Sauna$sessionsArgs<ExtArgs>
+    saunaMeasurements?: boolean | Sauna$saunaMeasurementsArgs<ExtArgs>
+    events?: boolean | Sauna$eventsArgs<ExtArgs>
     _count?: boolean | SaunaCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type SaunaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type SaunaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
+  export type SaunaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SaunaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $SaunaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Sauna"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
+      users: Prisma.$UserPayload<ExtArgs>[]
       sessions: Prisma.$SaunaSessionPayload<ExtArgs>[]
+      saunaMeasurements: Prisma.$SaunaMeasurementPayload<ExtArgs>[]
+      events: Prisma.$EventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       harviaDeviceId: string
       name: string
       location: string | null
-      userId: string
     }, ExtArgs["result"]["sauna"]>
     composites: {}
   }
@@ -7681,8 +8676,10 @@ export namespace Prisma {
    */
   export interface Prisma__SaunaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    users<T extends Sauna$usersArgs<ExtArgs> = {}>(args?: Subset<T, Sauna$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends Sauna$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, Sauna$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaunaSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    saunaMeasurements<T extends Sauna$saunaMeasurementsArgs<ExtArgs> = {}>(args?: Subset<T, Sauna$saunaMeasurementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaunaMeasurementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    events<T extends Sauna$eventsArgs<ExtArgs> = {}>(args?: Subset<T, Sauna$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7716,7 +8713,6 @@ export namespace Prisma {
     readonly harviaDeviceId: FieldRef<"Sauna", 'String'>
     readonly name: FieldRef<"Sauna", 'String'>
     readonly location: FieldRef<"Sauna", 'String'>
-    readonly userId: FieldRef<"Sauna", 'String'>
   }
     
 
@@ -7946,6 +8942,7 @@ export namespace Prisma {
      * The data used to create many Saunas.
      */
     data: SaunaCreateManyInput | SaunaCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -7964,10 +8961,7 @@ export namespace Prisma {
      * The data used to create many Saunas.
      */
     data: SaunaCreateManyInput | SaunaCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SaunaIncludeCreateManyAndReturn<ExtArgs> | null
+    skipDuplicates?: boolean
   }
 
   /**
@@ -8038,10 +9032,6 @@ export namespace Prisma {
      * Limit how many Saunas to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SaunaIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8111,6 +9101,30 @@ export namespace Prisma {
   }
 
   /**
+   * Sauna.users
+   */
+  export type Sauna$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
    * Sauna.sessions
    */
   export type Sauna$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8132,6 +9146,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SaunaSessionScalarFieldEnum | SaunaSessionScalarFieldEnum[]
+  }
+
+  /**
+   * Sauna.saunaMeasurements
+   */
+  export type Sauna$saunaMeasurementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaunaMeasurement
+     */
+    select?: SaunaMeasurementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SaunaMeasurement
+     */
+    omit?: SaunaMeasurementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaunaMeasurementInclude<ExtArgs> | null
+    where?: SaunaMeasurementWhereInput
+    orderBy?: SaunaMeasurementOrderByWithRelationInput | SaunaMeasurementOrderByWithRelationInput[]
+    cursor?: SaunaMeasurementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SaunaMeasurementScalarFieldEnum | SaunaMeasurementScalarFieldEnum[]
+  }
+
+  /**
+   * Sauna.events
+   */
+  export type Sauna$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    where?: EventWhereInput
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    cursor?: EventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
   }
 
   /**
@@ -8169,16 +9231,24 @@ export namespace Prisma {
     durationMs: number | null
     maxTemperature: number | null
     avgTemperature: number | null
+    minTemperature: number | null
     maxHumidity: number | null
     avgHumidity: number | null
+    minHumidity: number | null
+    maxPresence: number | null
+    avgPresence: number | null
   }
 
   export type SaunaSessionSumAggregateOutputType = {
     durationMs: number | null
     maxTemperature: number | null
     avgTemperature: number | null
+    minTemperature: number | null
     maxHumidity: number | null
     avgHumidity: number | null
+    minHumidity: number | null
+    maxPresence: number | null
+    avgPresence: number | null
   }
 
   export type SaunaSessionMinAggregateOutputType = {
@@ -8190,8 +9260,16 @@ export namespace Prisma {
     durationMs: number | null
     maxTemperature: number | null
     avgTemperature: number | null
+    minTemperature: number | null
     maxHumidity: number | null
     avgHumidity: number | null
+    minHumidity: number | null
+    maxPresence: number | null
+    avgPresence: number | null
+    latestPIRTimestamp: Date | null
+    status: $Enums.SaunaSessionStatus | null
+    endedManually: boolean | null
+    manual: boolean | null
   }
 
   export type SaunaSessionMaxAggregateOutputType = {
@@ -8203,8 +9281,16 @@ export namespace Prisma {
     durationMs: number | null
     maxTemperature: number | null
     avgTemperature: number | null
+    minTemperature: number | null
     maxHumidity: number | null
     avgHumidity: number | null
+    minHumidity: number | null
+    maxPresence: number | null
+    avgPresence: number | null
+    latestPIRTimestamp: Date | null
+    status: $Enums.SaunaSessionStatus | null
+    endedManually: boolean | null
+    manual: boolean | null
   }
 
   export type SaunaSessionCountAggregateOutputType = {
@@ -8216,8 +9302,16 @@ export namespace Prisma {
     durationMs: number
     maxTemperature: number
     avgTemperature: number
+    minTemperature: number
     maxHumidity: number
     avgHumidity: number
+    minHumidity: number
+    maxPresence: number
+    avgPresence: number
+    latestPIRTimestamp: number
+    status: number
+    endedManually: number
+    manual: number
     _all: number
   }
 
@@ -8226,16 +9320,24 @@ export namespace Prisma {
     durationMs?: true
     maxTemperature?: true
     avgTemperature?: true
+    minTemperature?: true
     maxHumidity?: true
     avgHumidity?: true
+    minHumidity?: true
+    maxPresence?: true
+    avgPresence?: true
   }
 
   export type SaunaSessionSumAggregateInputType = {
     durationMs?: true
     maxTemperature?: true
     avgTemperature?: true
+    minTemperature?: true
     maxHumidity?: true
     avgHumidity?: true
+    minHumidity?: true
+    maxPresence?: true
+    avgPresence?: true
   }
 
   export type SaunaSessionMinAggregateInputType = {
@@ -8247,8 +9349,16 @@ export namespace Prisma {
     durationMs?: true
     maxTemperature?: true
     avgTemperature?: true
+    minTemperature?: true
     maxHumidity?: true
     avgHumidity?: true
+    minHumidity?: true
+    maxPresence?: true
+    avgPresence?: true
+    latestPIRTimestamp?: true
+    status?: true
+    endedManually?: true
+    manual?: true
   }
 
   export type SaunaSessionMaxAggregateInputType = {
@@ -8260,8 +9370,16 @@ export namespace Prisma {
     durationMs?: true
     maxTemperature?: true
     avgTemperature?: true
+    minTemperature?: true
     maxHumidity?: true
     avgHumidity?: true
+    minHumidity?: true
+    maxPresence?: true
+    avgPresence?: true
+    latestPIRTimestamp?: true
+    status?: true
+    endedManually?: true
+    manual?: true
   }
 
   export type SaunaSessionCountAggregateInputType = {
@@ -8273,8 +9391,16 @@ export namespace Prisma {
     durationMs?: true
     maxTemperature?: true
     avgTemperature?: true
+    minTemperature?: true
     maxHumidity?: true
     avgHumidity?: true
+    minHumidity?: true
+    maxPresence?: true
+    avgPresence?: true
+    latestPIRTimestamp?: true
+    status?: true
+    endedManually?: true
+    manual?: true
     _all?: true
   }
 
@@ -8366,15 +9492,23 @@ export namespace Prisma {
 
   export type SaunaSessionGroupByOutputType = {
     id: string
-    harviaSessionId: string
+    harviaSessionId: string | null
     saunaId: string
     startTimestamp: Date
-    endTimestamp: Date
-    durationMs: number
+    endTimestamp: Date | null
+    durationMs: number | null
     maxTemperature: number | null
     avgTemperature: number | null
+    minTemperature: number | null
     maxHumidity: number | null
     avgHumidity: number | null
+    minHumidity: number | null
+    maxPresence: number | null
+    avgPresence: number | null
+    latestPIRTimestamp: Date | null
+    status: $Enums.SaunaSessionStatus
+    endedManually: boolean
+    manual: boolean
     _count: SaunaSessionCountAggregateOutputType | null
     _avg: SaunaSessionAvgAggregateOutputType | null
     _sum: SaunaSessionSumAggregateOutputType | null
@@ -8405,10 +9539,19 @@ export namespace Prisma {
     durationMs?: boolean
     maxTemperature?: boolean
     avgTemperature?: boolean
+    minTemperature?: boolean
     maxHumidity?: boolean
     avgHumidity?: boolean
+    minHumidity?: boolean
+    maxPresence?: boolean
+    avgPresence?: boolean
+    latestPIRTimestamp?: boolean
+    status?: boolean
+    endedManually?: boolean
+    manual?: boolean
     sauna?: boolean | SaunaDefaultArgs<ExtArgs>
-    measurements?: boolean | SaunaSession$measurementsArgs<ExtArgs>
+    participants?: boolean | SaunaSession$participantsArgs<ExtArgs>
+    posts?: boolean | SaunaSession$postsArgs<ExtArgs>
     _count?: boolean | SaunaSessionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["saunaSession"]>
 
@@ -8421,8 +9564,16 @@ export namespace Prisma {
     durationMs?: boolean
     maxTemperature?: boolean
     avgTemperature?: boolean
+    minTemperature?: boolean
     maxHumidity?: boolean
     avgHumidity?: boolean
+    minHumidity?: boolean
+    maxPresence?: boolean
+    avgPresence?: boolean
+    latestPIRTimestamp?: boolean
+    status?: boolean
+    endedManually?: boolean
+    manual?: boolean
     sauna?: boolean | SaunaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["saunaSession"]>
 
@@ -8435,8 +9586,16 @@ export namespace Prisma {
     durationMs?: boolean
     maxTemperature?: boolean
     avgTemperature?: boolean
+    minTemperature?: boolean
     maxHumidity?: boolean
     avgHumidity?: boolean
+    minHumidity?: boolean
+    maxPresence?: boolean
+    avgPresence?: boolean
+    latestPIRTimestamp?: boolean
+    status?: boolean
+    endedManually?: boolean
+    manual?: boolean
     sauna?: boolean | SaunaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["saunaSession"]>
 
@@ -8449,14 +9608,23 @@ export namespace Prisma {
     durationMs?: boolean
     maxTemperature?: boolean
     avgTemperature?: boolean
+    minTemperature?: boolean
     maxHumidity?: boolean
     avgHumidity?: boolean
+    minHumidity?: boolean
+    maxPresence?: boolean
+    avgPresence?: boolean
+    latestPIRTimestamp?: boolean
+    status?: boolean
+    endedManually?: boolean
+    manual?: boolean
   }
 
-  export type SaunaSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "harviaSessionId" | "saunaId" | "startTimestamp" | "endTimestamp" | "durationMs" | "maxTemperature" | "avgTemperature" | "maxHumidity" | "avgHumidity", ExtArgs["result"]["saunaSession"]>
+  export type SaunaSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "harviaSessionId" | "saunaId" | "startTimestamp" | "endTimestamp" | "durationMs" | "maxTemperature" | "avgTemperature" | "minTemperature" | "maxHumidity" | "avgHumidity" | "minHumidity" | "maxPresence" | "avgPresence" | "latestPIRTimestamp" | "status" | "endedManually" | "manual", ExtArgs["result"]["saunaSession"]>
   export type SaunaSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sauna?: boolean | SaunaDefaultArgs<ExtArgs>
-    measurements?: boolean | SaunaSession$measurementsArgs<ExtArgs>
+    participants?: boolean | SaunaSession$participantsArgs<ExtArgs>
+    posts?: boolean | SaunaSession$postsArgs<ExtArgs>
     _count?: boolean | SaunaSessionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SaunaSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8470,19 +9638,28 @@ export namespace Prisma {
     name: "SaunaSession"
     objects: {
       sauna: Prisma.$SaunaPayload<ExtArgs>
-      measurements: Prisma.$SaunaMeasurementPayload<ExtArgs>[]
+      participants: Prisma.$UserPayload<ExtArgs>[]
+      posts: Prisma.$PostPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      harviaSessionId: string
+      harviaSessionId: string | null
       saunaId: string
       startTimestamp: Date
-      endTimestamp: Date
-      durationMs: number
+      endTimestamp: Date | null
+      durationMs: number | null
       maxTemperature: number | null
       avgTemperature: number | null
+      minTemperature: number | null
       maxHumidity: number | null
       avgHumidity: number | null
+      minHumidity: number | null
+      maxPresence: number | null
+      avgPresence: number | null
+      latestPIRTimestamp: Date | null
+      status: $Enums.SaunaSessionStatus
+      endedManually: boolean
+      manual: boolean
     }, ExtArgs["result"]["saunaSession"]>
     composites: {}
   }
@@ -8878,7 +10055,8 @@ export namespace Prisma {
   export interface Prisma__SaunaSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sauna<T extends SaunaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SaunaDefaultArgs<ExtArgs>>): Prisma__SaunaClient<$Result.GetResult<Prisma.$SaunaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    measurements<T extends SaunaSession$measurementsArgs<ExtArgs> = {}>(args?: Subset<T, SaunaSession$measurementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaunaMeasurementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    participants<T extends SaunaSession$participantsArgs<ExtArgs> = {}>(args?: Subset<T, SaunaSession$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    posts<T extends SaunaSession$postsArgs<ExtArgs> = {}>(args?: Subset<T, SaunaSession$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8916,8 +10094,16 @@ export namespace Prisma {
     readonly durationMs: FieldRef<"SaunaSession", 'Float'>
     readonly maxTemperature: FieldRef<"SaunaSession", 'Float'>
     readonly avgTemperature: FieldRef<"SaunaSession", 'Float'>
+    readonly minTemperature: FieldRef<"SaunaSession", 'Float'>
     readonly maxHumidity: FieldRef<"SaunaSession", 'Float'>
     readonly avgHumidity: FieldRef<"SaunaSession", 'Float'>
+    readonly minHumidity: FieldRef<"SaunaSession", 'Float'>
+    readonly maxPresence: FieldRef<"SaunaSession", 'Float'>
+    readonly avgPresence: FieldRef<"SaunaSession", 'Float'>
+    readonly latestPIRTimestamp: FieldRef<"SaunaSession", 'DateTime'>
+    readonly status: FieldRef<"SaunaSession", 'SaunaSessionStatus'>
+    readonly endedManually: FieldRef<"SaunaSession", 'Boolean'>
+    readonly manual: FieldRef<"SaunaSession", 'Boolean'>
   }
     
 
@@ -9147,6 +10333,7 @@ export namespace Prisma {
      * The data used to create many SaunaSessions.
      */
     data: SaunaSessionCreateManyInput | SaunaSessionCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -9165,6 +10352,7 @@ export namespace Prisma {
      * The data used to create many SaunaSessions.
      */
     data: SaunaSessionCreateManyInput | SaunaSessionCreateManyInput[]
+    skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -9312,27 +10500,51 @@ export namespace Prisma {
   }
 
   /**
-   * SaunaSession.measurements
+   * SaunaSession.participants
    */
-  export type SaunaSession$measurementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SaunaSession$participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the SaunaMeasurement
+     * Select specific fields to fetch from the User
      */
-    select?: SaunaMeasurementSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the SaunaMeasurement
+     * Omit specific fields from the User
      */
-    omit?: SaunaMeasurementOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SaunaMeasurementInclude<ExtArgs> | null
-    where?: SaunaMeasurementWhereInput
-    orderBy?: SaunaMeasurementOrderByWithRelationInput | SaunaMeasurementOrderByWithRelationInput[]
-    cursor?: SaunaMeasurementWhereUniqueInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: SaunaMeasurementScalarFieldEnum | SaunaMeasurementScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * SaunaSession.posts
+   */
+  export type SaunaSession$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    where?: PostWhereInput
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    cursor?: PostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
   }
 
   /**
@@ -9355,6 +10567,3255 @@ export namespace Prisma {
 
 
   /**
+   * Model Like
+   */
+
+  export type AggregateLike = {
+    _count: LikeCountAggregateOutputType | null
+    _avg: LikeAvgAggregateOutputType | null
+    _sum: LikeSumAggregateOutputType | null
+    _min: LikeMinAggregateOutputType | null
+    _max: LikeMaxAggregateOutputType | null
+  }
+
+  export type LikeAvgAggregateOutputType = {
+    postId: number | null
+  }
+
+  export type LikeSumAggregateOutputType = {
+    postId: number | null
+  }
+
+  export type LikeMinAggregateOutputType = {
+    id: string | null
+    postId: number | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type LikeMaxAggregateOutputType = {
+    id: string | null
+    postId: number | null
+    userId: string | null
+    createdAt: Date | null
+  }
+
+  export type LikeCountAggregateOutputType = {
+    id: number
+    postId: number
+    userId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LikeAvgAggregateInputType = {
+    postId?: true
+  }
+
+  export type LikeSumAggregateInputType = {
+    postId?: true
+  }
+
+  export type LikeMinAggregateInputType = {
+    id?: true
+    postId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type LikeMaxAggregateInputType = {
+    id?: true
+    postId?: true
+    userId?: true
+    createdAt?: true
+  }
+
+  export type LikeCountAggregateInputType = {
+    id?: true
+    postId?: true
+    userId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LikeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Like to aggregate.
+     */
+    where?: LikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Likes to fetch.
+     */
+    orderBy?: LikeOrderByWithRelationInput | LikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Likes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Likes
+    **/
+    _count?: true | LikeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LikeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LikeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LikeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LikeMaxAggregateInputType
+  }
+
+  export type GetLikeAggregateType<T extends LikeAggregateArgs> = {
+        [P in keyof T & keyof AggregateLike]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLike[P]>
+      : GetScalarType<T[P], AggregateLike[P]>
+  }
+
+
+
+
+  export type LikeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LikeWhereInput
+    orderBy?: LikeOrderByWithAggregationInput | LikeOrderByWithAggregationInput[]
+    by: LikeScalarFieldEnum[] | LikeScalarFieldEnum
+    having?: LikeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LikeCountAggregateInputType | true
+    _avg?: LikeAvgAggregateInputType
+    _sum?: LikeSumAggregateInputType
+    _min?: LikeMinAggregateInputType
+    _max?: LikeMaxAggregateInputType
+  }
+
+  export type LikeGroupByOutputType = {
+    id: string
+    postId: number
+    userId: string
+    createdAt: Date
+    _count: LikeCountAggregateOutputType | null
+    _avg: LikeAvgAggregateOutputType | null
+    _sum: LikeSumAggregateOutputType | null
+    _min: LikeMinAggregateOutputType | null
+    _max: LikeMaxAggregateOutputType | null
+  }
+
+  type GetLikeGroupByPayload<T extends LikeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LikeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LikeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LikeGroupByOutputType[P]>
+            : GetScalarType<T[P], LikeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LikeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    postId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["like"]>
+
+  export type LikeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    postId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["like"]>
+
+  export type LikeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    postId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["like"]>
+
+  export type LikeSelectScalar = {
+    id?: boolean
+    postId?: boolean
+    userId?: boolean
+    createdAt?: boolean
+  }
+
+  export type LikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "userId" | "createdAt", ExtArgs["result"]["like"]>
+  export type LikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LikeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LikeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Like"
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      postId: number
+      userId: string
+      createdAt: Date
+    }, ExtArgs["result"]["like"]>
+    composites: {}
+  }
+
+  type LikeGetPayload<S extends boolean | null | undefined | LikeDefaultArgs> = $Result.GetResult<Prisma.$LikePayload, S>
+
+  type LikeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LikeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LikeCountAggregateInputType | true
+    }
+
+  export interface LikeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Like'], meta: { name: 'Like' } }
+    /**
+     * Find zero or one Like that matches the filter.
+     * @param {LikeFindUniqueArgs} args - Arguments to find a Like
+     * @example
+     * // Get one Like
+     * const like = await prisma.like.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LikeFindUniqueArgs>(args: SelectSubset<T, LikeFindUniqueArgs<ExtArgs>>): Prisma__LikeClient<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Like that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LikeFindUniqueOrThrowArgs} args - Arguments to find a Like
+     * @example
+     * // Get one Like
+     * const like = await prisma.like.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LikeFindUniqueOrThrowArgs>(args: SelectSubset<T, LikeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LikeClient<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Like that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LikeFindFirstArgs} args - Arguments to find a Like
+     * @example
+     * // Get one Like
+     * const like = await prisma.like.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LikeFindFirstArgs>(args?: SelectSubset<T, LikeFindFirstArgs<ExtArgs>>): Prisma__LikeClient<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Like that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LikeFindFirstOrThrowArgs} args - Arguments to find a Like
+     * @example
+     * // Get one Like
+     * const like = await prisma.like.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LikeFindFirstOrThrowArgs>(args?: SelectSubset<T, LikeFindFirstOrThrowArgs<ExtArgs>>): Prisma__LikeClient<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Likes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LikeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Likes
+     * const likes = await prisma.like.findMany()
+     * 
+     * // Get first 10 Likes
+     * const likes = await prisma.like.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const likeWithIdOnly = await prisma.like.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LikeFindManyArgs>(args?: SelectSubset<T, LikeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Like.
+     * @param {LikeCreateArgs} args - Arguments to create a Like.
+     * @example
+     * // Create one Like
+     * const Like = await prisma.like.create({
+     *   data: {
+     *     // ... data to create a Like
+     *   }
+     * })
+     * 
+     */
+    create<T extends LikeCreateArgs>(args: SelectSubset<T, LikeCreateArgs<ExtArgs>>): Prisma__LikeClient<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Likes.
+     * @param {LikeCreateManyArgs} args - Arguments to create many Likes.
+     * @example
+     * // Create many Likes
+     * const like = await prisma.like.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LikeCreateManyArgs>(args?: SelectSubset<T, LikeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Likes and returns the data saved in the database.
+     * @param {LikeCreateManyAndReturnArgs} args - Arguments to create many Likes.
+     * @example
+     * // Create many Likes
+     * const like = await prisma.like.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Likes and only return the `id`
+     * const likeWithIdOnly = await prisma.like.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LikeCreateManyAndReturnArgs>(args?: SelectSubset<T, LikeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Like.
+     * @param {LikeDeleteArgs} args - Arguments to delete one Like.
+     * @example
+     * // Delete one Like
+     * const Like = await prisma.like.delete({
+     *   where: {
+     *     // ... filter to delete one Like
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LikeDeleteArgs>(args: SelectSubset<T, LikeDeleteArgs<ExtArgs>>): Prisma__LikeClient<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Like.
+     * @param {LikeUpdateArgs} args - Arguments to update one Like.
+     * @example
+     * // Update one Like
+     * const like = await prisma.like.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LikeUpdateArgs>(args: SelectSubset<T, LikeUpdateArgs<ExtArgs>>): Prisma__LikeClient<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Likes.
+     * @param {LikeDeleteManyArgs} args - Arguments to filter Likes to delete.
+     * @example
+     * // Delete a few Likes
+     * const { count } = await prisma.like.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LikeDeleteManyArgs>(args?: SelectSubset<T, LikeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LikeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Likes
+     * const like = await prisma.like.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LikeUpdateManyArgs>(args: SelectSubset<T, LikeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Likes and returns the data updated in the database.
+     * @param {LikeUpdateManyAndReturnArgs} args - Arguments to update many Likes.
+     * @example
+     * // Update many Likes
+     * const like = await prisma.like.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Likes and only return the `id`
+     * const likeWithIdOnly = await prisma.like.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LikeUpdateManyAndReturnArgs>(args: SelectSubset<T, LikeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Like.
+     * @param {LikeUpsertArgs} args - Arguments to update or create a Like.
+     * @example
+     * // Update or create a Like
+     * const like = await prisma.like.upsert({
+     *   create: {
+     *     // ... data to create a Like
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Like we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LikeUpsertArgs>(args: SelectSubset<T, LikeUpsertArgs<ExtArgs>>): Prisma__LikeClient<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LikeCountArgs} args - Arguments to filter Likes to count.
+     * @example
+     * // Count the number of Likes
+     * const count = await prisma.like.count({
+     *   where: {
+     *     // ... the filter for the Likes we want to count
+     *   }
+     * })
+    **/
+    count<T extends LikeCountArgs>(
+      args?: Subset<T, LikeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LikeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Like.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LikeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LikeAggregateArgs>(args: Subset<T, LikeAggregateArgs>): Prisma.PrismaPromise<GetLikeAggregateType<T>>
+
+    /**
+     * Group by Like.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LikeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LikeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LikeGroupByArgs['orderBy'] }
+        : { orderBy?: LikeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LikeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLikeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Like model
+   */
+  readonly fields: LikeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Like.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LikeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Like model
+   */
+  interface LikeFieldRefs {
+    readonly id: FieldRef<"Like", 'String'>
+    readonly postId: FieldRef<"Like", 'Int'>
+    readonly userId: FieldRef<"Like", 'String'>
+    readonly createdAt: FieldRef<"Like", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Like findUnique
+   */
+  export type LikeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
+     * Filter, which Like to fetch.
+     */
+    where: LikeWhereUniqueInput
+  }
+
+  /**
+   * Like findUniqueOrThrow
+   */
+  export type LikeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
+     * Filter, which Like to fetch.
+     */
+    where: LikeWhereUniqueInput
+  }
+
+  /**
+   * Like findFirst
+   */
+  export type LikeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
+     * Filter, which Like to fetch.
+     */
+    where?: LikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Likes to fetch.
+     */
+    orderBy?: LikeOrderByWithRelationInput | LikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Likes.
+     */
+    cursor?: LikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Likes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Likes.
+     */
+    distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * Like findFirstOrThrow
+   */
+  export type LikeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
+     * Filter, which Like to fetch.
+     */
+    where?: LikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Likes to fetch.
+     */
+    orderBy?: LikeOrderByWithRelationInput | LikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Likes.
+     */
+    cursor?: LikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Likes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Likes.
+     */
+    distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * Like findMany
+   */
+  export type LikeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
+     * Filter, which Likes to fetch.
+     */
+    where?: LikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Likes to fetch.
+     */
+    orderBy?: LikeOrderByWithRelationInput | LikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Likes.
+     */
+    cursor?: LikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Likes.
+     */
+    skip?: number
+    distinct?: LikeScalarFieldEnum | LikeScalarFieldEnum[]
+  }
+
+  /**
+   * Like create
+   */
+  export type LikeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Like.
+     */
+    data: XOR<LikeCreateInput, LikeUncheckedCreateInput>
+  }
+
+  /**
+   * Like createMany
+   */
+  export type LikeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Likes.
+     */
+    data: LikeCreateManyInput | LikeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Like createManyAndReturn
+   */
+  export type LikeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Likes.
+     */
+    data: LikeCreateManyInput | LikeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Like update
+   */
+  export type LikeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Like.
+     */
+    data: XOR<LikeUpdateInput, LikeUncheckedUpdateInput>
+    /**
+     * Choose, which Like to update.
+     */
+    where: LikeWhereUniqueInput
+  }
+
+  /**
+   * Like updateMany
+   */
+  export type LikeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Likes.
+     */
+    data: XOR<LikeUpdateManyMutationInput, LikeUncheckedUpdateManyInput>
+    /**
+     * Filter which Likes to update
+     */
+    where?: LikeWhereInput
+    /**
+     * Limit how many Likes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Like updateManyAndReturn
+   */
+  export type LikeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * The data used to update Likes.
+     */
+    data: XOR<LikeUpdateManyMutationInput, LikeUncheckedUpdateManyInput>
+    /**
+     * Filter which Likes to update
+     */
+    where?: LikeWhereInput
+    /**
+     * Limit how many Likes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Like upsert
+   */
+  export type LikeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Like to update in case it exists.
+     */
+    where: LikeWhereUniqueInput
+    /**
+     * In case the Like found by the `where` argument doesn't exist, create a new Like with this data.
+     */
+    create: XOR<LikeCreateInput, LikeUncheckedCreateInput>
+    /**
+     * In case the Like was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LikeUpdateInput, LikeUncheckedUpdateInput>
+  }
+
+  /**
+   * Like delete
+   */
+  export type LikeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+    /**
+     * Filter which Like to delete.
+     */
+    where: LikeWhereUniqueInput
+  }
+
+  /**
+   * Like deleteMany
+   */
+  export type LikeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Likes to delete
+     */
+    where?: LikeWhereInput
+    /**
+     * Limit how many Likes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Like without action
+   */
+  export type LikeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Like
+     */
+    select?: LikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Like
+     */
+    omit?: LikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LikeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PostImage
+   */
+
+  export type AggregatePostImage = {
+    _count: PostImageCountAggregateOutputType | null
+    _avg: PostImageAvgAggregateOutputType | null
+    _sum: PostImageSumAggregateOutputType | null
+    _min: PostImageMinAggregateOutputType | null
+    _max: PostImageMaxAggregateOutputType | null
+  }
+
+  export type PostImageAvgAggregateOutputType = {
+    postId: number | null
+  }
+
+  export type PostImageSumAggregateOutputType = {
+    postId: number | null
+  }
+
+  export type PostImageMinAggregateOutputType = {
+    id: string | null
+    postId: number | null
+    url: string | null
+    createdAt: Date | null
+  }
+
+  export type PostImageMaxAggregateOutputType = {
+    id: string | null
+    postId: number | null
+    url: string | null
+    createdAt: Date | null
+  }
+
+  export type PostImageCountAggregateOutputType = {
+    id: number
+    postId: number
+    url: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PostImageAvgAggregateInputType = {
+    postId?: true
+  }
+
+  export type PostImageSumAggregateInputType = {
+    postId?: true
+  }
+
+  export type PostImageMinAggregateInputType = {
+    id?: true
+    postId?: true
+    url?: true
+    createdAt?: true
+  }
+
+  export type PostImageMaxAggregateInputType = {
+    id?: true
+    postId?: true
+    url?: true
+    createdAt?: true
+  }
+
+  export type PostImageCountAggregateInputType = {
+    id?: true
+    postId?: true
+    url?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PostImageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostImage to aggregate.
+     */
+    where?: PostImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostImages to fetch.
+     */
+    orderBy?: PostImageOrderByWithRelationInput | PostImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PostImages
+    **/
+    _count?: true | PostImageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PostImageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PostImageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostImageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostImageMaxAggregateInputType
+  }
+
+  export type GetPostImageAggregateType<T extends PostImageAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostImage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostImage[P]>
+      : GetScalarType<T[P], AggregatePostImage[P]>
+  }
+
+
+
+
+  export type PostImageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostImageWhereInput
+    orderBy?: PostImageOrderByWithAggregationInput | PostImageOrderByWithAggregationInput[]
+    by: PostImageScalarFieldEnum[] | PostImageScalarFieldEnum
+    having?: PostImageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostImageCountAggregateInputType | true
+    _avg?: PostImageAvgAggregateInputType
+    _sum?: PostImageSumAggregateInputType
+    _min?: PostImageMinAggregateInputType
+    _max?: PostImageMaxAggregateInputType
+  }
+
+  export type PostImageGroupByOutputType = {
+    id: string
+    postId: number
+    url: string
+    createdAt: Date
+    _count: PostImageCountAggregateOutputType | null
+    _avg: PostImageAvgAggregateOutputType | null
+    _sum: PostImageSumAggregateOutputType | null
+    _min: PostImageMinAggregateOutputType | null
+    _max: PostImageMaxAggregateOutputType | null
+  }
+
+  type GetPostImageGroupByPayload<T extends PostImageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostImageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostImageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostImageGroupByOutputType[P]>
+            : GetScalarType<T[P], PostImageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostImageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    postId?: boolean
+    url?: boolean
+    createdAt?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postImage"]>
+
+  export type PostImageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    postId?: boolean
+    url?: boolean
+    createdAt?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postImage"]>
+
+  export type PostImageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    postId?: boolean
+    url?: boolean
+    createdAt?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postImage"]>
+
+  export type PostImageSelectScalar = {
+    id?: boolean
+    postId?: boolean
+    url?: boolean
+    createdAt?: boolean
+  }
+
+  export type PostImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "url" | "createdAt", ExtArgs["result"]["postImage"]>
+  export type PostImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+  export type PostImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+  export type PostImageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+
+  export type $PostImagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PostImage"
+    objects: {
+      post: Prisma.$PostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      postId: number
+      url: string
+      createdAt: Date
+    }, ExtArgs["result"]["postImage"]>
+    composites: {}
+  }
+
+  type PostImageGetPayload<S extends boolean | null | undefined | PostImageDefaultArgs> = $Result.GetResult<Prisma.$PostImagePayload, S>
+
+  type PostImageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PostImageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PostImageCountAggregateInputType | true
+    }
+
+  export interface PostImageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostImage'], meta: { name: 'PostImage' } }
+    /**
+     * Find zero or one PostImage that matches the filter.
+     * @param {PostImageFindUniqueArgs} args - Arguments to find a PostImage
+     * @example
+     * // Get one PostImage
+     * const postImage = await prisma.postImage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostImageFindUniqueArgs>(args: SelectSubset<T, PostImageFindUniqueArgs<ExtArgs>>): Prisma__PostImageClient<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PostImage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostImageFindUniqueOrThrowArgs} args - Arguments to find a PostImage
+     * @example
+     * // Get one PostImage
+     * const postImage = await prisma.postImage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostImageFindUniqueOrThrowArgs>(args: SelectSubset<T, PostImageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostImageClient<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostImage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImageFindFirstArgs} args - Arguments to find a PostImage
+     * @example
+     * // Get one PostImage
+     * const postImage = await prisma.postImage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostImageFindFirstArgs>(args?: SelectSubset<T, PostImageFindFirstArgs<ExtArgs>>): Prisma__PostImageClient<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostImage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImageFindFirstOrThrowArgs} args - Arguments to find a PostImage
+     * @example
+     * // Get one PostImage
+     * const postImage = await prisma.postImage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostImageFindFirstOrThrowArgs>(args?: SelectSubset<T, PostImageFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostImageClient<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PostImages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostImages
+     * const postImages = await prisma.postImage.findMany()
+     * 
+     * // Get first 10 PostImages
+     * const postImages = await prisma.postImage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const postImageWithIdOnly = await prisma.postImage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PostImageFindManyArgs>(args?: SelectSubset<T, PostImageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PostImage.
+     * @param {PostImageCreateArgs} args - Arguments to create a PostImage.
+     * @example
+     * // Create one PostImage
+     * const PostImage = await prisma.postImage.create({
+     *   data: {
+     *     // ... data to create a PostImage
+     *   }
+     * })
+     * 
+     */
+    create<T extends PostImageCreateArgs>(args: SelectSubset<T, PostImageCreateArgs<ExtArgs>>): Prisma__PostImageClient<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PostImages.
+     * @param {PostImageCreateManyArgs} args - Arguments to create many PostImages.
+     * @example
+     * // Create many PostImages
+     * const postImage = await prisma.postImage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PostImageCreateManyArgs>(args?: SelectSubset<T, PostImageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PostImages and returns the data saved in the database.
+     * @param {PostImageCreateManyAndReturnArgs} args - Arguments to create many PostImages.
+     * @example
+     * // Create many PostImages
+     * const postImage = await prisma.postImage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PostImages and only return the `id`
+     * const postImageWithIdOnly = await prisma.postImage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PostImageCreateManyAndReturnArgs>(args?: SelectSubset<T, PostImageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PostImage.
+     * @param {PostImageDeleteArgs} args - Arguments to delete one PostImage.
+     * @example
+     * // Delete one PostImage
+     * const PostImage = await prisma.postImage.delete({
+     *   where: {
+     *     // ... filter to delete one PostImage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PostImageDeleteArgs>(args: SelectSubset<T, PostImageDeleteArgs<ExtArgs>>): Prisma__PostImageClient<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PostImage.
+     * @param {PostImageUpdateArgs} args - Arguments to update one PostImage.
+     * @example
+     * // Update one PostImage
+     * const postImage = await prisma.postImage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PostImageUpdateArgs>(args: SelectSubset<T, PostImageUpdateArgs<ExtArgs>>): Prisma__PostImageClient<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PostImages.
+     * @param {PostImageDeleteManyArgs} args - Arguments to filter PostImages to delete.
+     * @example
+     * // Delete a few PostImages
+     * const { count } = await prisma.postImage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PostImageDeleteManyArgs>(args?: SelectSubset<T, PostImageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostImages
+     * const postImage = await prisma.postImage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PostImageUpdateManyArgs>(args: SelectSubset<T, PostImageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostImages and returns the data updated in the database.
+     * @param {PostImageUpdateManyAndReturnArgs} args - Arguments to update many PostImages.
+     * @example
+     * // Update many PostImages
+     * const postImage = await prisma.postImage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PostImages and only return the `id`
+     * const postImageWithIdOnly = await prisma.postImage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PostImageUpdateManyAndReturnArgs>(args: SelectSubset<T, PostImageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PostImage.
+     * @param {PostImageUpsertArgs} args - Arguments to update or create a PostImage.
+     * @example
+     * // Update or create a PostImage
+     * const postImage = await prisma.postImage.upsert({
+     *   create: {
+     *     // ... data to create a PostImage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostImage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostImageUpsertArgs>(args: SelectSubset<T, PostImageUpsertArgs<ExtArgs>>): Prisma__PostImageClient<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PostImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImageCountArgs} args - Arguments to filter PostImages to count.
+     * @example
+     * // Count the number of PostImages
+     * const count = await prisma.postImage.count({
+     *   where: {
+     *     // ... the filter for the PostImages we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostImageCountArgs>(
+      args?: Subset<T, PostImageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostImageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PostImage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostImageAggregateArgs>(args: Subset<T, PostImageAggregateArgs>): Prisma.PrismaPromise<GetPostImageAggregateType<T>>
+
+    /**
+     * Group by PostImage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostImageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostImageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostImageGroupByArgs['orderBy'] }
+        : { orderBy?: PostImageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostImageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostImageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PostImage model
+   */
+  readonly fields: PostImageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostImage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PostImage model
+   */
+  interface PostImageFieldRefs {
+    readonly id: FieldRef<"PostImage", 'String'>
+    readonly postId: FieldRef<"PostImage", 'Int'>
+    readonly url: FieldRef<"PostImage", 'String'>
+    readonly createdAt: FieldRef<"PostImage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PostImage findUnique
+   */
+  export type PostImageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImage to fetch.
+     */
+    where: PostImageWhereUniqueInput
+  }
+
+  /**
+   * PostImage findUniqueOrThrow
+   */
+  export type PostImageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImage to fetch.
+     */
+    where: PostImageWhereUniqueInput
+  }
+
+  /**
+   * PostImage findFirst
+   */
+  export type PostImageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImage to fetch.
+     */
+    where?: PostImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostImages to fetch.
+     */
+    orderBy?: PostImageOrderByWithRelationInput | PostImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostImages.
+     */
+    cursor?: PostImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostImages.
+     */
+    distinct?: PostImageScalarFieldEnum | PostImageScalarFieldEnum[]
+  }
+
+  /**
+   * PostImage findFirstOrThrow
+   */
+  export type PostImageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImage to fetch.
+     */
+    where?: PostImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostImages to fetch.
+     */
+    orderBy?: PostImageOrderByWithRelationInput | PostImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostImages.
+     */
+    cursor?: PostImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostImages.
+     */
+    distinct?: PostImageScalarFieldEnum | PostImageScalarFieldEnum[]
+  }
+
+  /**
+   * PostImage findMany
+   */
+  export type PostImageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    /**
+     * Filter, which PostImages to fetch.
+     */
+    where?: PostImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostImages to fetch.
+     */
+    orderBy?: PostImageOrderByWithRelationInput | PostImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PostImages.
+     */
+    cursor?: PostImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostImages.
+     */
+    skip?: number
+    distinct?: PostImageScalarFieldEnum | PostImageScalarFieldEnum[]
+  }
+
+  /**
+   * PostImage create
+   */
+  export type PostImageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PostImage.
+     */
+    data: XOR<PostImageCreateInput, PostImageUncheckedCreateInput>
+  }
+
+  /**
+   * PostImage createMany
+   */
+  export type PostImageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PostImages.
+     */
+    data: PostImageCreateManyInput | PostImageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PostImage createManyAndReturn
+   */
+  export type PostImageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * The data used to create many PostImages.
+     */
+    data: PostImageCreateManyInput | PostImageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostImage update
+   */
+  export type PostImageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PostImage.
+     */
+    data: XOR<PostImageUpdateInput, PostImageUncheckedUpdateInput>
+    /**
+     * Choose, which PostImage to update.
+     */
+    where: PostImageWhereUniqueInput
+  }
+
+  /**
+   * PostImage updateMany
+   */
+  export type PostImageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PostImages.
+     */
+    data: XOR<PostImageUpdateManyMutationInput, PostImageUncheckedUpdateManyInput>
+    /**
+     * Filter which PostImages to update
+     */
+    where?: PostImageWhereInput
+    /**
+     * Limit how many PostImages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostImage updateManyAndReturn
+   */
+  export type PostImageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * The data used to update PostImages.
+     */
+    data: XOR<PostImageUpdateManyMutationInput, PostImageUncheckedUpdateManyInput>
+    /**
+     * Filter which PostImages to update
+     */
+    where?: PostImageWhereInput
+    /**
+     * Limit how many PostImages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostImage upsert
+   */
+  export type PostImageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PostImage to update in case it exists.
+     */
+    where: PostImageWhereUniqueInput
+    /**
+     * In case the PostImage found by the `where` argument doesn't exist, create a new PostImage with this data.
+     */
+    create: XOR<PostImageCreateInput, PostImageUncheckedCreateInput>
+    /**
+     * In case the PostImage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostImageUpdateInput, PostImageUncheckedUpdateInput>
+  }
+
+  /**
+   * PostImage delete
+   */
+  export type PostImageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+    /**
+     * Filter which PostImage to delete.
+     */
+    where: PostImageWhereUniqueInput
+  }
+
+  /**
+   * PostImage deleteMany
+   */
+  export type PostImageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostImages to delete
+     */
+    where?: PostImageWhereInput
+    /**
+     * Limit how many PostImages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostImage without action
+   */
+  export type PostImageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostImage
+     */
+    select?: PostImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostImage
+     */
+    omit?: PostImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostImageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Achievement
+   */
+
+  export type AggregateAchievement = {
+    _count: AchievementCountAggregateOutputType | null
+    _min: AchievementMinAggregateOutputType | null
+    _max: AchievementMaxAggregateOutputType | null
+  }
+
+  export type AchievementMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    metric: string | null
+    value: string | null
+    unit: string | null
+  }
+
+  export type AchievementMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    metric: string | null
+    value: string | null
+    unit: string | null
+  }
+
+  export type AchievementCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    metric: number
+    value: number
+    unit: number
+    _all: number
+  }
+
+
+  export type AchievementMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    metric?: true
+    value?: true
+    unit?: true
+  }
+
+  export type AchievementMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    metric?: true
+    value?: true
+    unit?: true
+  }
+
+  export type AchievementCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    metric?: true
+    value?: true
+    unit?: true
+    _all?: true
+  }
+
+  export type AchievementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Achievement to aggregate.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Achievements
+    **/
+    _count?: true | AchievementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AchievementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AchievementMaxAggregateInputType
+  }
+
+  export type GetAchievementAggregateType<T extends AchievementAggregateArgs> = {
+        [P in keyof T & keyof AggregateAchievement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAchievement[P]>
+      : GetScalarType<T[P], AggregateAchievement[P]>
+  }
+
+
+
+
+  export type AchievementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AchievementWhereInput
+    orderBy?: AchievementOrderByWithAggregationInput | AchievementOrderByWithAggregationInput[]
+    by: AchievementScalarFieldEnum[] | AchievementScalarFieldEnum
+    having?: AchievementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AchievementCountAggregateInputType | true
+    _min?: AchievementMinAggregateInputType
+    _max?: AchievementMaxAggregateInputType
+  }
+
+  export type AchievementGroupByOutputType = {
+    id: string
+    name: string
+    description: string
+    metric: string | null
+    value: string | null
+    unit: string | null
+    _count: AchievementCountAggregateOutputType | null
+    _min: AchievementMinAggregateOutputType | null
+    _max: AchievementMaxAggregateOutputType | null
+  }
+
+  type GetAchievementGroupByPayload<T extends AchievementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AchievementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AchievementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AchievementGroupByOutputType[P]>
+            : GetScalarType<T[P], AchievementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AchievementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    metric?: boolean
+    value?: boolean
+    unit?: boolean
+    posts?: boolean | Achievement$postsArgs<ExtArgs>
+    _count?: boolean | AchievementCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["achievement"]>
+
+  export type AchievementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    metric?: boolean
+    value?: boolean
+    unit?: boolean
+  }, ExtArgs["result"]["achievement"]>
+
+  export type AchievementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    metric?: boolean
+    value?: boolean
+    unit?: boolean
+  }, ExtArgs["result"]["achievement"]>
+
+  export type AchievementSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    metric?: boolean
+    value?: boolean
+    unit?: boolean
+  }
+
+  export type AchievementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "metric" | "value" | "unit", ExtArgs["result"]["achievement"]>
+  export type AchievementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    posts?: boolean | Achievement$postsArgs<ExtArgs>
+    _count?: boolean | AchievementCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AchievementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type AchievementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $AchievementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Achievement"
+    objects: {
+      posts: Prisma.$PostPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string
+      metric: string | null
+      value: string | null
+      unit: string | null
+    }, ExtArgs["result"]["achievement"]>
+    composites: {}
+  }
+
+  type AchievementGetPayload<S extends boolean | null | undefined | AchievementDefaultArgs> = $Result.GetResult<Prisma.$AchievementPayload, S>
+
+  type AchievementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AchievementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AchievementCountAggregateInputType | true
+    }
+
+  export interface AchievementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Achievement'], meta: { name: 'Achievement' } }
+    /**
+     * Find zero or one Achievement that matches the filter.
+     * @param {AchievementFindUniqueArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AchievementFindUniqueArgs>(args: SelectSubset<T, AchievementFindUniqueArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Achievement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AchievementFindUniqueOrThrowArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AchievementFindUniqueOrThrowArgs>(args: SelectSubset<T, AchievementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Achievement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementFindFirstArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AchievementFindFirstArgs>(args?: SelectSubset<T, AchievementFindFirstArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Achievement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementFindFirstOrThrowArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AchievementFindFirstOrThrowArgs>(args?: SelectSubset<T, AchievementFindFirstOrThrowArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Achievements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Achievements
+     * const achievements = await prisma.achievement.findMany()
+     * 
+     * // Get first 10 Achievements
+     * const achievements = await prisma.achievement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const achievementWithIdOnly = await prisma.achievement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AchievementFindManyArgs>(args?: SelectSubset<T, AchievementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Achievement.
+     * @param {AchievementCreateArgs} args - Arguments to create a Achievement.
+     * @example
+     * // Create one Achievement
+     * const Achievement = await prisma.achievement.create({
+     *   data: {
+     *     // ... data to create a Achievement
+     *   }
+     * })
+     * 
+     */
+    create<T extends AchievementCreateArgs>(args: SelectSubset<T, AchievementCreateArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Achievements.
+     * @param {AchievementCreateManyArgs} args - Arguments to create many Achievements.
+     * @example
+     * // Create many Achievements
+     * const achievement = await prisma.achievement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AchievementCreateManyArgs>(args?: SelectSubset<T, AchievementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Achievements and returns the data saved in the database.
+     * @param {AchievementCreateManyAndReturnArgs} args - Arguments to create many Achievements.
+     * @example
+     * // Create many Achievements
+     * const achievement = await prisma.achievement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Achievements and only return the `id`
+     * const achievementWithIdOnly = await prisma.achievement.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AchievementCreateManyAndReturnArgs>(args?: SelectSubset<T, AchievementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Achievement.
+     * @param {AchievementDeleteArgs} args - Arguments to delete one Achievement.
+     * @example
+     * // Delete one Achievement
+     * const Achievement = await prisma.achievement.delete({
+     *   where: {
+     *     // ... filter to delete one Achievement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AchievementDeleteArgs>(args: SelectSubset<T, AchievementDeleteArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Achievement.
+     * @param {AchievementUpdateArgs} args - Arguments to update one Achievement.
+     * @example
+     * // Update one Achievement
+     * const achievement = await prisma.achievement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AchievementUpdateArgs>(args: SelectSubset<T, AchievementUpdateArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Achievements.
+     * @param {AchievementDeleteManyArgs} args - Arguments to filter Achievements to delete.
+     * @example
+     * // Delete a few Achievements
+     * const { count } = await prisma.achievement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AchievementDeleteManyArgs>(args?: SelectSubset<T, AchievementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Achievements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Achievements
+     * const achievement = await prisma.achievement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AchievementUpdateManyArgs>(args: SelectSubset<T, AchievementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Achievements and returns the data updated in the database.
+     * @param {AchievementUpdateManyAndReturnArgs} args - Arguments to update many Achievements.
+     * @example
+     * // Update many Achievements
+     * const achievement = await prisma.achievement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Achievements and only return the `id`
+     * const achievementWithIdOnly = await prisma.achievement.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AchievementUpdateManyAndReturnArgs>(args: SelectSubset<T, AchievementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Achievement.
+     * @param {AchievementUpsertArgs} args - Arguments to update or create a Achievement.
+     * @example
+     * // Update or create a Achievement
+     * const achievement = await prisma.achievement.upsert({
+     *   create: {
+     *     // ... data to create a Achievement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Achievement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AchievementUpsertArgs>(args: SelectSubset<T, AchievementUpsertArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Achievements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementCountArgs} args - Arguments to filter Achievements to count.
+     * @example
+     * // Count the number of Achievements
+     * const count = await prisma.achievement.count({
+     *   where: {
+     *     // ... the filter for the Achievements we want to count
+     *   }
+     * })
+    **/
+    count<T extends AchievementCountArgs>(
+      args?: Subset<T, AchievementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AchievementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Achievement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AchievementAggregateArgs>(args: Subset<T, AchievementAggregateArgs>): Prisma.PrismaPromise<GetAchievementAggregateType<T>>
+
+    /**
+     * Group by Achievement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AchievementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AchievementGroupByArgs['orderBy'] }
+        : { orderBy?: AchievementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AchievementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAchievementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Achievement model
+   */
+  readonly fields: AchievementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Achievement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AchievementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    posts<T extends Achievement$postsArgs<ExtArgs> = {}>(args?: Subset<T, Achievement$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Achievement model
+   */
+  interface AchievementFieldRefs {
+    readonly id: FieldRef<"Achievement", 'String'>
+    readonly name: FieldRef<"Achievement", 'String'>
+    readonly description: FieldRef<"Achievement", 'String'>
+    readonly metric: FieldRef<"Achievement", 'String'>
+    readonly value: FieldRef<"Achievement", 'String'>
+    readonly unit: FieldRef<"Achievement", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Achievement findUnique
+   */
+  export type AchievementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+  /**
+   * Achievement findUniqueOrThrow
+   */
+  export type AchievementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+  /**
+   * Achievement findFirst
+   */
+  export type AchievementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Achievements.
+     */
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
+  }
+
+  /**
+   * Achievement findFirstOrThrow
+   */
+  export type AchievementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Achievements.
+     */
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
+  }
+
+  /**
+   * Achievement findMany
+   */
+  export type AchievementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievements to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
+  }
+
+  /**
+   * Achievement create
+   */
+  export type AchievementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Achievement.
+     */
+    data: XOR<AchievementCreateInput, AchievementUncheckedCreateInput>
+  }
+
+  /**
+   * Achievement createMany
+   */
+  export type AchievementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Achievements.
+     */
+    data: AchievementCreateManyInput | AchievementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Achievement createManyAndReturn
+   */
+  export type AchievementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * The data used to create many Achievements.
+     */
+    data: AchievementCreateManyInput | AchievementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Achievement update
+   */
+  export type AchievementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Achievement.
+     */
+    data: XOR<AchievementUpdateInput, AchievementUncheckedUpdateInput>
+    /**
+     * Choose, which Achievement to update.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+  /**
+   * Achievement updateMany
+   */
+  export type AchievementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Achievements.
+     */
+    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyInput>
+    /**
+     * Filter which Achievements to update
+     */
+    where?: AchievementWhereInput
+    /**
+     * Limit how many Achievements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Achievement updateManyAndReturn
+   */
+  export type AchievementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * The data used to update Achievements.
+     */
+    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyInput>
+    /**
+     * Filter which Achievements to update
+     */
+    where?: AchievementWhereInput
+    /**
+     * Limit how many Achievements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Achievement upsert
+   */
+  export type AchievementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Achievement to update in case it exists.
+     */
+    where: AchievementWhereUniqueInput
+    /**
+     * In case the Achievement found by the `where` argument doesn't exist, create a new Achievement with this data.
+     */
+    create: XOR<AchievementCreateInput, AchievementUncheckedCreateInput>
+    /**
+     * In case the Achievement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AchievementUpdateInput, AchievementUncheckedUpdateInput>
+  }
+
+  /**
+   * Achievement delete
+   */
+  export type AchievementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter which Achievement to delete.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+  /**
+   * Achievement deleteMany
+   */
+  export type AchievementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Achievements to delete
+     */
+    where?: AchievementWhereInput
+    /**
+     * Limit how many Achievements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Achievement.posts
+   */
+  export type Achievement$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    where?: PostWhereInput
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    cursor?: PostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * Achievement without action
+   */
+  export type AchievementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model SaunaMeasurement
    */
 
@@ -9369,35 +13830,40 @@ export namespace Prisma {
   export type SaunaMeasurementAvgAggregateOutputType = {
     temperature: number | null
     humidity: number | null
+    precence: number | null
   }
 
   export type SaunaMeasurementSumAggregateOutputType = {
     temperature: number | null
     humidity: number | null
+    precence: number | null
   }
 
   export type SaunaMeasurementMinAggregateOutputType = {
     id: string | null
-    saunaSessionId: string | null
+    saunaId: string | null
     timestamp: Date | null
     temperature: number | null
     humidity: number | null
+    precence: number | null
   }
 
   export type SaunaMeasurementMaxAggregateOutputType = {
     id: string | null
-    saunaSessionId: string | null
+    saunaId: string | null
     timestamp: Date | null
     temperature: number | null
     humidity: number | null
+    precence: number | null
   }
 
   export type SaunaMeasurementCountAggregateOutputType = {
     id: number
-    saunaSessionId: number
+    saunaId: number
     timestamp: number
     temperature: number
     humidity: number
+    precence: number
     _all: number
   }
 
@@ -9405,35 +13871,40 @@ export namespace Prisma {
   export type SaunaMeasurementAvgAggregateInputType = {
     temperature?: true
     humidity?: true
+    precence?: true
   }
 
   export type SaunaMeasurementSumAggregateInputType = {
     temperature?: true
     humidity?: true
+    precence?: true
   }
 
   export type SaunaMeasurementMinAggregateInputType = {
     id?: true
-    saunaSessionId?: true
+    saunaId?: true
     timestamp?: true
     temperature?: true
     humidity?: true
+    precence?: true
   }
 
   export type SaunaMeasurementMaxAggregateInputType = {
     id?: true
-    saunaSessionId?: true
+    saunaId?: true
     timestamp?: true
     temperature?: true
     humidity?: true
+    precence?: true
   }
 
   export type SaunaMeasurementCountAggregateInputType = {
     id?: true
-    saunaSessionId?: true
+    saunaId?: true
     timestamp?: true
     temperature?: true
     humidity?: true
+    precence?: true
     _all?: true
   }
 
@@ -9525,10 +13996,11 @@ export namespace Prisma {
 
   export type SaunaMeasurementGroupByOutputType = {
     id: string
-    saunaSessionId: string
+    saunaId: string
     timestamp: Date
     temperature: number
     humidity: number
+    precence: number
     _count: SaunaMeasurementCountAggregateOutputType | null
     _avg: SaunaMeasurementAvgAggregateOutputType | null
     _sum: SaunaMeasurementSumAggregateOutputType | null
@@ -9552,61 +14024,66 @@ export namespace Prisma {
 
   export type SaunaMeasurementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    saunaSessionId?: boolean
+    saunaId?: boolean
     timestamp?: boolean
     temperature?: boolean
     humidity?: boolean
-    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
+    precence?: boolean
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["saunaMeasurement"]>
 
   export type SaunaMeasurementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    saunaSessionId?: boolean
+    saunaId?: boolean
     timestamp?: boolean
     temperature?: boolean
     humidity?: boolean
-    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
+    precence?: boolean
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["saunaMeasurement"]>
 
   export type SaunaMeasurementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    saunaSessionId?: boolean
+    saunaId?: boolean
     timestamp?: boolean
     temperature?: boolean
     humidity?: boolean
-    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
+    precence?: boolean
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["saunaMeasurement"]>
 
   export type SaunaMeasurementSelectScalar = {
     id?: boolean
-    saunaSessionId?: boolean
+    saunaId?: boolean
     timestamp?: boolean
     temperature?: boolean
     humidity?: boolean
+    precence?: boolean
   }
 
-  export type SaunaMeasurementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "saunaSessionId" | "timestamp" | "temperature" | "humidity", ExtArgs["result"]["saunaMeasurement"]>
+  export type SaunaMeasurementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "saunaId" | "timestamp" | "temperature" | "humidity" | "precence", ExtArgs["result"]["saunaMeasurement"]>
   export type SaunaMeasurementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
   }
   export type SaunaMeasurementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
   }
   export type SaunaMeasurementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
   }
 
   export type $SaunaMeasurementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SaunaMeasurement"
     objects: {
-      saunaSession: Prisma.$SaunaSessionPayload<ExtArgs>
+      sauna: Prisma.$SaunaPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      saunaSessionId: string
+      saunaId: string
       timestamp: Date
       temperature: number
       humidity: number
+      precence: number
     }, ExtArgs["result"]["saunaMeasurement"]>
     composites: {}
   }
@@ -10001,7 +14478,7 @@ export namespace Prisma {
    */
   export interface Prisma__SaunaMeasurementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    saunaSession<T extends SaunaSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SaunaSessionDefaultArgs<ExtArgs>>): Prisma__SaunaSessionClient<$Result.GetResult<Prisma.$SaunaSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sauna<T extends SaunaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SaunaDefaultArgs<ExtArgs>>): Prisma__SaunaClient<$Result.GetResult<Prisma.$SaunaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10032,10 +14509,11 @@ export namespace Prisma {
    */
   interface SaunaMeasurementFieldRefs {
     readonly id: FieldRef<"SaunaMeasurement", 'String'>
-    readonly saunaSessionId: FieldRef<"SaunaMeasurement", 'String'>
+    readonly saunaId: FieldRef<"SaunaMeasurement", 'String'>
     readonly timestamp: FieldRef<"SaunaMeasurement", 'DateTime'>
     readonly temperature: FieldRef<"SaunaMeasurement", 'Float'>
     readonly humidity: FieldRef<"SaunaMeasurement", 'Float'>
+    readonly precence: FieldRef<"SaunaMeasurement", 'Float'>
   }
     
 
@@ -10265,6 +14743,7 @@ export namespace Prisma {
      * The data used to create many SaunaMeasurements.
      */
     data: SaunaMeasurementCreateManyInput | SaunaMeasurementCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -10283,6 +14762,7 @@ export namespace Prisma {
      * The data used to create many SaunaMeasurements.
      */
     data: SaunaMeasurementCreateManyInput | SaunaMeasurementCreateManyInput[]
+    skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -10449,10 +14929,2248 @@ export namespace Prisma {
 
 
   /**
+   * Model Comment
+   */
+
+  export type AggregateComment = {
+    _count: CommentCountAggregateOutputType | null
+    _avg: CommentAvgAggregateOutputType | null
+    _sum: CommentSumAggregateOutputType | null
+    _min: CommentMinAggregateOutputType | null
+    _max: CommentMaxAggregateOutputType | null
+  }
+
+  export type CommentAvgAggregateOutputType = {
+    postId: number | null
+  }
+
+  export type CommentSumAggregateOutputType = {
+    postId: number | null
+  }
+
+  export type CommentMinAggregateOutputType = {
+    id: string | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    createdById: string | null
+    postId: number | null
+  }
+
+  export type CommentMaxAggregateOutputType = {
+    id: string | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    createdById: string | null
+    postId: number | null
+  }
+
+  export type CommentCountAggregateOutputType = {
+    id: number
+    content: number
+    createdAt: number
+    updatedAt: number
+    createdById: number
+    postId: number
+    _all: number
+  }
+
+
+  export type CommentAvgAggregateInputType = {
+    postId?: true
+  }
+
+  export type CommentSumAggregateInputType = {
+    postId?: true
+  }
+
+  export type CommentMinAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+    postId?: true
+  }
+
+  export type CommentMaxAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+    postId?: true
+  }
+
+  export type CommentCountAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+    postId?: true
+    _all?: true
+  }
+
+  export type CommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comment to aggregate.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Comments
+    **/
+    _count?: true | CommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CommentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommentMaxAggregateInputType
+  }
+
+  export type GetCommentAggregateType<T extends CommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComment[P]>
+      : GetScalarType<T[P], AggregateComment[P]>
+  }
+
+
+
+
+  export type CommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithAggregationInput | CommentOrderByWithAggregationInput[]
+    by: CommentScalarFieldEnum[] | CommentScalarFieldEnum
+    having?: CommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommentCountAggregateInputType | true
+    _avg?: CommentAvgAggregateInputType
+    _sum?: CommentSumAggregateInputType
+    _min?: CommentMinAggregateInputType
+    _max?: CommentMaxAggregateInputType
+  }
+
+  export type CommentGroupByOutputType = {
+    id: string
+    content: string
+    createdAt: Date
+    updatedAt: Date
+    createdById: string
+    postId: number
+    _count: CommentCountAggregateOutputType | null
+    _avg: CommentAvgAggregateOutputType | null
+    _sum: CommentSumAggregateOutputType | null
+    _min: CommentMinAggregateOutputType | null
+    _max: CommentMaxAggregateOutputType | null
+  }
+
+  type GetCommentGroupByPayload<T extends CommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommentGroupByOutputType[P]>
+            : GetScalarType<T[P], CommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    postId?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    postId?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    postId?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectScalar = {
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    postId?: boolean
+  }
+
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "createdAt" | "updatedAt" | "createdById" | "postId", ExtArgs["result"]["comment"]>
+  export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+  export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+  export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+
+  export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Comment"
+    objects: {
+      createdBy: Prisma.$UserPayload<ExtArgs>
+      post: Prisma.$PostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      content: string
+      createdAt: Date
+      updatedAt: Date
+      createdById: string
+      postId: number
+    }, ExtArgs["result"]["comment"]>
+    composites: {}
+  }
+
+  type CommentGetPayload<S extends boolean | null | undefined | CommentDefaultArgs> = $Result.GetResult<Prisma.$CommentPayload, S>
+
+  type CommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommentCountAggregateInputType | true
+    }
+
+  export interface CommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Comment'], meta: { name: 'Comment' } }
+    /**
+     * Find zero or one Comment that matches the filter.
+     * @param {CommentFindUniqueArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommentFindUniqueArgs>(args: SelectSubset<T, CommentFindUniqueArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Comment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommentFindUniqueOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommentFindUniqueOrThrowArgs>(args: SelectSubset<T, CommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Comment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommentFindFirstArgs>(args?: SelectSubset<T, CommentFindFirstArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Comment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommentFindFirstOrThrowArgs>(args?: SelectSubset<T, CommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Comments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Comments
+     * const comments = await prisma.comment.findMany()
+     * 
+     * // Get first 10 Comments
+     * const comments = await prisma.comment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const commentWithIdOnly = await prisma.comment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommentFindManyArgs>(args?: SelectSubset<T, CommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Comment.
+     * @param {CommentCreateArgs} args - Arguments to create a Comment.
+     * @example
+     * // Create one Comment
+     * const Comment = await prisma.comment.create({
+     *   data: {
+     *     // ... data to create a Comment
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommentCreateArgs>(args: SelectSubset<T, CommentCreateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Comments.
+     * @param {CommentCreateManyArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommentCreateManyArgs>(args?: SelectSubset<T, CommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Comments and returns the data saved in the database.
+     * @param {CommentCreateManyAndReturnArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommentCreateManyAndReturnArgs>(args?: SelectSubset<T, CommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Comment.
+     * @param {CommentDeleteArgs} args - Arguments to delete one Comment.
+     * @example
+     * // Delete one Comment
+     * const Comment = await prisma.comment.delete({
+     *   where: {
+     *     // ... filter to delete one Comment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommentDeleteArgs>(args: SelectSubset<T, CommentDeleteArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Comment.
+     * @param {CommentUpdateArgs} args - Arguments to update one Comment.
+     * @example
+     * // Update one Comment
+     * const comment = await prisma.comment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommentUpdateArgs>(args: SelectSubset<T, CommentUpdateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Comments.
+     * @param {CommentDeleteManyArgs} args - Arguments to filter Comments to delete.
+     * @example
+     * // Delete a few Comments
+     * const { count } = await prisma.comment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommentDeleteManyArgs>(args?: SelectSubset<T, CommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommentUpdateManyArgs>(args: SelectSubset<T, CommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Comments and returns the data updated in the database.
+     * @param {CommentUpdateManyAndReturnArgs} args - Arguments to update many Comments.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommentUpdateManyAndReturnArgs>(args: SelectSubset<T, CommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Comment.
+     * @param {CommentUpsertArgs} args - Arguments to update or create a Comment.
+     * @example
+     * // Update or create a Comment
+     * const comment = await prisma.comment.upsert({
+     *   create: {
+     *     // ... data to create a Comment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Comment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommentUpsertArgs>(args: SelectSubset<T, CommentUpsertArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentCountArgs} args - Arguments to filter Comments to count.
+     * @example
+     * // Count the number of Comments
+     * const count = await prisma.comment.count({
+     *   where: {
+     *     // ... the filter for the Comments we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommentCountArgs>(
+      args?: Subset<T, CommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommentAggregateArgs>(args: Subset<T, CommentAggregateArgs>): Prisma.PrismaPromise<GetCommentAggregateType<T>>
+
+    /**
+     * Group by Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommentGroupByArgs['orderBy'] }
+        : { orderBy?: CommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Comment model
+   */
+  readonly fields: CommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Comment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Comment model
+   */
+  interface CommentFieldRefs {
+    readonly id: FieldRef<"Comment", 'String'>
+    readonly content: FieldRef<"Comment", 'String'>
+    readonly createdAt: FieldRef<"Comment", 'DateTime'>
+    readonly updatedAt: FieldRef<"Comment", 'DateTime'>
+    readonly createdById: FieldRef<"Comment", 'String'>
+    readonly postId: FieldRef<"Comment", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Comment findUnique
+   */
+  export type CommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment findUniqueOrThrow
+   */
+  export type CommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment findFirst
+   */
+  export type CommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment findFirstOrThrow
+   */
+  export type CommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment findMany
+   */
+  export type CommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comments to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment create
+   */
+  export type CommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Comment.
+     */
+    data: XOR<CommentCreateInput, CommentUncheckedCreateInput>
+  }
+
+  /**
+   * Comment createMany
+   */
+  export type CommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Comment createManyAndReturn
+   */
+  export type CommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Comment update
+   */
+  export type CommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Comment.
+     */
+    data: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
+    /**
+     * Choose, which Comment to update.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment updateMany
+   */
+  export type CommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Comment updateManyAndReturn
+   */
+  export type CommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Comment upsert
+   */
+  export type CommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Comment to update in case it exists.
+     */
+    where: CommentWhereUniqueInput
+    /**
+     * In case the Comment found by the `where` argument doesn't exist, create a new Comment with this data.
+     */
+    create: XOR<CommentCreateInput, CommentUncheckedCreateInput>
+    /**
+     * In case the Comment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
+  }
+
+  /**
+   * Comment delete
+   */
+  export type CommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter which Comment to delete.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment deleteMany
+   */
+  export type CommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comments to delete
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Comment without action
+   */
+  export type CommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Event
+   */
+
+  export type AggregateEvent = {
+    _count: EventCountAggregateOutputType | null
+    _min: EventMinAggregateOutputType | null
+    _max: EventMaxAggregateOutputType | null
+  }
+
+  export type EventMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    date: Date | null
+    location: string | null
+    saunaId: string | null
+    createdById: string | null
+  }
+
+  export type EventMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    date: Date | null
+    location: string | null
+    saunaId: string | null
+    createdById: string | null
+  }
+
+  export type EventCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    date: number
+    location: number
+    saunaId: number
+    createdById: number
+    _all: number
+  }
+
+
+  export type EventMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    date?: true
+    location?: true
+    saunaId?: true
+    createdById?: true
+  }
+
+  export type EventMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    date?: true
+    location?: true
+    saunaId?: true
+    createdById?: true
+  }
+
+  export type EventCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    date?: true
+    location?: true
+    saunaId?: true
+    createdById?: true
+    _all?: true
+  }
+
+  export type EventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Event to aggregate.
+     */
+    where?: EventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Events to fetch.
+     */
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Events
+    **/
+    _count?: true | EventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EventMaxAggregateInputType
+  }
+
+  export type GetEventAggregateType<T extends EventAggregateArgs> = {
+        [P in keyof T & keyof AggregateEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEvent[P]>
+      : GetScalarType<T[P], AggregateEvent[P]>
+  }
+
+
+
+
+  export type EventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventWhereInput
+    orderBy?: EventOrderByWithAggregationInput | EventOrderByWithAggregationInput[]
+    by: EventScalarFieldEnum[] | EventScalarFieldEnum
+    having?: EventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EventCountAggregateInputType | true
+    _min?: EventMinAggregateInputType
+    _max?: EventMaxAggregateInputType
+  }
+
+  export type EventGroupByOutputType = {
+    id: string
+    name: string
+    description: string
+    date: Date
+    location: string
+    saunaId: string
+    createdById: string
+    _count: EventCountAggregateOutputType | null
+    _min: EventMinAggregateOutputType | null
+    _max: EventMaxAggregateOutputType | null
+  }
+
+  type GetEventGroupByPayload<T extends EventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EventGroupByOutputType[P]>
+            : GetScalarType<T[P], EventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    date?: boolean
+    location?: boolean
+    saunaId?: boolean
+    createdById?: boolean
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    participants?: boolean | Event$participantsArgs<ExtArgs>
+    _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["event"]>
+
+  export type EventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    date?: boolean
+    location?: boolean
+    saunaId?: boolean
+    createdById?: boolean
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["event"]>
+
+  export type EventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    date?: boolean
+    location?: boolean
+    saunaId?: boolean
+    createdById?: boolean
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["event"]>
+
+  export type EventSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    date?: boolean
+    location?: boolean
+    saunaId?: boolean
+    createdById?: boolean
+  }
+
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "date" | "location" | "saunaId" | "createdById", ExtArgs["result"]["event"]>
+  export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    participants?: boolean | Event$participantsArgs<ExtArgs>
+    _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type EventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sauna?: boolean | SaunaDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $EventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Event"
+    objects: {
+      sauna: Prisma.$SaunaPayload<ExtArgs>
+      createdBy: Prisma.$UserPayload<ExtArgs>
+      participants: Prisma.$UserPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string
+      date: Date
+      location: string
+      saunaId: string
+      createdById: string
+    }, ExtArgs["result"]["event"]>
+    composites: {}
+  }
+
+  type EventGetPayload<S extends boolean | null | undefined | EventDefaultArgs> = $Result.GetResult<Prisma.$EventPayload, S>
+
+  type EventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EventCountAggregateInputType | true
+    }
+
+  export interface EventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Event'], meta: { name: 'Event' } }
+    /**
+     * Find zero or one Event that matches the filter.
+     * @param {EventFindUniqueArgs} args - Arguments to find a Event
+     * @example
+     * // Get one Event
+     * const event = await prisma.event.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EventFindUniqueArgs>(args: SelectSubset<T, EventFindUniqueArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Event that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EventFindUniqueOrThrowArgs} args - Arguments to find a Event
+     * @example
+     * // Get one Event
+     * const event = await prisma.event.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EventFindUniqueOrThrowArgs>(args: SelectSubset<T, EventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Event that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventFindFirstArgs} args - Arguments to find a Event
+     * @example
+     * // Get one Event
+     * const event = await prisma.event.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EventFindFirstArgs>(args?: SelectSubset<T, EventFindFirstArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Event that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventFindFirstOrThrowArgs} args - Arguments to find a Event
+     * @example
+     * // Get one Event
+     * const event = await prisma.event.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EventFindFirstOrThrowArgs>(args?: SelectSubset<T, EventFindFirstOrThrowArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Events that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Events
+     * const events = await prisma.event.findMany()
+     * 
+     * // Get first 10 Events
+     * const events = await prisma.event.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eventWithIdOnly = await prisma.event.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EventFindManyArgs>(args?: SelectSubset<T, EventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Event.
+     * @param {EventCreateArgs} args - Arguments to create a Event.
+     * @example
+     * // Create one Event
+     * const Event = await prisma.event.create({
+     *   data: {
+     *     // ... data to create a Event
+     *   }
+     * })
+     * 
+     */
+    create<T extends EventCreateArgs>(args: SelectSubset<T, EventCreateArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Events.
+     * @param {EventCreateManyArgs} args - Arguments to create many Events.
+     * @example
+     * // Create many Events
+     * const event = await prisma.event.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EventCreateManyArgs>(args?: SelectSubset<T, EventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Events and returns the data saved in the database.
+     * @param {EventCreateManyAndReturnArgs} args - Arguments to create many Events.
+     * @example
+     * // Create many Events
+     * const event = await prisma.event.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Events and only return the `id`
+     * const eventWithIdOnly = await prisma.event.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EventCreateManyAndReturnArgs>(args?: SelectSubset<T, EventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Event.
+     * @param {EventDeleteArgs} args - Arguments to delete one Event.
+     * @example
+     * // Delete one Event
+     * const Event = await prisma.event.delete({
+     *   where: {
+     *     // ... filter to delete one Event
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EventDeleteArgs>(args: SelectSubset<T, EventDeleteArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Event.
+     * @param {EventUpdateArgs} args - Arguments to update one Event.
+     * @example
+     * // Update one Event
+     * const event = await prisma.event.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EventUpdateArgs>(args: SelectSubset<T, EventUpdateArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Events.
+     * @param {EventDeleteManyArgs} args - Arguments to filter Events to delete.
+     * @example
+     * // Delete a few Events
+     * const { count } = await prisma.event.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EventDeleteManyArgs>(args?: SelectSubset<T, EventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Events
+     * const event = await prisma.event.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EventUpdateManyArgs>(args: SelectSubset<T, EventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Events and returns the data updated in the database.
+     * @param {EventUpdateManyAndReturnArgs} args - Arguments to update many Events.
+     * @example
+     * // Update many Events
+     * const event = await prisma.event.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Events and only return the `id`
+     * const eventWithIdOnly = await prisma.event.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EventUpdateManyAndReturnArgs>(args: SelectSubset<T, EventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Event.
+     * @param {EventUpsertArgs} args - Arguments to update or create a Event.
+     * @example
+     * // Update or create a Event
+     * const event = await prisma.event.upsert({
+     *   create: {
+     *     // ... data to create a Event
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Event we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EventUpsertArgs>(args: SelectSubset<T, EventUpsertArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventCountArgs} args - Arguments to filter Events to count.
+     * @example
+     * // Count the number of Events
+     * const count = await prisma.event.count({
+     *   where: {
+     *     // ... the filter for the Events we want to count
+     *   }
+     * })
+    **/
+    count<T extends EventCountArgs>(
+      args?: Subset<T, EventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Event.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EventAggregateArgs>(args: Subset<T, EventAggregateArgs>): Prisma.PrismaPromise<GetEventAggregateType<T>>
+
+    /**
+     * Group by Event.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EventGroupByArgs['orderBy'] }
+        : { orderBy?: EventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Event model
+   */
+  readonly fields: EventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Event.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sauna<T extends SaunaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SaunaDefaultArgs<ExtArgs>>): Prisma__SaunaClient<$Result.GetResult<Prisma.$SaunaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    participants<T extends Event$participantsArgs<ExtArgs> = {}>(args?: Subset<T, Event$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Event model
+   */
+  interface EventFieldRefs {
+    readonly id: FieldRef<"Event", 'String'>
+    readonly name: FieldRef<"Event", 'String'>
+    readonly description: FieldRef<"Event", 'String'>
+    readonly date: FieldRef<"Event", 'DateTime'>
+    readonly location: FieldRef<"Event", 'String'>
+    readonly saunaId: FieldRef<"Event", 'String'>
+    readonly createdById: FieldRef<"Event", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Event findUnique
+   */
+  export type EventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Event to fetch.
+     */
+    where: EventWhereUniqueInput
+  }
+
+  /**
+   * Event findUniqueOrThrow
+   */
+  export type EventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Event to fetch.
+     */
+    where: EventWhereUniqueInput
+  }
+
+  /**
+   * Event findFirst
+   */
+  export type EventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Event to fetch.
+     */
+    where?: EventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Events to fetch.
+     */
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Events.
+     */
+    cursor?: EventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Events.
+     */
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * Event findFirstOrThrow
+   */
+  export type EventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Event to fetch.
+     */
+    where?: EventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Events to fetch.
+     */
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Events.
+     */
+    cursor?: EventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Events.
+     */
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * Event findMany
+   */
+  export type EventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter, which Events to fetch.
+     */
+    where?: EventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Events to fetch.
+     */
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Events.
+     */
+    cursor?: EventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Events.
+     */
+    skip?: number
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * Event create
+   */
+  export type EventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Event.
+     */
+    data: XOR<EventCreateInput, EventUncheckedCreateInput>
+  }
+
+  /**
+   * Event createMany
+   */
+  export type EventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Events.
+     */
+    data: EventCreateManyInput | EventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Event createManyAndReturn
+   */
+  export type EventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * The data used to create many Events.
+     */
+    data: EventCreateManyInput | EventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Event update
+   */
+  export type EventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Event.
+     */
+    data: XOR<EventUpdateInput, EventUncheckedUpdateInput>
+    /**
+     * Choose, which Event to update.
+     */
+    where: EventWhereUniqueInput
+  }
+
+  /**
+   * Event updateMany
+   */
+  export type EventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Events.
+     */
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyInput>
+    /**
+     * Filter which Events to update
+     */
+    where?: EventWhereInput
+    /**
+     * Limit how many Events to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Event updateManyAndReturn
+   */
+  export type EventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * The data used to update Events.
+     */
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyInput>
+    /**
+     * Filter which Events to update
+     */
+    where?: EventWhereInput
+    /**
+     * Limit how many Events to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Event upsert
+   */
+  export type EventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Event to update in case it exists.
+     */
+    where: EventWhereUniqueInput
+    /**
+     * In case the Event found by the `where` argument doesn't exist, create a new Event with this data.
+     */
+    create: XOR<EventCreateInput, EventUncheckedCreateInput>
+    /**
+     * In case the Event was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EventUpdateInput, EventUncheckedUpdateInput>
+  }
+
+  /**
+   * Event delete
+   */
+  export type EventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    /**
+     * Filter which Event to delete.
+     */
+    where: EventWhereUniqueInput
+  }
+
+  /**
+   * Event deleteMany
+   */
+  export type EventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Events to delete
+     */
+    where?: EventWhereInput
+    /**
+     * Limit how many Events to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Event.participants
+   */
+  export type Event$participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Event without action
+   */
+  export type EventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
   export const TransactionIsolationLevel: {
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
   };
 
@@ -10462,9 +17180,12 @@ export namespace Prisma {
   export const PostScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    description: 'description',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    createdById: 'createdById'
+    createdById: 'createdById',
+    saunaSessionId: 'saunaSessionId',
+    achievementId: 'achievementId'
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -10483,7 +17204,8 @@ export namespace Prisma {
     scope: 'scope',
     id_token: 'id_token',
     session_state: 'session_state',
-    refresh_token_expires_in: 'refresh_token_expires_in'
+    refresh_token_expires_in: 'refresh_token_expires_in',
+    email: 'email'
   };
 
   export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -10523,8 +17245,7 @@ export namespace Prisma {
     id: 'id',
     harviaDeviceId: 'harviaDeviceId',
     name: 'name',
-    location: 'location',
-    userId: 'userId'
+    location: 'location'
   };
 
   export type SaunaScalarFieldEnum = (typeof SaunaScalarFieldEnum)[keyof typeof SaunaScalarFieldEnum]
@@ -10539,22 +17260,88 @@ export namespace Prisma {
     durationMs: 'durationMs',
     maxTemperature: 'maxTemperature',
     avgTemperature: 'avgTemperature',
+    minTemperature: 'minTemperature',
     maxHumidity: 'maxHumidity',
-    avgHumidity: 'avgHumidity'
+    avgHumidity: 'avgHumidity',
+    minHumidity: 'minHumidity',
+    maxPresence: 'maxPresence',
+    avgPresence: 'avgPresence',
+    latestPIRTimestamp: 'latestPIRTimestamp',
+    status: 'status',
+    endedManually: 'endedManually',
+    manual: 'manual'
   };
 
   export type SaunaSessionScalarFieldEnum = (typeof SaunaSessionScalarFieldEnum)[keyof typeof SaunaSessionScalarFieldEnum]
 
 
+  export const LikeScalarFieldEnum: {
+    id: 'id',
+    postId: 'postId',
+    userId: 'userId',
+    createdAt: 'createdAt'
+  };
+
+  export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof LikeScalarFieldEnum]
+
+
+  export const PostImageScalarFieldEnum: {
+    id: 'id',
+    postId: 'postId',
+    url: 'url',
+    createdAt: 'createdAt'
+  };
+
+  export type PostImageScalarFieldEnum = (typeof PostImageScalarFieldEnum)[keyof typeof PostImageScalarFieldEnum]
+
+
+  export const AchievementScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    metric: 'metric',
+    value: 'value',
+    unit: 'unit'
+  };
+
+  export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
+
+
   export const SaunaMeasurementScalarFieldEnum: {
     id: 'id',
-    saunaSessionId: 'saunaSessionId',
+    saunaId: 'saunaId',
     timestamp: 'timestamp',
     temperature: 'temperature',
-    humidity: 'humidity'
+    humidity: 'humidity',
+    precence: 'precence'
   };
 
   export type SaunaMeasurementScalarFieldEnum = (typeof SaunaMeasurementScalarFieldEnum)[keyof typeof SaunaMeasurementScalarFieldEnum]
+
+
+  export const CommentScalarFieldEnum: {
+    id: 'id',
+    content: 'content',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    createdById: 'createdById',
+    postId: 'postId'
+  };
+
+  export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+  export const EventScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    date: 'date',
+    location: 'location',
+    saunaId: 'saunaId',
+    createdById: 'createdById'
+  };
+
+  export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10563,6 +17350,14 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
   export const NullsOrder: {
@@ -10586,9 +17381,23 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
     
 
 
@@ -10600,9 +17409,44 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SaunaSessionStatus'
+   */
+  export type EnumSaunaSessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SaunaSessionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SaunaSessionStatus[]'
+   */
+  export type ListEnumSaunaSessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SaunaSessionStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -10615,19 +17459,35 @@ export namespace Prisma {
     NOT?: PostWhereInput | PostWhereInput[]
     id?: IntFilter<"Post"> | number
     name?: StringFilter<"Post"> | string
+    description?: StringNullableFilter<"Post"> | string | null
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdById?: StringFilter<"Post"> | string
+    saunaSessionId?: StringNullableFilter<"Post"> | string | null
+    achievementId?: StringNullableFilter<"Post"> | string | null
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    saunaSession?: XOR<SaunaSessionNullableScalarRelationFilter, SaunaSessionWhereInput> | null
+    achievement?: XOR<AchievementNullableScalarRelationFilter, AchievementWhereInput> | null
+    likes?: LikeListRelationFilter
+    images?: PostImageListRelationFilter
+    comments?: CommentListRelationFilter
   }
 
   export type PostOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
+    saunaSessionId?: SortOrderInput | SortOrder
+    achievementId?: SortOrderInput | SortOrder
     createdBy?: UserOrderByWithRelationInput
+    saunaSession?: SaunaSessionOrderByWithRelationInput
+    achievement?: AchievementOrderByWithRelationInput
+    likes?: LikeOrderByRelationAggregateInput
+    images?: PostImageOrderByRelationAggregateInput
+    comments?: CommentOrderByRelationAggregateInput
   }
 
   export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -10636,18 +17496,29 @@ export namespace Prisma {
     OR?: PostWhereInput[]
     NOT?: PostWhereInput | PostWhereInput[]
     name?: StringFilter<"Post"> | string
+    description?: StringNullableFilter<"Post"> | string | null
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdById?: StringFilter<"Post"> | string
+    saunaSessionId?: StringNullableFilter<"Post"> | string | null
+    achievementId?: StringNullableFilter<"Post"> | string | null
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    saunaSession?: XOR<SaunaSessionNullableScalarRelationFilter, SaunaSessionWhereInput> | null
+    achievement?: XOR<AchievementNullableScalarRelationFilter, AchievementWhereInput> | null
+    likes?: LikeListRelationFilter
+    images?: PostImageListRelationFilter
+    comments?: CommentListRelationFilter
   }, "id">
 
   export type PostOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
+    saunaSessionId?: SortOrderInput | SortOrder
+    achievementId?: SortOrderInput | SortOrder
     _count?: PostCountOrderByAggregateInput
     _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
@@ -10661,9 +17532,12 @@ export namespace Prisma {
     NOT?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Post"> | number
     name?: StringWithAggregatesFilter<"Post"> | string
+    description?: StringNullableWithAggregatesFilter<"Post"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     createdById?: StringWithAggregatesFilter<"Post"> | string
+    saunaSessionId?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    achievementId?: StringNullableWithAggregatesFilter<"Post"> | string | null
   }
 
   export type AccountWhereInput = {
@@ -10683,6 +17557,7 @@ export namespace Prisma {
     id_token?: StringNullableFilter<"Account"> | string | null
     session_state?: StringNullableFilter<"Account"> | string | null
     refresh_token_expires_in?: IntNullableFilter<"Account"> | number | null
+    email?: StringNullableFilter<"Account"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -10700,6 +17575,7 @@ export namespace Prisma {
     id_token?: SortOrderInput | SortOrder
     session_state?: SortOrderInput | SortOrder
     refresh_token_expires_in?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -10721,6 +17597,7 @@ export namespace Prisma {
     id_token?: StringNullableFilter<"Account"> | string | null
     session_state?: StringNullableFilter<"Account"> | string | null
     refresh_token_expires_in?: IntNullableFilter<"Account"> | number | null
+    email?: StringNullableFilter<"Account"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "provider_providerAccountId">
 
@@ -10738,6 +17615,7 @@ export namespace Prisma {
     id_token?: SortOrderInput | SortOrder
     session_state?: SortOrderInput | SortOrder
     refresh_token_expires_in?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
     _count?: AccountCountOrderByAggregateInput
     _avg?: AccountAvgOrderByAggregateInput
     _max?: AccountMaxOrderByAggregateInput
@@ -10762,6 +17640,7 @@ export namespace Prisma {
     id_token?: StringNullableWithAggregatesFilter<"Account"> | string | null
     session_state?: StringNullableWithAggregatesFilter<"Account"> | string | null
     refresh_token_expires_in?: IntNullableWithAggregatesFilter<"Account"> | number | null
+    email?: StringNullableWithAggregatesFilter<"Account"> | string | null
   }
 
   export type SessionWhereInput = {
@@ -10827,6 +17706,11 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     posts?: PostListRelationFilter
     saunas?: SaunaListRelationFilter
+    saunaSessions?: SaunaSessionListRelationFilter
+    likes?: LikeListRelationFilter
+    comments?: CommentListRelationFilter
+    createdEvents?: EventListRelationFilter
+    participatedEvents?: EventListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10839,6 +17723,11 @@ export namespace Prisma {
     sessions?: SessionOrderByRelationAggregateInput
     posts?: PostOrderByRelationAggregateInput
     saunas?: SaunaOrderByRelationAggregateInput
+    saunaSessions?: SaunaSessionOrderByRelationAggregateInput
+    likes?: LikeOrderByRelationAggregateInput
+    comments?: CommentOrderByRelationAggregateInput
+    createdEvents?: EventOrderByRelationAggregateInput
+    participatedEvents?: EventOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10854,6 +17743,11 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     posts?: PostListRelationFilter
     saunas?: SaunaListRelationFilter
+    saunaSessions?: SaunaSessionListRelationFilter
+    likes?: LikeListRelationFilter
+    comments?: CommentListRelationFilter
+    createdEvents?: EventListRelationFilter
+    participatedEvents?: EventListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10929,9 +17823,10 @@ export namespace Prisma {
     harviaDeviceId?: StringFilter<"Sauna"> | string
     name?: StringFilter<"Sauna"> | string
     location?: StringNullableFilter<"Sauna"> | string | null
-    userId?: StringFilter<"Sauna"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    users?: UserListRelationFilter
     sessions?: SaunaSessionListRelationFilter
+    saunaMeasurements?: SaunaMeasurementListRelationFilter
+    events?: EventListRelationFilter
   }
 
   export type SaunaOrderByWithRelationInput = {
@@ -10939,9 +17834,10 @@ export namespace Prisma {
     harviaDeviceId?: SortOrder
     name?: SortOrder
     location?: SortOrderInput | SortOrder
-    userId?: SortOrder
-    user?: UserOrderByWithRelationInput
+    users?: UserOrderByRelationAggregateInput
     sessions?: SaunaSessionOrderByRelationAggregateInput
+    saunaMeasurements?: SaunaMeasurementOrderByRelationAggregateInput
+    events?: EventOrderByRelationAggregateInput
   }
 
   export type SaunaWhereUniqueInput = Prisma.AtLeast<{
@@ -10952,9 +17848,10 @@ export namespace Prisma {
     NOT?: SaunaWhereInput | SaunaWhereInput[]
     name?: StringFilter<"Sauna"> | string
     location?: StringNullableFilter<"Sauna"> | string | null
-    userId?: StringFilter<"Sauna"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    users?: UserListRelationFilter
     sessions?: SaunaSessionListRelationFilter
+    saunaMeasurements?: SaunaMeasurementListRelationFilter
+    events?: EventListRelationFilter
   }, "id" | "harviaDeviceId">
 
   export type SaunaOrderByWithAggregationInput = {
@@ -10962,7 +17859,6 @@ export namespace Prisma {
     harviaDeviceId?: SortOrder
     name?: SortOrder
     location?: SortOrderInput | SortOrder
-    userId?: SortOrder
     _count?: SaunaCountOrderByAggregateInput
     _max?: SaunaMaxOrderByAggregateInput
     _min?: SaunaMinOrderByAggregateInput
@@ -10976,7 +17872,6 @@ export namespace Prisma {
     harviaDeviceId?: StringWithAggregatesFilter<"Sauna"> | string
     name?: StringWithAggregatesFilter<"Sauna"> | string
     location?: StringNullableWithAggregatesFilter<"Sauna"> | string | null
-    userId?: StringWithAggregatesFilter<"Sauna"> | string
   }
 
   export type SaunaSessionWhereInput = {
@@ -10984,63 +17879,98 @@ export namespace Prisma {
     OR?: SaunaSessionWhereInput[]
     NOT?: SaunaSessionWhereInput | SaunaSessionWhereInput[]
     id?: StringFilter<"SaunaSession"> | string
-    harviaSessionId?: StringFilter<"SaunaSession"> | string
+    harviaSessionId?: StringNullableFilter<"SaunaSession"> | string | null
     saunaId?: StringFilter<"SaunaSession"> | string
     startTimestamp?: DateTimeFilter<"SaunaSession"> | Date | string
-    endTimestamp?: DateTimeFilter<"SaunaSession"> | Date | string
-    durationMs?: FloatFilter<"SaunaSession"> | number
+    endTimestamp?: DateTimeNullableFilter<"SaunaSession"> | Date | string | null
+    durationMs?: FloatNullableFilter<"SaunaSession"> | number | null
     maxTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
     avgTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
+    minTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
     maxHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
     avgHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
+    minHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
+    maxPresence?: FloatNullableFilter<"SaunaSession"> | number | null
+    avgPresence?: FloatNullableFilter<"SaunaSession"> | number | null
+    latestPIRTimestamp?: DateTimeNullableFilter<"SaunaSession"> | Date | string | null
+    status?: EnumSaunaSessionStatusFilter<"SaunaSession"> | $Enums.SaunaSessionStatus
+    endedManually?: BoolFilter<"SaunaSession"> | boolean
+    manual?: BoolFilter<"SaunaSession"> | boolean
     sauna?: XOR<SaunaScalarRelationFilter, SaunaWhereInput>
-    measurements?: SaunaMeasurementListRelationFilter
+    participants?: UserListRelationFilter
+    posts?: PostListRelationFilter
   }
 
   export type SaunaSessionOrderByWithRelationInput = {
     id?: SortOrder
-    harviaSessionId?: SortOrder
+    harviaSessionId?: SortOrderInput | SortOrder
     saunaId?: SortOrder
     startTimestamp?: SortOrder
-    endTimestamp?: SortOrder
-    durationMs?: SortOrder
+    endTimestamp?: SortOrderInput | SortOrder
+    durationMs?: SortOrderInput | SortOrder
     maxTemperature?: SortOrderInput | SortOrder
     avgTemperature?: SortOrderInput | SortOrder
+    minTemperature?: SortOrderInput | SortOrder
     maxHumidity?: SortOrderInput | SortOrder
     avgHumidity?: SortOrderInput | SortOrder
+    minHumidity?: SortOrderInput | SortOrder
+    maxPresence?: SortOrderInput | SortOrder
+    avgPresence?: SortOrderInput | SortOrder
+    latestPIRTimestamp?: SortOrderInput | SortOrder
+    status?: SortOrder
+    endedManually?: SortOrder
+    manual?: SortOrder
     sauna?: SaunaOrderByWithRelationInput
-    measurements?: SaunaMeasurementOrderByRelationAggregateInput
+    participants?: UserOrderByRelationAggregateInput
+    posts?: PostOrderByRelationAggregateInput
   }
 
   export type SaunaSessionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    harviaSessionId?: string
     AND?: SaunaSessionWhereInput | SaunaSessionWhereInput[]
     OR?: SaunaSessionWhereInput[]
     NOT?: SaunaSessionWhereInput | SaunaSessionWhereInput[]
+    harviaSessionId?: StringNullableFilter<"SaunaSession"> | string | null
     saunaId?: StringFilter<"SaunaSession"> | string
     startTimestamp?: DateTimeFilter<"SaunaSession"> | Date | string
-    endTimestamp?: DateTimeFilter<"SaunaSession"> | Date | string
-    durationMs?: FloatFilter<"SaunaSession"> | number
+    endTimestamp?: DateTimeNullableFilter<"SaunaSession"> | Date | string | null
+    durationMs?: FloatNullableFilter<"SaunaSession"> | number | null
     maxTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
     avgTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
+    minTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
     maxHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
     avgHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
+    minHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
+    maxPresence?: FloatNullableFilter<"SaunaSession"> | number | null
+    avgPresence?: FloatNullableFilter<"SaunaSession"> | number | null
+    latestPIRTimestamp?: DateTimeNullableFilter<"SaunaSession"> | Date | string | null
+    status?: EnumSaunaSessionStatusFilter<"SaunaSession"> | $Enums.SaunaSessionStatus
+    endedManually?: BoolFilter<"SaunaSession"> | boolean
+    manual?: BoolFilter<"SaunaSession"> | boolean
     sauna?: XOR<SaunaScalarRelationFilter, SaunaWhereInput>
-    measurements?: SaunaMeasurementListRelationFilter
-  }, "id" | "harviaSessionId">
+    participants?: UserListRelationFilter
+    posts?: PostListRelationFilter
+  }, "id">
 
   export type SaunaSessionOrderByWithAggregationInput = {
     id?: SortOrder
-    harviaSessionId?: SortOrder
+    harviaSessionId?: SortOrderInput | SortOrder
     saunaId?: SortOrder
     startTimestamp?: SortOrder
-    endTimestamp?: SortOrder
-    durationMs?: SortOrder
+    endTimestamp?: SortOrderInput | SortOrder
+    durationMs?: SortOrderInput | SortOrder
     maxTemperature?: SortOrderInput | SortOrder
     avgTemperature?: SortOrderInput | SortOrder
+    minTemperature?: SortOrderInput | SortOrder
     maxHumidity?: SortOrderInput | SortOrder
     avgHumidity?: SortOrderInput | SortOrder
+    minHumidity?: SortOrderInput | SortOrder
+    maxPresence?: SortOrderInput | SortOrder
+    avgPresence?: SortOrderInput | SortOrder
+    latestPIRTimestamp?: SortOrderInput | SortOrder
+    status?: SortOrder
+    endedManually?: SortOrder
+    manual?: SortOrder
     _count?: SaunaSessionCountOrderByAggregateInput
     _avg?: SaunaSessionAvgOrderByAggregateInput
     _max?: SaunaSessionMaxOrderByAggregateInput
@@ -11053,15 +17983,191 @@ export namespace Prisma {
     OR?: SaunaSessionScalarWhereWithAggregatesInput[]
     NOT?: SaunaSessionScalarWhereWithAggregatesInput | SaunaSessionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"SaunaSession"> | string
-    harviaSessionId?: StringWithAggregatesFilter<"SaunaSession"> | string
+    harviaSessionId?: StringNullableWithAggregatesFilter<"SaunaSession"> | string | null
     saunaId?: StringWithAggregatesFilter<"SaunaSession"> | string
     startTimestamp?: DateTimeWithAggregatesFilter<"SaunaSession"> | Date | string
-    endTimestamp?: DateTimeWithAggregatesFilter<"SaunaSession"> | Date | string
-    durationMs?: FloatWithAggregatesFilter<"SaunaSession"> | number
+    endTimestamp?: DateTimeNullableWithAggregatesFilter<"SaunaSession"> | Date | string | null
+    durationMs?: FloatNullableWithAggregatesFilter<"SaunaSession"> | number | null
     maxTemperature?: FloatNullableWithAggregatesFilter<"SaunaSession"> | number | null
     avgTemperature?: FloatNullableWithAggregatesFilter<"SaunaSession"> | number | null
+    minTemperature?: FloatNullableWithAggregatesFilter<"SaunaSession"> | number | null
     maxHumidity?: FloatNullableWithAggregatesFilter<"SaunaSession"> | number | null
     avgHumidity?: FloatNullableWithAggregatesFilter<"SaunaSession"> | number | null
+    minHumidity?: FloatNullableWithAggregatesFilter<"SaunaSession"> | number | null
+    maxPresence?: FloatNullableWithAggregatesFilter<"SaunaSession"> | number | null
+    avgPresence?: FloatNullableWithAggregatesFilter<"SaunaSession"> | number | null
+    latestPIRTimestamp?: DateTimeNullableWithAggregatesFilter<"SaunaSession"> | Date | string | null
+    status?: EnumSaunaSessionStatusWithAggregatesFilter<"SaunaSession"> | $Enums.SaunaSessionStatus
+    endedManually?: BoolWithAggregatesFilter<"SaunaSession"> | boolean
+    manual?: BoolWithAggregatesFilter<"SaunaSession"> | boolean
+  }
+
+  export type LikeWhereInput = {
+    AND?: LikeWhereInput | LikeWhereInput[]
+    OR?: LikeWhereInput[]
+    NOT?: LikeWhereInput | LikeWhereInput[]
+    id?: StringFilter<"Like"> | string
+    postId?: IntFilter<"Like"> | number
+    userId?: StringFilter<"Like"> | string
+    createdAt?: DateTimeFilter<"Like"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LikeOrderByWithRelationInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    post?: PostOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LikeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_postId?: LikeUserIdPostIdCompoundUniqueInput
+    AND?: LikeWhereInput | LikeWhereInput[]
+    OR?: LikeWhereInput[]
+    NOT?: LikeWhereInput | LikeWhereInput[]
+    postId?: IntFilter<"Like"> | number
+    userId?: StringFilter<"Like"> | string
+    createdAt?: DateTimeFilter<"Like"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_postId">
+
+  export type LikeOrderByWithAggregationInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    _count?: LikeCountOrderByAggregateInput
+    _avg?: LikeAvgOrderByAggregateInput
+    _max?: LikeMaxOrderByAggregateInput
+    _min?: LikeMinOrderByAggregateInput
+    _sum?: LikeSumOrderByAggregateInput
+  }
+
+  export type LikeScalarWhereWithAggregatesInput = {
+    AND?: LikeScalarWhereWithAggregatesInput | LikeScalarWhereWithAggregatesInput[]
+    OR?: LikeScalarWhereWithAggregatesInput[]
+    NOT?: LikeScalarWhereWithAggregatesInput | LikeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Like"> | string
+    postId?: IntWithAggregatesFilter<"Like"> | number
+    userId?: StringWithAggregatesFilter<"Like"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Like"> | Date | string
+  }
+
+  export type PostImageWhereInput = {
+    AND?: PostImageWhereInput | PostImageWhereInput[]
+    OR?: PostImageWhereInput[]
+    NOT?: PostImageWhereInput | PostImageWhereInput[]
+    id?: StringFilter<"PostImage"> | string
+    postId?: IntFilter<"PostImage"> | number
+    url?: StringFilter<"PostImage"> | string
+    createdAt?: DateTimeFilter<"PostImage"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+  }
+
+  export type PostImageOrderByWithRelationInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    post?: PostOrderByWithRelationInput
+  }
+
+  export type PostImageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PostImageWhereInput | PostImageWhereInput[]
+    OR?: PostImageWhereInput[]
+    NOT?: PostImageWhereInput | PostImageWhereInput[]
+    postId?: IntFilter<"PostImage"> | number
+    url?: StringFilter<"PostImage"> | string
+    createdAt?: DateTimeFilter<"PostImage"> | Date | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+  }, "id">
+
+  export type PostImageOrderByWithAggregationInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    _count?: PostImageCountOrderByAggregateInput
+    _avg?: PostImageAvgOrderByAggregateInput
+    _max?: PostImageMaxOrderByAggregateInput
+    _min?: PostImageMinOrderByAggregateInput
+    _sum?: PostImageSumOrderByAggregateInput
+  }
+
+  export type PostImageScalarWhereWithAggregatesInput = {
+    AND?: PostImageScalarWhereWithAggregatesInput | PostImageScalarWhereWithAggregatesInput[]
+    OR?: PostImageScalarWhereWithAggregatesInput[]
+    NOT?: PostImageScalarWhereWithAggregatesInput | PostImageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PostImage"> | string
+    postId?: IntWithAggregatesFilter<"PostImage"> | number
+    url?: StringWithAggregatesFilter<"PostImage"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PostImage"> | Date | string
+  }
+
+  export type AchievementWhereInput = {
+    AND?: AchievementWhereInput | AchievementWhereInput[]
+    OR?: AchievementWhereInput[]
+    NOT?: AchievementWhereInput | AchievementWhereInput[]
+    id?: StringFilter<"Achievement"> | string
+    name?: StringFilter<"Achievement"> | string
+    description?: StringFilter<"Achievement"> | string
+    metric?: StringNullableFilter<"Achievement"> | string | null
+    value?: StringNullableFilter<"Achievement"> | string | null
+    unit?: StringNullableFilter<"Achievement"> | string | null
+    posts?: PostListRelationFilter
+  }
+
+  export type AchievementOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    metric?: SortOrderInput | SortOrder
+    value?: SortOrderInput | SortOrder
+    unit?: SortOrderInput | SortOrder
+    posts?: PostOrderByRelationAggregateInput
+  }
+
+  export type AchievementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: AchievementWhereInput | AchievementWhereInput[]
+    OR?: AchievementWhereInput[]
+    NOT?: AchievementWhereInput | AchievementWhereInput[]
+    description?: StringFilter<"Achievement"> | string
+    metric?: StringNullableFilter<"Achievement"> | string | null
+    value?: StringNullableFilter<"Achievement"> | string | null
+    unit?: StringNullableFilter<"Achievement"> | string | null
+    posts?: PostListRelationFilter
+  }, "id" | "name">
+
+  export type AchievementOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    metric?: SortOrderInput | SortOrder
+    value?: SortOrderInput | SortOrder
+    unit?: SortOrderInput | SortOrder
+    _count?: AchievementCountOrderByAggregateInput
+    _max?: AchievementMaxOrderByAggregateInput
+    _min?: AchievementMinOrderByAggregateInput
+  }
+
+  export type AchievementScalarWhereWithAggregatesInput = {
+    AND?: AchievementScalarWhereWithAggregatesInput | AchievementScalarWhereWithAggregatesInput[]
+    OR?: AchievementScalarWhereWithAggregatesInput[]
+    NOT?: AchievementScalarWhereWithAggregatesInput | AchievementScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Achievement"> | string
+    name?: StringWithAggregatesFilter<"Achievement"> | string
+    description?: StringWithAggregatesFilter<"Achievement"> | string
+    metric?: StringNullableWithAggregatesFilter<"Achievement"> | string | null
+    value?: StringNullableWithAggregatesFilter<"Achievement"> | string | null
+    unit?: StringNullableWithAggregatesFilter<"Achievement"> | string | null
   }
 
   export type SaunaMeasurementWhereInput = {
@@ -11069,40 +18175,45 @@ export namespace Prisma {
     OR?: SaunaMeasurementWhereInput[]
     NOT?: SaunaMeasurementWhereInput | SaunaMeasurementWhereInput[]
     id?: StringFilter<"SaunaMeasurement"> | string
-    saunaSessionId?: StringFilter<"SaunaMeasurement"> | string
+    saunaId?: StringFilter<"SaunaMeasurement"> | string
     timestamp?: DateTimeFilter<"SaunaMeasurement"> | Date | string
     temperature?: FloatFilter<"SaunaMeasurement"> | number
     humidity?: FloatFilter<"SaunaMeasurement"> | number
-    saunaSession?: XOR<SaunaSessionScalarRelationFilter, SaunaSessionWhereInput>
+    precence?: FloatFilter<"SaunaMeasurement"> | number
+    sauna?: XOR<SaunaScalarRelationFilter, SaunaWhereInput>
   }
 
   export type SaunaMeasurementOrderByWithRelationInput = {
     id?: SortOrder
-    saunaSessionId?: SortOrder
+    saunaId?: SortOrder
     timestamp?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
-    saunaSession?: SaunaSessionOrderByWithRelationInput
+    precence?: SortOrder
+    sauna?: SaunaOrderByWithRelationInput
   }
 
   export type SaunaMeasurementWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    saunaId_timestamp?: SaunaMeasurementSaunaIdTimestampCompoundUniqueInput
     AND?: SaunaMeasurementWhereInput | SaunaMeasurementWhereInput[]
     OR?: SaunaMeasurementWhereInput[]
     NOT?: SaunaMeasurementWhereInput | SaunaMeasurementWhereInput[]
-    saunaSessionId?: StringFilter<"SaunaMeasurement"> | string
+    saunaId?: StringFilter<"SaunaMeasurement"> | string
     timestamp?: DateTimeFilter<"SaunaMeasurement"> | Date | string
     temperature?: FloatFilter<"SaunaMeasurement"> | number
     humidity?: FloatFilter<"SaunaMeasurement"> | number
-    saunaSession?: XOR<SaunaSessionScalarRelationFilter, SaunaSessionWhereInput>
-  }, "id">
+    precence?: FloatFilter<"SaunaMeasurement"> | number
+    sauna?: XOR<SaunaScalarRelationFilter, SaunaWhereInput>
+  }, "id" | "saunaId_timestamp">
 
   export type SaunaMeasurementOrderByWithAggregationInput = {
     id?: SortOrder
-    saunaSessionId?: SortOrder
+    saunaId?: SortOrder
     timestamp?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
+    precence?: SortOrder
     _count?: SaunaMeasurementCountOrderByAggregateInput
     _avg?: SaunaMeasurementAvgOrderByAggregateInput
     _max?: SaunaMeasurementMaxOrderByAggregateInput
@@ -11115,52 +18226,217 @@ export namespace Prisma {
     OR?: SaunaMeasurementScalarWhereWithAggregatesInput[]
     NOT?: SaunaMeasurementScalarWhereWithAggregatesInput | SaunaMeasurementScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"SaunaMeasurement"> | string
-    saunaSessionId?: StringWithAggregatesFilter<"SaunaMeasurement"> | string
+    saunaId?: StringWithAggregatesFilter<"SaunaMeasurement"> | string
     timestamp?: DateTimeWithAggregatesFilter<"SaunaMeasurement"> | Date | string
     temperature?: FloatWithAggregatesFilter<"SaunaMeasurement"> | number
     humidity?: FloatWithAggregatesFilter<"SaunaMeasurement"> | number
+    precence?: FloatWithAggregatesFilter<"SaunaMeasurement"> | number
+  }
+
+  export type CommentWhereInput = {
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    id?: StringFilter<"Comment"> | string
+    content?: StringFilter<"Comment"> | string
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    createdById?: StringFilter<"Comment"> | string
+    postId?: IntFilter<"Comment"> | number
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+  }
+
+  export type CommentOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    postId?: SortOrder
+    createdBy?: UserOrderByWithRelationInput
+    post?: PostOrderByWithRelationInput
+  }
+
+  export type CommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    content?: StringFilter<"Comment"> | string
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    createdById?: StringFilter<"Comment"> | string
+    postId?: IntFilter<"Comment"> | number
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
+  }, "id">
+
+  export type CommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    postId?: SortOrder
+    _count?: CommentCountOrderByAggregateInput
+    _avg?: CommentAvgOrderByAggregateInput
+    _max?: CommentMaxOrderByAggregateInput
+    _min?: CommentMinOrderByAggregateInput
+    _sum?: CommentSumOrderByAggregateInput
+  }
+
+  export type CommentScalarWhereWithAggregatesInput = {
+    AND?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    OR?: CommentScalarWhereWithAggregatesInput[]
+    NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Comment"> | string
+    content?: StringWithAggregatesFilter<"Comment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
+    createdById?: StringWithAggregatesFilter<"Comment"> | string
+    postId?: IntWithAggregatesFilter<"Comment"> | number
+  }
+
+  export type EventWhereInput = {
+    AND?: EventWhereInput | EventWhereInput[]
+    OR?: EventWhereInput[]
+    NOT?: EventWhereInput | EventWhereInput[]
+    id?: StringFilter<"Event"> | string
+    name?: StringFilter<"Event"> | string
+    description?: StringFilter<"Event"> | string
+    date?: DateTimeFilter<"Event"> | Date | string
+    location?: StringFilter<"Event"> | string
+    saunaId?: StringFilter<"Event"> | string
+    createdById?: StringFilter<"Event"> | string
+    sauna?: XOR<SaunaScalarRelationFilter, SaunaWhereInput>
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    participants?: UserListRelationFilter
+  }
+
+  export type EventOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    location?: SortOrder
+    saunaId?: SortOrder
+    createdById?: SortOrder
+    sauna?: SaunaOrderByWithRelationInput
+    createdBy?: UserOrderByWithRelationInput
+    participants?: UserOrderByRelationAggregateInput
+  }
+
+  export type EventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EventWhereInput | EventWhereInput[]
+    OR?: EventWhereInput[]
+    NOT?: EventWhereInput | EventWhereInput[]
+    name?: StringFilter<"Event"> | string
+    description?: StringFilter<"Event"> | string
+    date?: DateTimeFilter<"Event"> | Date | string
+    location?: StringFilter<"Event"> | string
+    saunaId?: StringFilter<"Event"> | string
+    createdById?: StringFilter<"Event"> | string
+    sauna?: XOR<SaunaScalarRelationFilter, SaunaWhereInput>
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    participants?: UserListRelationFilter
+  }, "id">
+
+  export type EventOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    location?: SortOrder
+    saunaId?: SortOrder
+    createdById?: SortOrder
+    _count?: EventCountOrderByAggregateInput
+    _max?: EventMaxOrderByAggregateInput
+    _min?: EventMinOrderByAggregateInput
+  }
+
+  export type EventScalarWhereWithAggregatesInput = {
+    AND?: EventScalarWhereWithAggregatesInput | EventScalarWhereWithAggregatesInput[]
+    OR?: EventScalarWhereWithAggregatesInput[]
+    NOT?: EventScalarWhereWithAggregatesInput | EventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Event"> | string
+    name?: StringWithAggregatesFilter<"Event"> | string
+    description?: StringWithAggregatesFilter<"Event"> | string
+    date?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    location?: StringWithAggregatesFilter<"Event"> | string
+    saunaId?: StringWithAggregatesFilter<"Event"> | string
+    createdById?: StringWithAggregatesFilter<"Event"> | string
   }
 
   export type PostCreateInput = {
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutPostsInput
+    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    achievement?: AchievementCreateNestedOneWithoutPostsInput
+    likes?: LikeCreateNestedManyWithoutPostInput
+    images?: PostImageCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateInput = {
     id?: number
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
+    saunaSessionId?: string | null
+    achievementId?: string | null
+    likes?: LikeUncheckedCreateNestedManyWithoutPostInput
+    images?: PostImageUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    achievement?: AchievementUpdateOneWithoutPostsNestedInput
+    likes?: LikeUpdateManyWithoutPostNestedInput
+    images?: PostImageUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
+    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
+    images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type PostCreateManyInput = {
     id?: number
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
+    saunaSessionId?: string | null
+    achievementId?: string | null
   }
 
   export type PostUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11168,9 +18444,12 @@ export namespace Prisma {
   export type PostUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
+    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    achievementId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountCreateInput = {
@@ -11186,6 +18465,7 @@ export namespace Prisma {
     id_token?: string | null
     session_state?: string | null
     refresh_token_expires_in?: number | null
+    email?: string | null
     user: UserCreateNestedOneWithoutAccountsInput
   }
 
@@ -11203,6 +18483,7 @@ export namespace Prisma {
     id_token?: string | null
     session_state?: string | null
     refresh_token_expires_in?: number | null
+    email?: string | null
   }
 
   export type AccountUpdateInput = {
@@ -11218,6 +18499,7 @@ export namespace Prisma {
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
     session_state?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutAccountsNestedInput
   }
 
@@ -11235,6 +18517,7 @@ export namespace Prisma {
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
     session_state?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountCreateManyInput = {
@@ -11251,6 +18534,7 @@ export namespace Prisma {
     id_token?: string | null
     session_state?: string | null
     refresh_token_expires_in?: number | null
+    email?: string | null
   }
 
   export type AccountUpdateManyMutationInput = {
@@ -11266,6 +18550,7 @@ export namespace Prisma {
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
     session_state?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountUncheckedUpdateManyInput = {
@@ -11282,6 +18567,7 @@ export namespace Prisma {
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
     session_state?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SessionCreateInput = {
@@ -11341,7 +18627,12 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
-    saunas?: SaunaCreateNestedManyWithoutUserInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11353,7 +18644,12 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
-    saunas?: SaunaUncheckedCreateNestedManyWithoutUserInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserUpdateInput = {
@@ -11365,7 +18661,12 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
-    saunas?: SaunaUpdateManyWithoutUserNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11377,7 +18678,12 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
-    saunas?: SaunaUncheckedUpdateManyWithoutUserNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11451,8 +18757,10 @@ export namespace Prisma {
     harviaDeviceId: string
     name: string
     location?: string | null
-    user: UserCreateNestedOneWithoutSaunasInput
+    users?: UserCreateNestedManyWithoutSaunasInput
     sessions?: SaunaSessionCreateNestedManyWithoutSaunaInput
+    saunaMeasurements?: SaunaMeasurementCreateNestedManyWithoutSaunaInput
+    events?: EventCreateNestedManyWithoutSaunaInput
   }
 
   export type SaunaUncheckedCreateInput = {
@@ -11460,8 +18768,10 @@ export namespace Prisma {
     harviaDeviceId: string
     name: string
     location?: string | null
-    userId: string
+    users?: UserUncheckedCreateNestedManyWithoutSaunasInput
     sessions?: SaunaSessionUncheckedCreateNestedManyWithoutSaunaInput
+    saunaMeasurements?: SaunaMeasurementUncheckedCreateNestedManyWithoutSaunaInput
+    events?: EventUncheckedCreateNestedManyWithoutSaunaInput
   }
 
   export type SaunaUpdateInput = {
@@ -11469,8 +18779,10 @@ export namespace Prisma {
     harviaDeviceId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutSaunasNestedInput
+    users?: UserUpdateManyWithoutSaunasNestedInput
     sessions?: SaunaSessionUpdateManyWithoutSaunaNestedInput
+    saunaMeasurements?: SaunaMeasurementUpdateManyWithoutSaunaNestedInput
+    events?: EventUpdateManyWithoutSaunaNestedInput
   }
 
   export type SaunaUncheckedUpdateInput = {
@@ -11478,8 +18790,10 @@ export namespace Prisma {
     harviaDeviceId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
+    users?: UserUncheckedUpdateManyWithoutSaunasNestedInput
     sessions?: SaunaSessionUncheckedUpdateManyWithoutSaunaNestedInput
+    saunaMeasurements?: SaunaMeasurementUncheckedUpdateManyWithoutSaunaNestedInput
+    events?: EventUncheckedUpdateManyWithoutSaunaNestedInput
   }
 
   export type SaunaCreateManyInput = {
@@ -11487,7 +18801,6 @@ export namespace Prisma {
     harviaDeviceId: string
     name: string
     location?: string | null
-    userId: string
   }
 
   export type SaunaUpdateManyMutationInput = {
@@ -11502,101 +18815,322 @@ export namespace Prisma {
     harviaDeviceId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SaunaSessionCreateInput = {
     id?: string
-    harviaSessionId: string
+    harviaSessionId?: string | null
     startTimestamp: Date | string
-    endTimestamp: Date | string
-    durationMs: number
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
     maxTemperature?: number | null
     avgTemperature?: number | null
+    minTemperature?: number | null
     maxHumidity?: number | null
     avgHumidity?: number | null
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
     sauna: SaunaCreateNestedOneWithoutSessionsInput
-    measurements?: SaunaMeasurementCreateNestedManyWithoutSaunaSessionInput
+    participants?: UserCreateNestedManyWithoutSaunaSessionsInput
+    posts?: PostCreateNestedManyWithoutSaunaSessionInput
   }
 
   export type SaunaSessionUncheckedCreateInput = {
     id?: string
-    harviaSessionId: string
+    harviaSessionId?: string | null
     saunaId: string
     startTimestamp: Date | string
-    endTimestamp: Date | string
-    durationMs: number
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
     maxTemperature?: number | null
     avgTemperature?: number | null
+    minTemperature?: number | null
     maxHumidity?: number | null
     avgHumidity?: number | null
-    measurements?: SaunaMeasurementUncheckedCreateNestedManyWithoutSaunaSessionInput
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
+    participants?: UserUncheckedCreateNestedManyWithoutSaunaSessionsInput
+    posts?: PostUncheckedCreateNestedManyWithoutSaunaSessionInput
   }
 
   export type SaunaSessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaSessionId?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    durationMs?: FloatFieldUpdateOperationsInput | number
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
     maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
     avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
     maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
     avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
     sauna?: SaunaUpdateOneRequiredWithoutSessionsNestedInput
-    measurements?: SaunaMeasurementUpdateManyWithoutSaunaSessionNestedInput
+    participants?: UserUpdateManyWithoutSaunaSessionsNestedInput
+    posts?: PostUpdateManyWithoutSaunaSessionNestedInput
   }
 
   export type SaunaSessionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaSessionId?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     saunaId?: StringFieldUpdateOperationsInput | string
     startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    durationMs?: FloatFieldUpdateOperationsInput | number
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
     maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
     avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
     maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
     avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-    measurements?: SaunaMeasurementUncheckedUpdateManyWithoutSaunaSessionNestedInput
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+    participants?: UserUncheckedUpdateManyWithoutSaunaSessionsNestedInput
+    posts?: PostUncheckedUpdateManyWithoutSaunaSessionNestedInput
   }
 
   export type SaunaSessionCreateManyInput = {
     id?: string
-    harviaSessionId: string
+    harviaSessionId?: string | null
     saunaId: string
     startTimestamp: Date | string
-    endTimestamp: Date | string
-    durationMs: number
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
     maxTemperature?: number | null
     avgTemperature?: number | null
+    minTemperature?: number | null
     maxHumidity?: number | null
     avgHumidity?: number | null
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
   }
 
   export type SaunaSessionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaSessionId?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    durationMs?: FloatFieldUpdateOperationsInput | number
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
     maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
     avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
     maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
     avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SaunaSessionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaSessionId?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     saunaId?: StringFieldUpdateOperationsInput | string
     startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    durationMs?: FloatFieldUpdateOperationsInput | number
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
     maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
     avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
     maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
     avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type LikeCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    post: PostCreateNestedOneWithoutLikesInput
+    user: UserCreateNestedOneWithoutLikesInput
+  }
+
+  export type LikeUncheckedCreateInput = {
+    id?: string
+    postId: number
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type LikeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutLikesNestedInput
+    user?: UserUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type LikeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeCreateManyInput = {
+    id?: string
+    postId: number
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type LikeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImageCreateInput = {
+    id?: string
+    url: string
+    createdAt?: Date | string
+    post: PostCreateNestedOneWithoutImagesInput
+  }
+
+  export type PostImageUncheckedCreateInput = {
+    id?: string
+    postId: number
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type PostImageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutImagesNestedInput
+  }
+
+  export type PostImageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImageCreateManyInput = {
+    id?: string
+    postId: number
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type PostImageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AchievementCreateInput = {
+    id?: string
+    name: string
+    description: string
+    metric?: string | null
+    value?: string | null
+    unit?: string | null
+    posts?: PostCreateNestedManyWithoutAchievementInput
+  }
+
+  export type AchievementUncheckedCreateInput = {
+    id?: string
+    name: string
+    description: string
+    metric?: string | null
+    value?: string | null
+    unit?: string | null
+    posts?: PostUncheckedCreateNestedManyWithoutAchievementInput
+  }
+
+  export type AchievementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    metric?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    posts?: PostUpdateManyWithoutAchievementNestedInput
+  }
+
+  export type AchievementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    metric?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+    posts?: PostUncheckedUpdateManyWithoutAchievementNestedInput
+  }
+
+  export type AchievementCreateManyInput = {
+    id?: string
+    name: string
+    description: string
+    metric?: string | null
+    value?: string | null
+    unit?: string | null
+  }
+
+  export type AchievementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    metric?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AchievementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    metric?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SaunaMeasurementCreateInput = {
@@ -11604,15 +19138,17 @@ export namespace Prisma {
     timestamp: Date | string
     temperature: number
     humidity: number
-    saunaSession: SaunaSessionCreateNestedOneWithoutMeasurementsInput
+    precence: number
+    sauna: SaunaCreateNestedOneWithoutSaunaMeasurementsInput
   }
 
   export type SaunaMeasurementUncheckedCreateInput = {
     id?: string
-    saunaSessionId: string
+    saunaId: string
     timestamp: Date | string
     temperature: number
     humidity: number
+    precence: number
   }
 
   export type SaunaMeasurementUpdateInput = {
@@ -11620,23 +19156,26 @@ export namespace Prisma {
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
-    saunaSession?: SaunaSessionUpdateOneRequiredWithoutMeasurementsNestedInput
+    precence?: FloatFieldUpdateOperationsInput | number
+    sauna?: SaunaUpdateOneRequiredWithoutSaunaMeasurementsNestedInput
   }
 
   export type SaunaMeasurementUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    saunaSessionId?: StringFieldUpdateOperationsInput | string
+    saunaId?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
+    precence?: FloatFieldUpdateOperationsInput | number
   }
 
   export type SaunaMeasurementCreateManyInput = {
     id?: string
-    saunaSessionId: string
+    saunaId: string
     timestamp: Date | string
     temperature: number
     humidity: number
+    precence: number
   }
 
   export type SaunaMeasurementUpdateManyMutationInput = {
@@ -11644,20 +19183,155 @@ export namespace Prisma {
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
+    precence?: FloatFieldUpdateOperationsInput | number
   }
 
   export type SaunaMeasurementUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    saunaSessionId?: StringFieldUpdateOperationsInput | string
+    saunaId?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
+    precence?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type CommentCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutCommentsInput
+    post: PostCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    postId: number
+  }
+
+  export type CommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type CommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    postId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CommentCreateManyInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    postId: number
+  }
+
+  export type CommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    postId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EventCreateInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    sauna: SaunaCreateNestedOneWithoutEventsInput
+    createdBy: UserCreateNestedOneWithoutCreatedEventsInput
+    participants?: UserCreateNestedManyWithoutParticipatedEventsInput
+  }
+
+  export type EventUncheckedCreateInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    saunaId: string
+    createdById: string
+    participants?: UserUncheckedCreateNestedManyWithoutParticipatedEventsInput
+  }
+
+  export type EventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    sauna?: SaunaUpdateOneRequiredWithoutEventsNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedEventsNestedInput
+    participants?: UserUpdateManyWithoutParticipatedEventsNestedInput
+  }
+
+  export type EventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    saunaId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    participants?: UserUncheckedUpdateManyWithoutParticipatedEventsNestedInput
+  }
+
+  export type EventCreateManyInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    saunaId: string
+    createdById: string
+  }
+
+  export type EventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    saunaId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -11667,8 +19341,8 @@ export namespace Prisma {
 
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -11676,13 +19350,29 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -11695,12 +19385,60 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
+  export type SaunaSessionNullableScalarRelationFilter = {
+    is?: SaunaSessionWhereInput | null
+    isNot?: SaunaSessionWhereInput | null
+  }
+
+  export type AchievementNullableScalarRelationFilter = {
+    is?: AchievementWhereInput | null
+    isNot?: AchievementWhereInput | null
+  }
+
+  export type LikeListRelationFilter = {
+    every?: LikeWhereInput
+    some?: LikeWhereInput
+    none?: LikeWhereInput
+  }
+
+  export type PostImageListRelationFilter = {
+    every?: PostImageWhereInput
+    some?: PostImageWhereInput
+    none?: PostImageWhereInput
+  }
+
+  export type CommentListRelationFilter = {
+    every?: CommentWhereInput
+    some?: CommentWhereInput
+    none?: CommentWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type LikeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PostImageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type PostCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
+    saunaSessionId?: SortOrder
+    achievementId?: SortOrder
   }
 
   export type PostAvgOrderByAggregateInput = {
@@ -11710,17 +19448,23 @@ export namespace Prisma {
   export type PostMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
+    saunaSessionId?: SortOrder
+    achievementId?: SortOrder
   }
 
   export type PostMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
+    saunaSessionId?: SortOrder
+    achievementId?: SortOrder
   }
 
   export type PostSumOrderByAggregateInput = {
@@ -11729,8 +19473,8 @@ export namespace Prisma {
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -11745,8 +19489,8 @@ export namespace Prisma {
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -11754,16 +19498,35 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -11774,34 +19537,15 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type AccountProviderProviderAccountIdCompoundUniqueInput = {
@@ -11823,6 +19567,7 @@ export namespace Prisma {
     id_token?: SortOrder
     session_state?: SortOrder
     refresh_token_expires_in?: SortOrder
+    email?: SortOrder
   }
 
   export type AccountAvgOrderByAggregateInput = {
@@ -11844,6 +19589,7 @@ export namespace Prisma {
     id_token?: SortOrder
     session_state?: SortOrder
     refresh_token_expires_in?: SortOrder
+    email?: SortOrder
   }
 
   export type AccountMinOrderByAggregateInput = {
@@ -11860,6 +19606,7 @@ export namespace Prisma {
     id_token?: SortOrder
     session_state?: SortOrder
     refresh_token_expires_in?: SortOrder
+    email?: SortOrder
   }
 
   export type AccountSumOrderByAggregateInput = {
@@ -11867,27 +19614,10 @@ export namespace Prisma {
     refresh_token_expires_in?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -11923,8 +19653,8 @@ export namespace Prisma {
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -11956,6 +19686,18 @@ export namespace Prisma {
     none?: SaunaWhereInput
   }
 
+  export type SaunaSessionListRelationFilter = {
+    every?: SaunaSessionWhereInput
+    some?: SaunaSessionWhereInput
+    none?: SaunaSessionWhereInput
+  }
+
+  export type EventListRelationFilter = {
+    every?: EventWhereInput
+    some?: EventWhereInput
+    none?: EventWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -11969,6 +19711,14 @@ export namespace Prisma {
   }
 
   export type SaunaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SaunaSessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EventOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11998,8 +19748,8 @@ export namespace Prisma {
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -12033,65 +19783,10 @@ export namespace Prisma {
     expires?: SortOrder
   }
 
-  export type SaunaSessionListRelationFilter = {
-    every?: SaunaSessionWhereInput
-    some?: SaunaSessionWhereInput
-    none?: SaunaSessionWhereInput
-  }
-
-  export type SaunaSessionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type SaunaCountOrderByAggregateInput = {
-    id?: SortOrder
-    harviaDeviceId?: SortOrder
-    name?: SortOrder
-    location?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type SaunaMaxOrderByAggregateInput = {
-    id?: SortOrder
-    harviaDeviceId?: SortOrder
-    name?: SortOrder
-    location?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type SaunaMinOrderByAggregateInput = {
-    id?: SortOrder
-    harviaDeviceId?: SortOrder
-    name?: SortOrder
-    location?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type SaunaScalarRelationFilter = {
-    is?: SaunaWhereInput
-    isNot?: SaunaWhereInput
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
   }
 
   export type SaunaMeasurementListRelationFilter = {
@@ -12100,8 +19795,61 @@ export namespace Prisma {
     none?: SaunaMeasurementWhereInput
   }
 
+  export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type SaunaMeasurementOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type SaunaCountOrderByAggregateInput = {
+    id?: SortOrder
+    harviaDeviceId?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+  }
+
+  export type SaunaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    harviaDeviceId?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+  }
+
+  export type SaunaMinOrderByAggregateInput = {
+    id?: SortOrder
+    harviaDeviceId?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumSaunaSessionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SaunaSessionStatus | EnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SaunaSessionStatus[] | ListEnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SaunaSessionStatus[] | ListEnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSaunaSessionStatusFilter<$PrismaModel> | $Enums.SaunaSessionStatus
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type SaunaScalarRelationFilter = {
+    is?: SaunaWhereInput
+    isNot?: SaunaWhereInput
   }
 
   export type SaunaSessionCountOrderByAggregateInput = {
@@ -12113,16 +19861,28 @@ export namespace Prisma {
     durationMs?: SortOrder
     maxTemperature?: SortOrder
     avgTemperature?: SortOrder
+    minTemperature?: SortOrder
     maxHumidity?: SortOrder
     avgHumidity?: SortOrder
+    minHumidity?: SortOrder
+    maxPresence?: SortOrder
+    avgPresence?: SortOrder
+    latestPIRTimestamp?: SortOrder
+    status?: SortOrder
+    endedManually?: SortOrder
+    manual?: SortOrder
   }
 
   export type SaunaSessionAvgOrderByAggregateInput = {
     durationMs?: SortOrder
     maxTemperature?: SortOrder
     avgTemperature?: SortOrder
+    minTemperature?: SortOrder
     maxHumidity?: SortOrder
     avgHumidity?: SortOrder
+    minHumidity?: SortOrder
+    maxPresence?: SortOrder
+    avgPresence?: SortOrder
   }
 
   export type SaunaSessionMaxOrderByAggregateInput = {
@@ -12134,8 +19894,16 @@ export namespace Prisma {
     durationMs?: SortOrder
     maxTemperature?: SortOrder
     avgTemperature?: SortOrder
+    minTemperature?: SortOrder
     maxHumidity?: SortOrder
     avgHumidity?: SortOrder
+    minHumidity?: SortOrder
+    maxPresence?: SortOrder
+    avgPresence?: SortOrder
+    latestPIRTimestamp?: SortOrder
+    status?: SortOrder
+    endedManually?: SortOrder
+    manual?: SortOrder
   }
 
   export type SaunaSessionMinOrderByAggregateInput = {
@@ -12147,38 +19915,34 @@ export namespace Prisma {
     durationMs?: SortOrder
     maxTemperature?: SortOrder
     avgTemperature?: SortOrder
+    minTemperature?: SortOrder
     maxHumidity?: SortOrder
     avgHumidity?: SortOrder
+    minHumidity?: SortOrder
+    maxPresence?: SortOrder
+    avgPresence?: SortOrder
+    latestPIRTimestamp?: SortOrder
+    status?: SortOrder
+    endedManually?: SortOrder
+    manual?: SortOrder
   }
 
   export type SaunaSessionSumOrderByAggregateInput = {
     durationMs?: SortOrder
     maxTemperature?: SortOrder
     avgTemperature?: SortOrder
+    minTemperature?: SortOrder
     maxHumidity?: SortOrder
     avgHumidity?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    minHumidity?: SortOrder
+    maxPresence?: SortOrder
+    avgPresence?: SortOrder
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -12191,43 +19955,253 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type SaunaSessionScalarRelationFilter = {
-    is?: SaunaSessionWhereInput
-    isNot?: SaunaSessionWhereInput
+  export type EnumSaunaSessionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SaunaSessionStatus | EnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SaunaSessionStatus[] | ListEnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SaunaSessionStatus[] | ListEnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSaunaSessionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SaunaSessionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSaunaSessionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSaunaSessionStatusFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type PostScalarRelationFilter = {
+    is?: PostWhereInput
+    isNot?: PostWhereInput
+  }
+
+  export type LikeUserIdPostIdCompoundUniqueInput = {
+    userId: string
+    postId: number
+  }
+
+  export type LikeCountOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LikeAvgOrderByAggregateInput = {
+    postId?: SortOrder
+  }
+
+  export type LikeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LikeMinOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LikeSumOrderByAggregateInput = {
+    postId?: SortOrder
+  }
+
+  export type PostImageCountOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostImageAvgOrderByAggregateInput = {
+    postId?: SortOrder
+  }
+
+  export type PostImageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostImageMinOrderByAggregateInput = {
+    id?: SortOrder
+    postId?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PostImageSumOrderByAggregateInput = {
+    postId?: SortOrder
+  }
+
+  export type AchievementCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    metric?: SortOrder
+    value?: SortOrder
+    unit?: SortOrder
+  }
+
+  export type AchievementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    metric?: SortOrder
+    value?: SortOrder
+    unit?: SortOrder
+  }
+
+  export type AchievementMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    metric?: SortOrder
+    value?: SortOrder
+    unit?: SortOrder
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type SaunaMeasurementSaunaIdTimestampCompoundUniqueInput = {
+    saunaId: string
+    timestamp: Date | string
   }
 
   export type SaunaMeasurementCountOrderByAggregateInput = {
     id?: SortOrder
-    saunaSessionId?: SortOrder
+    saunaId?: SortOrder
     timestamp?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
+    precence?: SortOrder
   }
 
   export type SaunaMeasurementAvgOrderByAggregateInput = {
     temperature?: SortOrder
     humidity?: SortOrder
+    precence?: SortOrder
   }
 
   export type SaunaMeasurementMaxOrderByAggregateInput = {
     id?: SortOrder
-    saunaSessionId?: SortOrder
+    saunaId?: SortOrder
     timestamp?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
+    precence?: SortOrder
   }
 
   export type SaunaMeasurementMinOrderByAggregateInput = {
     id?: SortOrder
-    saunaSessionId?: SortOrder
+    saunaId?: SortOrder
     timestamp?: SortOrder
     temperature?: SortOrder
     humidity?: SortOrder
+    precence?: SortOrder
   }
 
   export type SaunaMeasurementSumOrderByAggregateInput = {
     temperature?: SortOrder
     humidity?: SortOrder
+    precence?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type CommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type CommentAvgOrderByAggregateInput = {
+    postId?: SortOrder
+  }
+
+  export type CommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type CommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    postId?: SortOrder
+  }
+
+  export type CommentSumOrderByAggregateInput = {
+    postId?: SortOrder
+  }
+
+  export type EventCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    location?: SortOrder
+    saunaId?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type EventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    location?: SortOrder
+    saunaId?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type EventMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    date?: SortOrder
+    location?: SortOrder
+    saunaId?: SortOrder
+    createdById?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutPostsInput = {
@@ -12236,8 +20210,66 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type SaunaSessionCreateNestedOneWithoutPostsInput = {
+    create?: XOR<SaunaSessionCreateWithoutPostsInput, SaunaSessionUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: SaunaSessionCreateOrConnectWithoutPostsInput
+    connect?: SaunaSessionWhereUniqueInput
+  }
+
+  export type AchievementCreateNestedOneWithoutPostsInput = {
+    create?: XOR<AchievementCreateWithoutPostsInput, AchievementUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: AchievementCreateOrConnectWithoutPostsInput
+    connect?: AchievementWhereUniqueInput
+  }
+
+  export type LikeCreateNestedManyWithoutPostInput = {
+    create?: XOR<LikeCreateWithoutPostInput, LikeUncheckedCreateWithoutPostInput> | LikeCreateWithoutPostInput[] | LikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutPostInput | LikeCreateOrConnectWithoutPostInput[]
+    createMany?: LikeCreateManyPostInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type PostImageCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostImageCreateWithoutPostInput, PostImageUncheckedCreateWithoutPostInput> | PostImageCreateWithoutPostInput[] | PostImageUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostImageCreateOrConnectWithoutPostInput | PostImageCreateOrConnectWithoutPostInput[]
+    createMany?: PostImageCreateManyPostInputEnvelope
+    connect?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+  }
+
+  export type CommentCreateNestedManyWithoutPostInput = {
+    create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
+    createMany?: CommentCreateManyPostInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type LikeUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<LikeCreateWithoutPostInput, LikeUncheckedCreateWithoutPostInput> | LikeCreateWithoutPostInput[] | LikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutPostInput | LikeCreateOrConnectWithoutPostInput[]
+    createMany?: LikeCreateManyPostInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type PostImageUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostImageCreateWithoutPostInput, PostImageUncheckedCreateWithoutPostInput> | PostImageCreateWithoutPostInput[] | PostImageUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostImageCreateOrConnectWithoutPostInput | PostImageCreateOrConnectWithoutPostInput[]
+    createMany?: PostImageCreateManyPostInputEnvelope
+    connect?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
+    createMany?: CommentCreateManyPostInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -12252,6 +20284,68 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
   }
 
+  export type SaunaSessionUpdateOneWithoutPostsNestedInput = {
+    create?: XOR<SaunaSessionCreateWithoutPostsInput, SaunaSessionUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: SaunaSessionCreateOrConnectWithoutPostsInput
+    upsert?: SaunaSessionUpsertWithoutPostsInput
+    disconnect?: SaunaSessionWhereInput | boolean
+    delete?: SaunaSessionWhereInput | boolean
+    connect?: SaunaSessionWhereUniqueInput
+    update?: XOR<XOR<SaunaSessionUpdateToOneWithWhereWithoutPostsInput, SaunaSessionUpdateWithoutPostsInput>, SaunaSessionUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type AchievementUpdateOneWithoutPostsNestedInput = {
+    create?: XOR<AchievementCreateWithoutPostsInput, AchievementUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: AchievementCreateOrConnectWithoutPostsInput
+    upsert?: AchievementUpsertWithoutPostsInput
+    disconnect?: AchievementWhereInput | boolean
+    delete?: AchievementWhereInput | boolean
+    connect?: AchievementWhereUniqueInput
+    update?: XOR<XOR<AchievementUpdateToOneWithWhereWithoutPostsInput, AchievementUpdateWithoutPostsInput>, AchievementUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type LikeUpdateManyWithoutPostNestedInput = {
+    create?: XOR<LikeCreateWithoutPostInput, LikeUncheckedCreateWithoutPostInput> | LikeCreateWithoutPostInput[] | LikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutPostInput | LikeCreateOrConnectWithoutPostInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutPostInput | LikeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: LikeCreateManyPostInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutPostInput | LikeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutPostInput | LikeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type PostImageUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostImageCreateWithoutPostInput, PostImageUncheckedCreateWithoutPostInput> | PostImageCreateWithoutPostInput[] | PostImageUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostImageCreateOrConnectWithoutPostInput | PostImageCreateOrConnectWithoutPostInput[]
+    upsert?: PostImageUpsertWithWhereUniqueWithoutPostInput | PostImageUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostImageCreateManyPostInputEnvelope
+    set?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+    disconnect?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+    delete?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+    connect?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+    update?: PostImageUpdateWithWhereUniqueWithoutPostInput | PostImageUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostImageUpdateManyWithWhereWithoutPostInput | PostImageUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostImageScalarWhereInput | PostImageScalarWhereInput[]
+  }
+
+  export type CommentUpdateManyWithoutPostNestedInput = {
+    create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutPostInput | CommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: CommentCreateManyPostInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutPostInput | CommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutPostInput | CommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -12260,14 +20354,52 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type LikeUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<LikeCreateWithoutPostInput, LikeUncheckedCreateWithoutPostInput> | LikeCreateWithoutPostInput[] | LikeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutPostInput | LikeCreateOrConnectWithoutPostInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutPostInput | LikeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: LikeCreateManyPostInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutPostInput | LikeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutPostInput | LikeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type PostImageUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostImageCreateWithoutPostInput, PostImageUncheckedCreateWithoutPostInput> | PostImageCreateWithoutPostInput[] | PostImageUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostImageCreateOrConnectWithoutPostInput | PostImageCreateOrConnectWithoutPostInput[]
+    upsert?: PostImageUpsertWithWhereUniqueWithoutPostInput | PostImageUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostImageCreateManyPostInputEnvelope
+    set?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+    disconnect?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+    delete?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+    connect?: PostImageWhereUniqueInput | PostImageWhereUniqueInput[]
+    update?: PostImageUpdateWithWhereUniqueWithoutPostInput | PostImageUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostImageUpdateManyWithWhereWithoutPostInput | PostImageUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostImageScalarWhereInput | PostImageScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput> | CommentCreateWithoutPostInput[] | CommentUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutPostInput | CommentCreateOrConnectWithoutPostInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutPostInput | CommentUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: CommentCreateManyPostInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutPostInput | CommentUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutPostInput | CommentUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -12321,11 +20453,43 @@ export namespace Prisma {
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
-  export type SaunaCreateNestedManyWithoutUserInput = {
-    create?: XOR<SaunaCreateWithoutUserInput, SaunaUncheckedCreateWithoutUserInput> | SaunaCreateWithoutUserInput[] | SaunaUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SaunaCreateOrConnectWithoutUserInput | SaunaCreateOrConnectWithoutUserInput[]
-    createMany?: SaunaCreateManyUserInputEnvelope
+  export type SaunaCreateNestedManyWithoutUsersInput = {
+    create?: XOR<SaunaCreateWithoutUsersInput, SaunaUncheckedCreateWithoutUsersInput> | SaunaCreateWithoutUsersInput[] | SaunaUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: SaunaCreateOrConnectWithoutUsersInput | SaunaCreateOrConnectWithoutUsersInput[]
     connect?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
+  }
+
+  export type SaunaSessionCreateNestedManyWithoutParticipantsInput = {
+    create?: XOR<SaunaSessionCreateWithoutParticipantsInput, SaunaSessionUncheckedCreateWithoutParticipantsInput> | SaunaSessionCreateWithoutParticipantsInput[] | SaunaSessionUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: SaunaSessionCreateOrConnectWithoutParticipantsInput | SaunaSessionCreateOrConnectWithoutParticipantsInput[]
+    connect?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+  }
+
+  export type LikeCreateNestedManyWithoutUserInput = {
+    create?: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput> | LikeCreateWithoutUserInput[] | LikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutUserInput | LikeCreateOrConnectWithoutUserInput[]
+    createMany?: LikeCreateManyUserInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type CommentCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<CommentCreateWithoutCreatedByInput, CommentUncheckedCreateWithoutCreatedByInput> | CommentCreateWithoutCreatedByInput[] | CommentUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCreatedByInput | CommentCreateOrConnectWithoutCreatedByInput[]
+    createMany?: CommentCreateManyCreatedByInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type EventCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<EventCreateWithoutCreatedByInput, EventUncheckedCreateWithoutCreatedByInput> | EventCreateWithoutCreatedByInput[] | EventUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutCreatedByInput | EventCreateOrConnectWithoutCreatedByInput[]
+    createMany?: EventCreateManyCreatedByInputEnvelope
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+  }
+
+  export type EventCreateNestedManyWithoutParticipantsInput = {
+    create?: XOR<EventCreateWithoutParticipantsInput, EventUncheckedCreateWithoutParticipantsInput> | EventCreateWithoutParticipantsInput[] | EventUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutParticipantsInput | EventCreateOrConnectWithoutParticipantsInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
@@ -12349,11 +20513,43 @@ export namespace Prisma {
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
-  export type SaunaUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SaunaCreateWithoutUserInput, SaunaUncheckedCreateWithoutUserInput> | SaunaCreateWithoutUserInput[] | SaunaUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SaunaCreateOrConnectWithoutUserInput | SaunaCreateOrConnectWithoutUserInput[]
-    createMany?: SaunaCreateManyUserInputEnvelope
+  export type SaunaUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<SaunaCreateWithoutUsersInput, SaunaUncheckedCreateWithoutUsersInput> | SaunaCreateWithoutUsersInput[] | SaunaUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: SaunaCreateOrConnectWithoutUsersInput | SaunaCreateOrConnectWithoutUsersInput[]
     connect?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
+  }
+
+  export type SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput = {
+    create?: XOR<SaunaSessionCreateWithoutParticipantsInput, SaunaSessionUncheckedCreateWithoutParticipantsInput> | SaunaSessionCreateWithoutParticipantsInput[] | SaunaSessionUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: SaunaSessionCreateOrConnectWithoutParticipantsInput | SaunaSessionCreateOrConnectWithoutParticipantsInput[]
+    connect?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+  }
+
+  export type LikeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput> | LikeCreateWithoutUserInput[] | LikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutUserInput | LikeCreateOrConnectWithoutUserInput[]
+    createMany?: LikeCreateManyUserInputEnvelope
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<CommentCreateWithoutCreatedByInput, CommentUncheckedCreateWithoutCreatedByInput> | CommentCreateWithoutCreatedByInput[] | CommentUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCreatedByInput | CommentCreateOrConnectWithoutCreatedByInput[]
+    createMany?: CommentCreateManyCreatedByInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type EventUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<EventCreateWithoutCreatedByInput, EventUncheckedCreateWithoutCreatedByInput> | EventCreateWithoutCreatedByInput[] | EventUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutCreatedByInput | EventCreateOrConnectWithoutCreatedByInput[]
+    createMany?: EventCreateManyCreatedByInputEnvelope
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+  }
+
+  export type EventUncheckedCreateNestedManyWithoutParticipantsInput = {
+    create?: XOR<EventCreateWithoutParticipantsInput, EventUncheckedCreateWithoutParticipantsInput> | EventCreateWithoutParticipantsInput[] | EventUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutParticipantsInput | EventCreateOrConnectWithoutParticipantsInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -12402,18 +20598,85 @@ export namespace Prisma {
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
   }
 
-  export type SaunaUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SaunaCreateWithoutUserInput, SaunaUncheckedCreateWithoutUserInput> | SaunaCreateWithoutUserInput[] | SaunaUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SaunaCreateOrConnectWithoutUserInput | SaunaCreateOrConnectWithoutUserInput[]
-    upsert?: SaunaUpsertWithWhereUniqueWithoutUserInput | SaunaUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SaunaCreateManyUserInputEnvelope
+  export type SaunaUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<SaunaCreateWithoutUsersInput, SaunaUncheckedCreateWithoutUsersInput> | SaunaCreateWithoutUsersInput[] | SaunaUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: SaunaCreateOrConnectWithoutUsersInput | SaunaCreateOrConnectWithoutUsersInput[]
+    upsert?: SaunaUpsertWithWhereUniqueWithoutUsersInput | SaunaUpsertWithWhereUniqueWithoutUsersInput[]
     set?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
     disconnect?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
     delete?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
     connect?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
-    update?: SaunaUpdateWithWhereUniqueWithoutUserInput | SaunaUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SaunaUpdateManyWithWhereWithoutUserInput | SaunaUpdateManyWithWhereWithoutUserInput[]
+    update?: SaunaUpdateWithWhereUniqueWithoutUsersInput | SaunaUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: SaunaUpdateManyWithWhereWithoutUsersInput | SaunaUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: SaunaScalarWhereInput | SaunaScalarWhereInput[]
+  }
+
+  export type SaunaSessionUpdateManyWithoutParticipantsNestedInput = {
+    create?: XOR<SaunaSessionCreateWithoutParticipantsInput, SaunaSessionUncheckedCreateWithoutParticipantsInput> | SaunaSessionCreateWithoutParticipantsInput[] | SaunaSessionUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: SaunaSessionCreateOrConnectWithoutParticipantsInput | SaunaSessionCreateOrConnectWithoutParticipantsInput[]
+    upsert?: SaunaSessionUpsertWithWhereUniqueWithoutParticipantsInput | SaunaSessionUpsertWithWhereUniqueWithoutParticipantsInput[]
+    set?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+    disconnect?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+    delete?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+    connect?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+    update?: SaunaSessionUpdateWithWhereUniqueWithoutParticipantsInput | SaunaSessionUpdateWithWhereUniqueWithoutParticipantsInput[]
+    updateMany?: SaunaSessionUpdateManyWithWhereWithoutParticipantsInput | SaunaSessionUpdateManyWithWhereWithoutParticipantsInput[]
+    deleteMany?: SaunaSessionScalarWhereInput | SaunaSessionScalarWhereInput[]
+  }
+
+  export type LikeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput> | LikeCreateWithoutUserInput[] | LikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutUserInput | LikeCreateOrConnectWithoutUserInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutUserInput | LikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LikeCreateManyUserInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutUserInput | LikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutUserInput | LikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type CommentUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<CommentCreateWithoutCreatedByInput, CommentUncheckedCreateWithoutCreatedByInput> | CommentCreateWithoutCreatedByInput[] | CommentUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCreatedByInput | CommentCreateOrConnectWithoutCreatedByInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutCreatedByInput | CommentUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: CommentCreateManyCreatedByInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutCreatedByInput | CommentUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutCreatedByInput | CommentUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type EventUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<EventCreateWithoutCreatedByInput, EventUncheckedCreateWithoutCreatedByInput> | EventCreateWithoutCreatedByInput[] | EventUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutCreatedByInput | EventCreateOrConnectWithoutCreatedByInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutCreatedByInput | EventUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: EventCreateManyCreatedByInputEnvelope
+    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    update?: EventUpdateWithWhereUniqueWithoutCreatedByInput | EventUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutCreatedByInput | EventUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  }
+
+  export type EventUpdateManyWithoutParticipantsNestedInput = {
+    create?: XOR<EventCreateWithoutParticipantsInput, EventUncheckedCreateWithoutParticipantsInput> | EventCreateWithoutParticipantsInput[] | EventUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutParticipantsInput | EventCreateOrConnectWithoutParticipantsInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutParticipantsInput | EventUpsertWithWhereUniqueWithoutParticipantsInput[]
+    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    update?: EventUpdateWithWhereUniqueWithoutParticipantsInput | EventUpdateWithWhereUniqueWithoutParticipantsInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutParticipantsInput | EventUpdateManyWithWhereWithoutParticipantsInput[]
+    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
   }
 
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
@@ -12458,24 +20721,91 @@ export namespace Prisma {
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
   }
 
-  export type SaunaUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SaunaCreateWithoutUserInput, SaunaUncheckedCreateWithoutUserInput> | SaunaCreateWithoutUserInput[] | SaunaUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SaunaCreateOrConnectWithoutUserInput | SaunaCreateOrConnectWithoutUserInput[]
-    upsert?: SaunaUpsertWithWhereUniqueWithoutUserInput | SaunaUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SaunaCreateManyUserInputEnvelope
+  export type SaunaUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<SaunaCreateWithoutUsersInput, SaunaUncheckedCreateWithoutUsersInput> | SaunaCreateWithoutUsersInput[] | SaunaUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: SaunaCreateOrConnectWithoutUsersInput | SaunaCreateOrConnectWithoutUsersInput[]
+    upsert?: SaunaUpsertWithWhereUniqueWithoutUsersInput | SaunaUpsertWithWhereUniqueWithoutUsersInput[]
     set?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
     disconnect?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
     delete?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
     connect?: SaunaWhereUniqueInput | SaunaWhereUniqueInput[]
-    update?: SaunaUpdateWithWhereUniqueWithoutUserInput | SaunaUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SaunaUpdateManyWithWhereWithoutUserInput | SaunaUpdateManyWithWhereWithoutUserInput[]
+    update?: SaunaUpdateWithWhereUniqueWithoutUsersInput | SaunaUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: SaunaUpdateManyWithWhereWithoutUsersInput | SaunaUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: SaunaScalarWhereInput | SaunaScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutSaunasInput = {
-    create?: XOR<UserCreateWithoutSaunasInput, UserUncheckedCreateWithoutSaunasInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSaunasInput
-    connect?: UserWhereUniqueInput
+  export type SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput = {
+    create?: XOR<SaunaSessionCreateWithoutParticipantsInput, SaunaSessionUncheckedCreateWithoutParticipantsInput> | SaunaSessionCreateWithoutParticipantsInput[] | SaunaSessionUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: SaunaSessionCreateOrConnectWithoutParticipantsInput | SaunaSessionCreateOrConnectWithoutParticipantsInput[]
+    upsert?: SaunaSessionUpsertWithWhereUniqueWithoutParticipantsInput | SaunaSessionUpsertWithWhereUniqueWithoutParticipantsInput[]
+    set?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+    disconnect?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+    delete?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+    connect?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
+    update?: SaunaSessionUpdateWithWhereUniqueWithoutParticipantsInput | SaunaSessionUpdateWithWhereUniqueWithoutParticipantsInput[]
+    updateMany?: SaunaSessionUpdateManyWithWhereWithoutParticipantsInput | SaunaSessionUpdateManyWithWhereWithoutParticipantsInput[]
+    deleteMany?: SaunaSessionScalarWhereInput | SaunaSessionScalarWhereInput[]
+  }
+
+  export type LikeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput> | LikeCreateWithoutUserInput[] | LikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LikeCreateOrConnectWithoutUserInput | LikeCreateOrConnectWithoutUserInput[]
+    upsert?: LikeUpsertWithWhereUniqueWithoutUserInput | LikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LikeCreateManyUserInputEnvelope
+    set?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    disconnect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    delete?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    connect?: LikeWhereUniqueInput | LikeWhereUniqueInput[]
+    update?: LikeUpdateWithWhereUniqueWithoutUserInput | LikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LikeUpdateManyWithWhereWithoutUserInput | LikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LikeScalarWhereInput | LikeScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<CommentCreateWithoutCreatedByInput, CommentUncheckedCreateWithoutCreatedByInput> | CommentCreateWithoutCreatedByInput[] | CommentUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCreatedByInput | CommentCreateOrConnectWithoutCreatedByInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutCreatedByInput | CommentUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: CommentCreateManyCreatedByInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutCreatedByInput | CommentUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutCreatedByInput | CommentUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type EventUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<EventCreateWithoutCreatedByInput, EventUncheckedCreateWithoutCreatedByInput> | EventCreateWithoutCreatedByInput[] | EventUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutCreatedByInput | EventCreateOrConnectWithoutCreatedByInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutCreatedByInput | EventUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: EventCreateManyCreatedByInputEnvelope
+    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    update?: EventUpdateWithWhereUniqueWithoutCreatedByInput | EventUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutCreatedByInput | EventUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  }
+
+  export type EventUncheckedUpdateManyWithoutParticipantsNestedInput = {
+    create?: XOR<EventCreateWithoutParticipantsInput, EventUncheckedCreateWithoutParticipantsInput> | EventCreateWithoutParticipantsInput[] | EventUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutParticipantsInput | EventCreateOrConnectWithoutParticipantsInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutParticipantsInput | EventUpsertWithWhereUniqueWithoutParticipantsInput[]
+    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    update?: EventUpdateWithWhereUniqueWithoutParticipantsInput | EventUpdateWithWhereUniqueWithoutParticipantsInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutParticipantsInput | EventUpdateManyWithWhereWithoutParticipantsInput[]
+    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  }
+
+  export type UserCreateNestedManyWithoutSaunasInput = {
+    create?: XOR<UserCreateWithoutSaunasInput, UserUncheckedCreateWithoutSaunasInput> | UserCreateWithoutSaunasInput[] | UserUncheckedCreateWithoutSaunasInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSaunasInput | UserCreateOrConnectWithoutSaunasInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type SaunaSessionCreateNestedManyWithoutSaunaInput = {
@@ -12485,6 +20815,26 @@ export namespace Prisma {
     connect?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
   }
 
+  export type SaunaMeasurementCreateNestedManyWithoutSaunaInput = {
+    create?: XOR<SaunaMeasurementCreateWithoutSaunaInput, SaunaMeasurementUncheckedCreateWithoutSaunaInput> | SaunaMeasurementCreateWithoutSaunaInput[] | SaunaMeasurementUncheckedCreateWithoutSaunaInput[]
+    connectOrCreate?: SaunaMeasurementCreateOrConnectWithoutSaunaInput | SaunaMeasurementCreateOrConnectWithoutSaunaInput[]
+    createMany?: SaunaMeasurementCreateManySaunaInputEnvelope
+    connect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+  }
+
+  export type EventCreateNestedManyWithoutSaunaInput = {
+    create?: XOR<EventCreateWithoutSaunaInput, EventUncheckedCreateWithoutSaunaInput> | EventCreateWithoutSaunaInput[] | EventUncheckedCreateWithoutSaunaInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutSaunaInput | EventCreateOrConnectWithoutSaunaInput[]
+    createMany?: EventCreateManySaunaInputEnvelope
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutSaunasInput = {
+    create?: XOR<UserCreateWithoutSaunasInput, UserUncheckedCreateWithoutSaunasInput> | UserCreateWithoutSaunasInput[] | UserUncheckedCreateWithoutSaunasInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSaunasInput | UserCreateOrConnectWithoutSaunasInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
   export type SaunaSessionUncheckedCreateNestedManyWithoutSaunaInput = {
     create?: XOR<SaunaSessionCreateWithoutSaunaInput, SaunaSessionUncheckedCreateWithoutSaunaInput> | SaunaSessionCreateWithoutSaunaInput[] | SaunaSessionUncheckedCreateWithoutSaunaInput[]
     connectOrCreate?: SaunaSessionCreateOrConnectWithoutSaunaInput | SaunaSessionCreateOrConnectWithoutSaunaInput[]
@@ -12492,12 +20842,31 @@ export namespace Prisma {
     connect?: SaunaSessionWhereUniqueInput | SaunaSessionWhereUniqueInput[]
   }
 
-  export type UserUpdateOneRequiredWithoutSaunasNestedInput = {
-    create?: XOR<UserCreateWithoutSaunasInput, UserUncheckedCreateWithoutSaunasInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSaunasInput
-    upsert?: UserUpsertWithoutSaunasInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSaunasInput, UserUpdateWithoutSaunasInput>, UserUncheckedUpdateWithoutSaunasInput>
+  export type SaunaMeasurementUncheckedCreateNestedManyWithoutSaunaInput = {
+    create?: XOR<SaunaMeasurementCreateWithoutSaunaInput, SaunaMeasurementUncheckedCreateWithoutSaunaInput> | SaunaMeasurementCreateWithoutSaunaInput[] | SaunaMeasurementUncheckedCreateWithoutSaunaInput[]
+    connectOrCreate?: SaunaMeasurementCreateOrConnectWithoutSaunaInput | SaunaMeasurementCreateOrConnectWithoutSaunaInput[]
+    createMany?: SaunaMeasurementCreateManySaunaInputEnvelope
+    connect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+  }
+
+  export type EventUncheckedCreateNestedManyWithoutSaunaInput = {
+    create?: XOR<EventCreateWithoutSaunaInput, EventUncheckedCreateWithoutSaunaInput> | EventCreateWithoutSaunaInput[] | EventUncheckedCreateWithoutSaunaInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutSaunaInput | EventCreateOrConnectWithoutSaunaInput[]
+    createMany?: EventCreateManySaunaInputEnvelope
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+  }
+
+  export type UserUpdateManyWithoutSaunasNestedInput = {
+    create?: XOR<UserCreateWithoutSaunasInput, UserUncheckedCreateWithoutSaunasInput> | UserCreateWithoutSaunasInput[] | UserUncheckedCreateWithoutSaunasInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSaunasInput | UserCreateOrConnectWithoutSaunasInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutSaunasInput | UserUpsertWithWhereUniqueWithoutSaunasInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutSaunasInput | UserUpdateWithWhereUniqueWithoutSaunasInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutSaunasInput | UserUpdateManyWithWhereWithoutSaunasInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type SaunaSessionUpdateManyWithoutSaunaNestedInput = {
@@ -12514,6 +20883,47 @@ export namespace Prisma {
     deleteMany?: SaunaSessionScalarWhereInput | SaunaSessionScalarWhereInput[]
   }
 
+  export type SaunaMeasurementUpdateManyWithoutSaunaNestedInput = {
+    create?: XOR<SaunaMeasurementCreateWithoutSaunaInput, SaunaMeasurementUncheckedCreateWithoutSaunaInput> | SaunaMeasurementCreateWithoutSaunaInput[] | SaunaMeasurementUncheckedCreateWithoutSaunaInput[]
+    connectOrCreate?: SaunaMeasurementCreateOrConnectWithoutSaunaInput | SaunaMeasurementCreateOrConnectWithoutSaunaInput[]
+    upsert?: SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaInput | SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaInput[]
+    createMany?: SaunaMeasurementCreateManySaunaInputEnvelope
+    set?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+    disconnect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+    delete?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+    connect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+    update?: SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaInput | SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaInput[]
+    updateMany?: SaunaMeasurementUpdateManyWithWhereWithoutSaunaInput | SaunaMeasurementUpdateManyWithWhereWithoutSaunaInput[]
+    deleteMany?: SaunaMeasurementScalarWhereInput | SaunaMeasurementScalarWhereInput[]
+  }
+
+  export type EventUpdateManyWithoutSaunaNestedInput = {
+    create?: XOR<EventCreateWithoutSaunaInput, EventUncheckedCreateWithoutSaunaInput> | EventCreateWithoutSaunaInput[] | EventUncheckedCreateWithoutSaunaInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutSaunaInput | EventCreateOrConnectWithoutSaunaInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutSaunaInput | EventUpsertWithWhereUniqueWithoutSaunaInput[]
+    createMany?: EventCreateManySaunaInputEnvelope
+    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    update?: EventUpdateWithWhereUniqueWithoutSaunaInput | EventUpdateWithWhereUniqueWithoutSaunaInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutSaunaInput | EventUpdateManyWithWhereWithoutSaunaInput[]
+    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutSaunasNestedInput = {
+    create?: XOR<UserCreateWithoutSaunasInput, UserUncheckedCreateWithoutSaunasInput> | UserCreateWithoutSaunasInput[] | UserUncheckedCreateWithoutSaunasInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSaunasInput | UserCreateOrConnectWithoutSaunasInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutSaunasInput | UserUpsertWithWhereUniqueWithoutSaunasInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutSaunasInput | UserUpdateWithWhereUniqueWithoutSaunasInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutSaunasInput | UserUpdateManyWithWhereWithoutSaunasInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
   export type SaunaSessionUncheckedUpdateManyWithoutSaunaNestedInput = {
     create?: XOR<SaunaSessionCreateWithoutSaunaInput, SaunaSessionUncheckedCreateWithoutSaunaInput> | SaunaSessionCreateWithoutSaunaInput[] | SaunaSessionUncheckedCreateWithoutSaunaInput[]
     connectOrCreate?: SaunaSessionCreateOrConnectWithoutSaunaInput | SaunaSessionCreateOrConnectWithoutSaunaInput[]
@@ -12528,32 +20938,64 @@ export namespace Prisma {
     deleteMany?: SaunaSessionScalarWhereInput | SaunaSessionScalarWhereInput[]
   }
 
+  export type SaunaMeasurementUncheckedUpdateManyWithoutSaunaNestedInput = {
+    create?: XOR<SaunaMeasurementCreateWithoutSaunaInput, SaunaMeasurementUncheckedCreateWithoutSaunaInput> | SaunaMeasurementCreateWithoutSaunaInput[] | SaunaMeasurementUncheckedCreateWithoutSaunaInput[]
+    connectOrCreate?: SaunaMeasurementCreateOrConnectWithoutSaunaInput | SaunaMeasurementCreateOrConnectWithoutSaunaInput[]
+    upsert?: SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaInput | SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaInput[]
+    createMany?: SaunaMeasurementCreateManySaunaInputEnvelope
+    set?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+    disconnect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+    delete?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+    connect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+    update?: SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaInput | SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaInput[]
+    updateMany?: SaunaMeasurementUpdateManyWithWhereWithoutSaunaInput | SaunaMeasurementUpdateManyWithWhereWithoutSaunaInput[]
+    deleteMany?: SaunaMeasurementScalarWhereInput | SaunaMeasurementScalarWhereInput[]
+  }
+
+  export type EventUncheckedUpdateManyWithoutSaunaNestedInput = {
+    create?: XOR<EventCreateWithoutSaunaInput, EventUncheckedCreateWithoutSaunaInput> | EventCreateWithoutSaunaInput[] | EventUncheckedCreateWithoutSaunaInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutSaunaInput | EventCreateOrConnectWithoutSaunaInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutSaunaInput | EventUpsertWithWhereUniqueWithoutSaunaInput[]
+    createMany?: EventCreateManySaunaInputEnvelope
+    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    update?: EventUpdateWithWhereUniqueWithoutSaunaInput | EventUpdateWithWhereUniqueWithoutSaunaInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutSaunaInput | EventUpdateManyWithWhereWithoutSaunaInput[]
+    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  }
+
   export type SaunaCreateNestedOneWithoutSessionsInput = {
     create?: XOR<SaunaCreateWithoutSessionsInput, SaunaUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: SaunaCreateOrConnectWithoutSessionsInput
     connect?: SaunaWhereUniqueInput
   }
 
-  export type SaunaMeasurementCreateNestedManyWithoutSaunaSessionInput = {
-    create?: XOR<SaunaMeasurementCreateWithoutSaunaSessionInput, SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput> | SaunaMeasurementCreateWithoutSaunaSessionInput[] | SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput[]
-    connectOrCreate?: SaunaMeasurementCreateOrConnectWithoutSaunaSessionInput | SaunaMeasurementCreateOrConnectWithoutSaunaSessionInput[]
-    createMany?: SaunaMeasurementCreateManySaunaSessionInputEnvelope
-    connect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+  export type UserCreateNestedManyWithoutSaunaSessionsInput = {
+    create?: XOR<UserCreateWithoutSaunaSessionsInput, UserUncheckedCreateWithoutSaunaSessionsInput> | UserCreateWithoutSaunaSessionsInput[] | UserUncheckedCreateWithoutSaunaSessionsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSaunaSessionsInput | UserCreateOrConnectWithoutSaunaSessionsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
-  export type SaunaMeasurementUncheckedCreateNestedManyWithoutSaunaSessionInput = {
-    create?: XOR<SaunaMeasurementCreateWithoutSaunaSessionInput, SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput> | SaunaMeasurementCreateWithoutSaunaSessionInput[] | SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput[]
-    connectOrCreate?: SaunaMeasurementCreateOrConnectWithoutSaunaSessionInput | SaunaMeasurementCreateOrConnectWithoutSaunaSessionInput[]
-    createMany?: SaunaMeasurementCreateManySaunaSessionInputEnvelope
-    connect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
+  export type PostCreateNestedManyWithoutSaunaSessionInput = {
+    create?: XOR<PostCreateWithoutSaunaSessionInput, PostUncheckedCreateWithoutSaunaSessionInput> | PostCreateWithoutSaunaSessionInput[] | PostUncheckedCreateWithoutSaunaSessionInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutSaunaSessionInput | PostCreateOrConnectWithoutSaunaSessionInput[]
+    createMany?: PostCreateManySaunaSessionInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type UserUncheckedCreateNestedManyWithoutSaunaSessionsInput = {
+    create?: XOR<UserCreateWithoutSaunaSessionsInput, UserUncheckedCreateWithoutSaunaSessionsInput> | UserCreateWithoutSaunaSessionsInput[] | UserUncheckedCreateWithoutSaunaSessionsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSaunaSessionsInput | UserCreateOrConnectWithoutSaunaSessionsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type PostUncheckedCreateNestedManyWithoutSaunaSessionInput = {
+    create?: XOR<PostCreateWithoutSaunaSessionInput, PostUncheckedCreateWithoutSaunaSessionInput> | PostCreateWithoutSaunaSessionInput[] | PostUncheckedCreateWithoutSaunaSessionInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutSaunaSessionInput | PostCreateOrConnectWithoutSaunaSessionInput[]
+    createMany?: PostCreateManySaunaSessionInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -12564,6 +21006,14 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type EnumSaunaSessionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SaunaSessionStatus
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type SaunaUpdateOneRequiredWithoutSessionsNestedInput = {
     create?: XOR<SaunaCreateWithoutSessionsInput, SaunaUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: SaunaCreateOrConnectWithoutSessionsInput
@@ -12572,52 +21022,264 @@ export namespace Prisma {
     update?: XOR<XOR<SaunaUpdateToOneWithWhereWithoutSessionsInput, SaunaUpdateWithoutSessionsInput>, SaunaUncheckedUpdateWithoutSessionsInput>
   }
 
-  export type SaunaMeasurementUpdateManyWithoutSaunaSessionNestedInput = {
-    create?: XOR<SaunaMeasurementCreateWithoutSaunaSessionInput, SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput> | SaunaMeasurementCreateWithoutSaunaSessionInput[] | SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput[]
-    connectOrCreate?: SaunaMeasurementCreateOrConnectWithoutSaunaSessionInput | SaunaMeasurementCreateOrConnectWithoutSaunaSessionInput[]
-    upsert?: SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaSessionInput | SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaSessionInput[]
-    createMany?: SaunaMeasurementCreateManySaunaSessionInputEnvelope
-    set?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
-    disconnect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
-    delete?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
-    connect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
-    update?: SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaSessionInput | SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaSessionInput[]
-    updateMany?: SaunaMeasurementUpdateManyWithWhereWithoutSaunaSessionInput | SaunaMeasurementUpdateManyWithWhereWithoutSaunaSessionInput[]
-    deleteMany?: SaunaMeasurementScalarWhereInput | SaunaMeasurementScalarWhereInput[]
+  export type UserUpdateManyWithoutSaunaSessionsNestedInput = {
+    create?: XOR<UserCreateWithoutSaunaSessionsInput, UserUncheckedCreateWithoutSaunaSessionsInput> | UserCreateWithoutSaunaSessionsInput[] | UserUncheckedCreateWithoutSaunaSessionsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSaunaSessionsInput | UserCreateOrConnectWithoutSaunaSessionsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutSaunaSessionsInput | UserUpsertWithWhereUniqueWithoutSaunaSessionsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutSaunaSessionsInput | UserUpdateWithWhereUniqueWithoutSaunaSessionsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutSaunaSessionsInput | UserUpdateManyWithWhereWithoutSaunaSessionsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type SaunaMeasurementUncheckedUpdateManyWithoutSaunaSessionNestedInput = {
-    create?: XOR<SaunaMeasurementCreateWithoutSaunaSessionInput, SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput> | SaunaMeasurementCreateWithoutSaunaSessionInput[] | SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput[]
-    connectOrCreate?: SaunaMeasurementCreateOrConnectWithoutSaunaSessionInput | SaunaMeasurementCreateOrConnectWithoutSaunaSessionInput[]
-    upsert?: SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaSessionInput | SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaSessionInput[]
-    createMany?: SaunaMeasurementCreateManySaunaSessionInputEnvelope
-    set?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
-    disconnect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
-    delete?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
-    connect?: SaunaMeasurementWhereUniqueInput | SaunaMeasurementWhereUniqueInput[]
-    update?: SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaSessionInput | SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaSessionInput[]
-    updateMany?: SaunaMeasurementUpdateManyWithWhereWithoutSaunaSessionInput | SaunaMeasurementUpdateManyWithWhereWithoutSaunaSessionInput[]
-    deleteMany?: SaunaMeasurementScalarWhereInput | SaunaMeasurementScalarWhereInput[]
+  export type PostUpdateManyWithoutSaunaSessionNestedInput = {
+    create?: XOR<PostCreateWithoutSaunaSessionInput, PostUncheckedCreateWithoutSaunaSessionInput> | PostCreateWithoutSaunaSessionInput[] | PostUncheckedCreateWithoutSaunaSessionInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutSaunaSessionInput | PostCreateOrConnectWithoutSaunaSessionInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutSaunaSessionInput | PostUpsertWithWhereUniqueWithoutSaunaSessionInput[]
+    createMany?: PostCreateManySaunaSessionInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutSaunaSessionInput | PostUpdateWithWhereUniqueWithoutSaunaSessionInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutSaunaSessionInput | PostUpdateManyWithWhereWithoutSaunaSessionInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
   }
 
-  export type SaunaSessionCreateNestedOneWithoutMeasurementsInput = {
-    create?: XOR<SaunaSessionCreateWithoutMeasurementsInput, SaunaSessionUncheckedCreateWithoutMeasurementsInput>
-    connectOrCreate?: SaunaSessionCreateOrConnectWithoutMeasurementsInput
-    connect?: SaunaSessionWhereUniqueInput
+  export type UserUncheckedUpdateManyWithoutSaunaSessionsNestedInput = {
+    create?: XOR<UserCreateWithoutSaunaSessionsInput, UserUncheckedCreateWithoutSaunaSessionsInput> | UserCreateWithoutSaunaSessionsInput[] | UserUncheckedCreateWithoutSaunaSessionsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSaunaSessionsInput | UserCreateOrConnectWithoutSaunaSessionsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutSaunaSessionsInput | UserUpsertWithWhereUniqueWithoutSaunaSessionsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutSaunaSessionsInput | UserUpdateWithWhereUniqueWithoutSaunaSessionsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutSaunaSessionsInput | UserUpdateManyWithWhereWithoutSaunaSessionsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type SaunaSessionUpdateOneRequiredWithoutMeasurementsNestedInput = {
-    create?: XOR<SaunaSessionCreateWithoutMeasurementsInput, SaunaSessionUncheckedCreateWithoutMeasurementsInput>
-    connectOrCreate?: SaunaSessionCreateOrConnectWithoutMeasurementsInput
-    upsert?: SaunaSessionUpsertWithoutMeasurementsInput
-    connect?: SaunaSessionWhereUniqueInput
-    update?: XOR<XOR<SaunaSessionUpdateToOneWithWhereWithoutMeasurementsInput, SaunaSessionUpdateWithoutMeasurementsInput>, SaunaSessionUncheckedUpdateWithoutMeasurementsInput>
+  export type PostUncheckedUpdateManyWithoutSaunaSessionNestedInput = {
+    create?: XOR<PostCreateWithoutSaunaSessionInput, PostUncheckedCreateWithoutSaunaSessionInput> | PostCreateWithoutSaunaSessionInput[] | PostUncheckedCreateWithoutSaunaSessionInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutSaunaSessionInput | PostCreateOrConnectWithoutSaunaSessionInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutSaunaSessionInput | PostUpsertWithWhereUniqueWithoutSaunaSessionInput[]
+    createMany?: PostCreateManySaunaSessionInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutSaunaSessionInput | PostUpdateWithWhereUniqueWithoutSaunaSessionInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutSaunaSessionInput | PostUpdateManyWithWhereWithoutSaunaSessionInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type PostCreateNestedOneWithoutLikesInput = {
+    create?: XOR<PostCreateWithoutLikesInput, PostUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: PostCreateOrConnectWithoutLikesInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLikesInput = {
+    create?: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLikesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PostUpdateOneRequiredWithoutLikesNestedInput = {
+    create?: XOR<PostCreateWithoutLikesInput, PostUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: PostCreateOrConnectWithoutLikesInput
+    upsert?: PostUpsertWithoutLikesInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutLikesInput, PostUpdateWithoutLikesInput>, PostUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutLikesNestedInput = {
+    create?: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLikesInput
+    upsert?: UserUpsertWithoutLikesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLikesInput, UserUpdateWithoutLikesInput>, UserUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type PostCreateNestedOneWithoutImagesInput = {
+    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: PostCreateOrConnectWithoutImagesInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type PostUpdateOneRequiredWithoutImagesNestedInput = {
+    create?: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: PostCreateOrConnectWithoutImagesInput
+    upsert?: PostUpsertWithoutImagesInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutImagesInput, PostUpdateWithoutImagesInput>, PostUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type PostCreateNestedManyWithoutAchievementInput = {
+    create?: XOR<PostCreateWithoutAchievementInput, PostUncheckedCreateWithoutAchievementInput> | PostCreateWithoutAchievementInput[] | PostUncheckedCreateWithoutAchievementInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAchievementInput | PostCreateOrConnectWithoutAchievementInput[]
+    createMany?: PostCreateManyAchievementInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type PostUncheckedCreateNestedManyWithoutAchievementInput = {
+    create?: XOR<PostCreateWithoutAchievementInput, PostUncheckedCreateWithoutAchievementInput> | PostCreateWithoutAchievementInput[] | PostUncheckedCreateWithoutAchievementInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAchievementInput | PostCreateOrConnectWithoutAchievementInput[]
+    createMany?: PostCreateManyAchievementInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type PostUpdateManyWithoutAchievementNestedInput = {
+    create?: XOR<PostCreateWithoutAchievementInput, PostUncheckedCreateWithoutAchievementInput> | PostCreateWithoutAchievementInput[] | PostUncheckedCreateWithoutAchievementInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAchievementInput | PostCreateOrConnectWithoutAchievementInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutAchievementInput | PostUpsertWithWhereUniqueWithoutAchievementInput[]
+    createMany?: PostCreateManyAchievementInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutAchievementInput | PostUpdateWithWhereUniqueWithoutAchievementInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutAchievementInput | PostUpdateManyWithWhereWithoutAchievementInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type PostUncheckedUpdateManyWithoutAchievementNestedInput = {
+    create?: XOR<PostCreateWithoutAchievementInput, PostUncheckedCreateWithoutAchievementInput> | PostCreateWithoutAchievementInput[] | PostUncheckedCreateWithoutAchievementInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAchievementInput | PostCreateOrConnectWithoutAchievementInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutAchievementInput | PostUpsertWithWhereUniqueWithoutAchievementInput[]
+    createMany?: PostCreateManyAchievementInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutAchievementInput | PostUpdateWithWhereUniqueWithoutAchievementInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutAchievementInput | PostUpdateManyWithWhereWithoutAchievementInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type SaunaCreateNestedOneWithoutSaunaMeasurementsInput = {
+    create?: XOR<SaunaCreateWithoutSaunaMeasurementsInput, SaunaUncheckedCreateWithoutSaunaMeasurementsInput>
+    connectOrCreate?: SaunaCreateOrConnectWithoutSaunaMeasurementsInput
+    connect?: SaunaWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type SaunaUpdateOneRequiredWithoutSaunaMeasurementsNestedInput = {
+    create?: XOR<SaunaCreateWithoutSaunaMeasurementsInput, SaunaUncheckedCreateWithoutSaunaMeasurementsInput>
+    connectOrCreate?: SaunaCreateOrConnectWithoutSaunaMeasurementsInput
+    upsert?: SaunaUpsertWithoutSaunaMeasurementsInput
+    connect?: SaunaWhereUniqueInput
+    update?: XOR<XOR<SaunaUpdateToOneWithWhereWithoutSaunaMeasurementsInput, SaunaUpdateWithoutSaunaMeasurementsInput>, SaunaUncheckedUpdateWithoutSaunaMeasurementsInput>
+  }
+
+  export type UserCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PostCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<PostCreateWithoutCommentsInput, PostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutCommentsInput
+    connect?: PostWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    upsert?: UserUpsertWithoutCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsInput, UserUpdateWithoutCommentsInput>, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type PostUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<PostCreateWithoutCommentsInput, PostUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutCommentsInput
+    upsert?: PostUpsertWithoutCommentsInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutCommentsInput, PostUpdateWithoutCommentsInput>, PostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type SaunaCreateNestedOneWithoutEventsInput = {
+    create?: XOR<SaunaCreateWithoutEventsInput, SaunaUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: SaunaCreateOrConnectWithoutEventsInput
+    connect?: SaunaWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCreatedEventsInput = {
+    create?: XOR<UserCreateWithoutCreatedEventsInput, UserUncheckedCreateWithoutCreatedEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedEventsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedManyWithoutParticipatedEventsInput = {
+    create?: XOR<UserCreateWithoutParticipatedEventsInput, UserUncheckedCreateWithoutParticipatedEventsInput> | UserCreateWithoutParticipatedEventsInput[] | UserUncheckedCreateWithoutParticipatedEventsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutParticipatedEventsInput | UserCreateOrConnectWithoutParticipatedEventsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutParticipatedEventsInput = {
+    create?: XOR<UserCreateWithoutParticipatedEventsInput, UserUncheckedCreateWithoutParticipatedEventsInput> | UserCreateWithoutParticipatedEventsInput[] | UserUncheckedCreateWithoutParticipatedEventsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutParticipatedEventsInput | UserCreateOrConnectWithoutParticipatedEventsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type SaunaUpdateOneRequiredWithoutEventsNestedInput = {
+    create?: XOR<SaunaCreateWithoutEventsInput, SaunaUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: SaunaCreateOrConnectWithoutEventsInput
+    upsert?: SaunaUpsertWithoutEventsInput
+    connect?: SaunaWhereUniqueInput
+    update?: XOR<XOR<SaunaUpdateToOneWithWhereWithoutEventsInput, SaunaUpdateWithoutEventsInput>, SaunaUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCreatedEventsNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedEventsInput, UserUncheckedCreateWithoutCreatedEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedEventsInput
+    upsert?: UserUpsertWithoutCreatedEventsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedEventsInput, UserUpdateWithoutCreatedEventsInput>, UserUncheckedUpdateWithoutCreatedEventsInput>
+  }
+
+  export type UserUpdateManyWithoutParticipatedEventsNestedInput = {
+    create?: XOR<UserCreateWithoutParticipatedEventsInput, UserUncheckedCreateWithoutParticipatedEventsInput> | UserCreateWithoutParticipatedEventsInput[] | UserUncheckedCreateWithoutParticipatedEventsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutParticipatedEventsInput | UserCreateOrConnectWithoutParticipatedEventsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutParticipatedEventsInput | UserUpsertWithWhereUniqueWithoutParticipatedEventsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutParticipatedEventsInput | UserUpdateWithWhereUniqueWithoutParticipatedEventsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutParticipatedEventsInput | UserUpdateManyWithWhereWithoutParticipatedEventsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutParticipatedEventsNestedInput = {
+    create?: XOR<UserCreateWithoutParticipatedEventsInput, UserUncheckedCreateWithoutParticipatedEventsInput> | UserCreateWithoutParticipatedEventsInput[] | UserUncheckedCreateWithoutParticipatedEventsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutParticipatedEventsInput | UserCreateOrConnectWithoutParticipatedEventsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutParticipatedEventsInput | UserUpsertWithWhereUniqueWithoutParticipatedEventsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutParticipatedEventsInput | UserUpdateWithWhereUniqueWithoutParticipatedEventsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutParticipatedEventsInput | UserUpdateManyWithWhereWithoutParticipatedEventsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -12627,8 +21289,8 @@ export namespace Prisma {
 
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -12639,10 +21301,24 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -12652,8 +21328,8 @@ export namespace Prisma {
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -12668,8 +21344,8 @@ export namespace Prisma {
 
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -12679,8 +21355,8 @@ export namespace Prisma {
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -12694,49 +21370,10 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -12750,10 +21387,35 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -12768,8 +21430,8 @@ export namespace Prisma {
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -12779,8 +21441,8 @@ export namespace Prisma {
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -12790,8 +21452,8 @@ export namespace Prisma {
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -12802,26 +21464,22 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+  export type NestedEnumSaunaSessionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SaunaSessionStatus | EnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SaunaSessionStatus[] | ListEnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SaunaSessionStatus[] | ListEnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSaunaSessionStatusFilter<$PrismaModel> | $Enums.SaunaSessionStatus
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -12834,6 +21492,40 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumSaunaSessionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SaunaSessionStatus | EnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SaunaSessionStatus[] | ListEnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SaunaSessionStatus[] | ListEnumSaunaSessionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSaunaSessionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SaunaSessionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSaunaSessionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSaunaSessionStatusFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutPostsInput = {
     id?: string
     name?: string | null
@@ -12842,7 +21534,12 @@ export namespace Prisma {
     image?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
-    saunas?: SaunaCreateNestedManyWithoutUserInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -12853,12 +21550,159 @@ export namespace Prisma {
     image?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    saunas?: SaunaUncheckedCreateNestedManyWithoutUserInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+  }
+
+  export type SaunaSessionCreateWithoutPostsInput = {
+    id?: string
+    harviaSessionId?: string | null
+    startTimestamp: Date | string
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
+    maxTemperature?: number | null
+    avgTemperature?: number | null
+    minTemperature?: number | null
+    maxHumidity?: number | null
+    avgHumidity?: number | null
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
+    sauna: SaunaCreateNestedOneWithoutSessionsInput
+    participants?: UserCreateNestedManyWithoutSaunaSessionsInput
+  }
+
+  export type SaunaSessionUncheckedCreateWithoutPostsInput = {
+    id?: string
+    harviaSessionId?: string | null
+    saunaId: string
+    startTimestamp: Date | string
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
+    maxTemperature?: number | null
+    avgTemperature?: number | null
+    minTemperature?: number | null
+    maxHumidity?: number | null
+    avgHumidity?: number | null
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
+    participants?: UserUncheckedCreateNestedManyWithoutSaunaSessionsInput
+  }
+
+  export type SaunaSessionCreateOrConnectWithoutPostsInput = {
+    where: SaunaSessionWhereUniqueInput
+    create: XOR<SaunaSessionCreateWithoutPostsInput, SaunaSessionUncheckedCreateWithoutPostsInput>
+  }
+
+  export type AchievementCreateWithoutPostsInput = {
+    id?: string
+    name: string
+    description: string
+    metric?: string | null
+    value?: string | null
+    unit?: string | null
+  }
+
+  export type AchievementUncheckedCreateWithoutPostsInput = {
+    id?: string
+    name: string
+    description: string
+    metric?: string | null
+    value?: string | null
+    unit?: string | null
+  }
+
+  export type AchievementCreateOrConnectWithoutPostsInput = {
+    where: AchievementWhereUniqueInput
+    create: XOR<AchievementCreateWithoutPostsInput, AchievementUncheckedCreateWithoutPostsInput>
+  }
+
+  export type LikeCreateWithoutPostInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutLikesInput
+  }
+
+  export type LikeUncheckedCreateWithoutPostInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type LikeCreateOrConnectWithoutPostInput = {
+    where: LikeWhereUniqueInput
+    create: XOR<LikeCreateWithoutPostInput, LikeUncheckedCreateWithoutPostInput>
+  }
+
+  export type LikeCreateManyPostInputEnvelope = {
+    data: LikeCreateManyPostInput | LikeCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostImageCreateWithoutPostInput = {
+    id?: string
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type PostImageUncheckedCreateWithoutPostInput = {
+    id?: string
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type PostImageCreateOrConnectWithoutPostInput = {
+    where: PostImageWhereUniqueInput
+    create: XOR<PostImageCreateWithoutPostInput, PostImageUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostImageCreateManyPostInputEnvelope = {
+    data: PostImageCreateManyPostInput | PostImageCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommentCreateWithoutPostInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateWithoutPostInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+  }
+
+  export type CommentCreateOrConnectWithoutPostInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type CommentCreateManyPostInputEnvelope = {
+    data: CommentCreateManyPostInput | CommentCreateManyPostInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutPostsInput = {
@@ -12880,7 +21724,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    saunas?: SaunaUpdateManyWithoutUserNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -12891,7 +21740,176 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    saunas?: SaunaUncheckedUpdateManyWithoutUserNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type SaunaSessionUpsertWithoutPostsInput = {
+    update: XOR<SaunaSessionUpdateWithoutPostsInput, SaunaSessionUncheckedUpdateWithoutPostsInput>
+    create: XOR<SaunaSessionCreateWithoutPostsInput, SaunaSessionUncheckedCreateWithoutPostsInput>
+    where?: SaunaSessionWhereInput
+  }
+
+  export type SaunaSessionUpdateToOneWithWhereWithoutPostsInput = {
+    where?: SaunaSessionWhereInput
+    data: XOR<SaunaSessionUpdateWithoutPostsInput, SaunaSessionUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type SaunaSessionUpdateWithoutPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+    sauna?: SaunaUpdateOneRequiredWithoutSessionsNestedInput
+    participants?: UserUpdateManyWithoutSaunaSessionsNestedInput
+  }
+
+  export type SaunaSessionUncheckedUpdateWithoutPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaId?: StringFieldUpdateOperationsInput | string
+    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+    participants?: UserUncheckedUpdateManyWithoutSaunaSessionsNestedInput
+  }
+
+  export type AchievementUpsertWithoutPostsInput = {
+    update: XOR<AchievementUpdateWithoutPostsInput, AchievementUncheckedUpdateWithoutPostsInput>
+    create: XOR<AchievementCreateWithoutPostsInput, AchievementUncheckedCreateWithoutPostsInput>
+    where?: AchievementWhereInput
+  }
+
+  export type AchievementUpdateToOneWithWhereWithoutPostsInput = {
+    where?: AchievementWhereInput
+    data: XOR<AchievementUpdateWithoutPostsInput, AchievementUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type AchievementUpdateWithoutPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    metric?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AchievementUncheckedUpdateWithoutPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    metric?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableStringFieldUpdateOperationsInput | string | null
+    unit?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LikeUpsertWithWhereUniqueWithoutPostInput = {
+    where: LikeWhereUniqueInput
+    update: XOR<LikeUpdateWithoutPostInput, LikeUncheckedUpdateWithoutPostInput>
+    create: XOR<LikeCreateWithoutPostInput, LikeUncheckedCreateWithoutPostInput>
+  }
+
+  export type LikeUpdateWithWhereUniqueWithoutPostInput = {
+    where: LikeWhereUniqueInput
+    data: XOR<LikeUpdateWithoutPostInput, LikeUncheckedUpdateWithoutPostInput>
+  }
+
+  export type LikeUpdateManyWithWhereWithoutPostInput = {
+    where: LikeScalarWhereInput
+    data: XOR<LikeUpdateManyMutationInput, LikeUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type LikeScalarWhereInput = {
+    AND?: LikeScalarWhereInput | LikeScalarWhereInput[]
+    OR?: LikeScalarWhereInput[]
+    NOT?: LikeScalarWhereInput | LikeScalarWhereInput[]
+    id?: StringFilter<"Like"> | string
+    postId?: IntFilter<"Like"> | number
+    userId?: StringFilter<"Like"> | string
+    createdAt?: DateTimeFilter<"Like"> | Date | string
+  }
+
+  export type PostImageUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostImageWhereUniqueInput
+    update: XOR<PostImageUpdateWithoutPostInput, PostImageUncheckedUpdateWithoutPostInput>
+    create: XOR<PostImageCreateWithoutPostInput, PostImageUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostImageUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostImageWhereUniqueInput
+    data: XOR<PostImageUpdateWithoutPostInput, PostImageUncheckedUpdateWithoutPostInput>
+  }
+
+  export type PostImageUpdateManyWithWhereWithoutPostInput = {
+    where: PostImageScalarWhereInput
+    data: XOR<PostImageUpdateManyMutationInput, PostImageUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type PostImageScalarWhereInput = {
+    AND?: PostImageScalarWhereInput | PostImageScalarWhereInput[]
+    OR?: PostImageScalarWhereInput[]
+    NOT?: PostImageScalarWhereInput | PostImageScalarWhereInput[]
+    id?: StringFilter<"PostImage"> | string
+    postId?: IntFilter<"PostImage"> | number
+    url?: StringFilter<"PostImage"> | string
+    createdAt?: DateTimeFilter<"PostImage"> | Date | string
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutPostInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutPostInput, CommentUncheckedUpdateWithoutPostInput>
+    create: XOR<CommentCreateWithoutPostInput, CommentUncheckedCreateWithoutPostInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutPostInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutPostInput, CommentUncheckedUpdateWithoutPostInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutPostInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type CommentScalarWhereInput = {
+    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    OR?: CommentScalarWhereInput[]
+    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    id?: StringFilter<"Comment"> | string
+    content?: StringFilter<"Comment"> | string
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    createdById?: StringFilter<"Comment"> | string
+    postId?: IntFilter<"Comment"> | number
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -12902,7 +21920,12 @@ export namespace Prisma {
     image?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
-    saunas?: SaunaCreateNestedManyWithoutUserInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -12913,7 +21936,12 @@ export namespace Prisma {
     image?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
-    saunas?: SaunaUncheckedCreateNestedManyWithoutUserInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -12940,7 +21968,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
-    saunas?: SaunaUpdateManyWithoutUserNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -12951,7 +21984,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
-    saunas?: SaunaUncheckedUpdateManyWithoutUserNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -12962,7 +22000,12 @@ export namespace Prisma {
     image?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
-    saunas?: SaunaCreateNestedManyWithoutUserInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -12973,7 +22016,12 @@ export namespace Prisma {
     image?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
-    saunas?: SaunaUncheckedCreateNestedManyWithoutUserInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -13000,7 +22048,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
-    saunas?: SaunaUpdateManyWithoutUserNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -13011,7 +22064,12 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
-    saunas?: SaunaUncheckedUpdateManyWithoutUserNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -13027,6 +22085,7 @@ export namespace Prisma {
     id_token?: string | null
     session_state?: string | null
     refresh_token_expires_in?: number | null
+    email?: string | null
   }
 
   export type AccountUncheckedCreateWithoutUserInput = {
@@ -13042,6 +22101,7 @@ export namespace Prisma {
     id_token?: string | null
     session_state?: string | null
     refresh_token_expires_in?: number | null
+    email?: string | null
   }
 
   export type AccountCreateOrConnectWithoutUserInput = {
@@ -13051,6 +22111,7 @@ export namespace Prisma {
 
   export type AccountCreateManyUserInputEnvelope = {
     data: AccountCreateManyUserInput | AccountCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type SessionCreateWithoutUserInput = {
@@ -13072,19 +22133,32 @@ export namespace Prisma {
 
   export type SessionCreateManyUserInputEnvelope = {
     data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type PostCreateWithoutCreatedByInput = {
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    achievement?: AchievementCreateNestedOneWithoutPostsInput
+    likes?: LikeCreateNestedManyWithoutPostInput
+    images?: PostImageCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateWithoutCreatedByInput = {
     id?: number
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    saunaSessionId?: string | null
+    achievementId?: string | null
+    likes?: LikeUncheckedCreateNestedManyWithoutPostInput
+    images?: PostImageUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostCreateOrConnectWithoutCreatedByInput = {
@@ -13094,31 +22168,184 @@ export namespace Prisma {
 
   export type PostCreateManyCreatedByInputEnvelope = {
     data: PostCreateManyCreatedByInput | PostCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
   }
 
-  export type SaunaCreateWithoutUserInput = {
+  export type SaunaCreateWithoutUsersInput = {
     id?: string
     harviaDeviceId: string
     name: string
     location?: string | null
     sessions?: SaunaSessionCreateNestedManyWithoutSaunaInput
+    saunaMeasurements?: SaunaMeasurementCreateNestedManyWithoutSaunaInput
+    events?: EventCreateNestedManyWithoutSaunaInput
   }
 
-  export type SaunaUncheckedCreateWithoutUserInput = {
+  export type SaunaUncheckedCreateWithoutUsersInput = {
     id?: string
     harviaDeviceId: string
     name: string
     location?: string | null
     sessions?: SaunaSessionUncheckedCreateNestedManyWithoutSaunaInput
+    saunaMeasurements?: SaunaMeasurementUncheckedCreateNestedManyWithoutSaunaInput
+    events?: EventUncheckedCreateNestedManyWithoutSaunaInput
   }
 
-  export type SaunaCreateOrConnectWithoutUserInput = {
+  export type SaunaCreateOrConnectWithoutUsersInput = {
     where: SaunaWhereUniqueInput
-    create: XOR<SaunaCreateWithoutUserInput, SaunaUncheckedCreateWithoutUserInput>
+    create: XOR<SaunaCreateWithoutUsersInput, SaunaUncheckedCreateWithoutUsersInput>
   }
 
-  export type SaunaCreateManyUserInputEnvelope = {
-    data: SaunaCreateManyUserInput | SaunaCreateManyUserInput[]
+  export type SaunaSessionCreateWithoutParticipantsInput = {
+    id?: string
+    harviaSessionId?: string | null
+    startTimestamp: Date | string
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
+    maxTemperature?: number | null
+    avgTemperature?: number | null
+    minTemperature?: number | null
+    maxHumidity?: number | null
+    avgHumidity?: number | null
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
+    sauna: SaunaCreateNestedOneWithoutSessionsInput
+    posts?: PostCreateNestedManyWithoutSaunaSessionInput
+  }
+
+  export type SaunaSessionUncheckedCreateWithoutParticipantsInput = {
+    id?: string
+    harviaSessionId?: string | null
+    saunaId: string
+    startTimestamp: Date | string
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
+    maxTemperature?: number | null
+    avgTemperature?: number | null
+    minTemperature?: number | null
+    maxHumidity?: number | null
+    avgHumidity?: number | null
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
+    posts?: PostUncheckedCreateNestedManyWithoutSaunaSessionInput
+  }
+
+  export type SaunaSessionCreateOrConnectWithoutParticipantsInput = {
+    where: SaunaSessionWhereUniqueInput
+    create: XOR<SaunaSessionCreateWithoutParticipantsInput, SaunaSessionUncheckedCreateWithoutParticipantsInput>
+  }
+
+  export type LikeCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    post: PostCreateNestedOneWithoutLikesInput
+  }
+
+  export type LikeUncheckedCreateWithoutUserInput = {
+    id?: string
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type LikeCreateOrConnectWithoutUserInput = {
+    where: LikeWhereUniqueInput
+    create: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type LikeCreateManyUserInputEnvelope = {
+    data: LikeCreateManyUserInput | LikeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommentCreateWithoutCreatedByInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    post: PostCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    postId: number
+  }
+
+  export type CommentCreateOrConnectWithoutCreatedByInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutCreatedByInput, CommentUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type CommentCreateManyCreatedByInputEnvelope = {
+    data: CommentCreateManyCreatedByInput | CommentCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EventCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    sauna: SaunaCreateNestedOneWithoutEventsInput
+    participants?: UserCreateNestedManyWithoutParticipatedEventsInput
+  }
+
+  export type EventUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    saunaId: string
+    participants?: UserUncheckedCreateNestedManyWithoutParticipatedEventsInput
+  }
+
+  export type EventCreateOrConnectWithoutCreatedByInput = {
+    where: EventWhereUniqueInput
+    create: XOR<EventCreateWithoutCreatedByInput, EventUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type EventCreateManyCreatedByInputEnvelope = {
+    data: EventCreateManyCreatedByInput | EventCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EventCreateWithoutParticipantsInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    sauna: SaunaCreateNestedOneWithoutEventsInput
+    createdBy: UserCreateNestedOneWithoutCreatedEventsInput
+  }
+
+  export type EventUncheckedCreateWithoutParticipantsInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    saunaId: string
+    createdById: string
+  }
+
+  export type EventCreateOrConnectWithoutParticipantsInput = {
+    where: EventWhereUniqueInput
+    create: XOR<EventCreateWithoutParticipantsInput, EventUncheckedCreateWithoutParticipantsInput>
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -13154,6 +22381,7 @@ export namespace Prisma {
     id_token?: StringNullableFilter<"Account"> | string | null
     session_state?: StringNullableFilter<"Account"> | string | null
     refresh_token_expires_in?: IntNullableFilter<"Account"> | number | null
+    email?: StringNullableFilter<"Account"> | string | null
   }
 
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
@@ -13204,25 +22432,28 @@ export namespace Prisma {
     NOT?: PostScalarWhereInput | PostScalarWhereInput[]
     id?: IntFilter<"Post"> | number
     name?: StringFilter<"Post"> | string
+    description?: StringNullableFilter<"Post"> | string | null
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdById?: StringFilter<"Post"> | string
+    saunaSessionId?: StringNullableFilter<"Post"> | string | null
+    achievementId?: StringNullableFilter<"Post"> | string | null
   }
 
-  export type SaunaUpsertWithWhereUniqueWithoutUserInput = {
+  export type SaunaUpsertWithWhereUniqueWithoutUsersInput = {
     where: SaunaWhereUniqueInput
-    update: XOR<SaunaUpdateWithoutUserInput, SaunaUncheckedUpdateWithoutUserInput>
-    create: XOR<SaunaCreateWithoutUserInput, SaunaUncheckedCreateWithoutUserInput>
+    update: XOR<SaunaUpdateWithoutUsersInput, SaunaUncheckedUpdateWithoutUsersInput>
+    create: XOR<SaunaCreateWithoutUsersInput, SaunaUncheckedCreateWithoutUsersInput>
   }
 
-  export type SaunaUpdateWithWhereUniqueWithoutUserInput = {
+  export type SaunaUpdateWithWhereUniqueWithoutUsersInput = {
     where: SaunaWhereUniqueInput
-    data: XOR<SaunaUpdateWithoutUserInput, SaunaUncheckedUpdateWithoutUserInput>
+    data: XOR<SaunaUpdateWithoutUsersInput, SaunaUncheckedUpdateWithoutUsersInput>
   }
 
-  export type SaunaUpdateManyWithWhereWithoutUserInput = {
+  export type SaunaUpdateManyWithWhereWithoutUsersInput = {
     where: SaunaScalarWhereInput
-    data: XOR<SaunaUpdateManyMutationInput, SaunaUncheckedUpdateManyWithoutUserInput>
+    data: XOR<SaunaUpdateManyMutationInput, SaunaUncheckedUpdateManyWithoutUsersInput>
   }
 
   export type SaunaScalarWhereInput = {
@@ -13233,7 +22464,123 @@ export namespace Prisma {
     harviaDeviceId?: StringFilter<"Sauna"> | string
     name?: StringFilter<"Sauna"> | string
     location?: StringNullableFilter<"Sauna"> | string | null
-    userId?: StringFilter<"Sauna"> | string
+  }
+
+  export type SaunaSessionUpsertWithWhereUniqueWithoutParticipantsInput = {
+    where: SaunaSessionWhereUniqueInput
+    update: XOR<SaunaSessionUpdateWithoutParticipantsInput, SaunaSessionUncheckedUpdateWithoutParticipantsInput>
+    create: XOR<SaunaSessionCreateWithoutParticipantsInput, SaunaSessionUncheckedCreateWithoutParticipantsInput>
+  }
+
+  export type SaunaSessionUpdateWithWhereUniqueWithoutParticipantsInput = {
+    where: SaunaSessionWhereUniqueInput
+    data: XOR<SaunaSessionUpdateWithoutParticipantsInput, SaunaSessionUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type SaunaSessionUpdateManyWithWhereWithoutParticipantsInput = {
+    where: SaunaSessionScalarWhereInput
+    data: XOR<SaunaSessionUpdateManyMutationInput, SaunaSessionUncheckedUpdateManyWithoutParticipantsInput>
+  }
+
+  export type SaunaSessionScalarWhereInput = {
+    AND?: SaunaSessionScalarWhereInput | SaunaSessionScalarWhereInput[]
+    OR?: SaunaSessionScalarWhereInput[]
+    NOT?: SaunaSessionScalarWhereInput | SaunaSessionScalarWhereInput[]
+    id?: StringFilter<"SaunaSession"> | string
+    harviaSessionId?: StringNullableFilter<"SaunaSession"> | string | null
+    saunaId?: StringFilter<"SaunaSession"> | string
+    startTimestamp?: DateTimeFilter<"SaunaSession"> | Date | string
+    endTimestamp?: DateTimeNullableFilter<"SaunaSession"> | Date | string | null
+    durationMs?: FloatNullableFilter<"SaunaSession"> | number | null
+    maxTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
+    avgTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
+    minTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
+    maxHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
+    avgHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
+    minHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
+    maxPresence?: FloatNullableFilter<"SaunaSession"> | number | null
+    avgPresence?: FloatNullableFilter<"SaunaSession"> | number | null
+    latestPIRTimestamp?: DateTimeNullableFilter<"SaunaSession"> | Date | string | null
+    status?: EnumSaunaSessionStatusFilter<"SaunaSession"> | $Enums.SaunaSessionStatus
+    endedManually?: BoolFilter<"SaunaSession"> | boolean
+    manual?: BoolFilter<"SaunaSession"> | boolean
+  }
+
+  export type LikeUpsertWithWhereUniqueWithoutUserInput = {
+    where: LikeWhereUniqueInput
+    update: XOR<LikeUpdateWithoutUserInput, LikeUncheckedUpdateWithoutUserInput>
+    create: XOR<LikeCreateWithoutUserInput, LikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type LikeUpdateWithWhereUniqueWithoutUserInput = {
+    where: LikeWhereUniqueInput
+    data: XOR<LikeUpdateWithoutUserInput, LikeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LikeUpdateManyWithWhereWithoutUserInput = {
+    where: LikeScalarWhereInput
+    data: XOR<LikeUpdateManyMutationInput, LikeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutCreatedByInput, CommentUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<CommentCreateWithoutCreatedByInput, CommentUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutCreatedByInput, CommentUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutCreatedByInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type EventUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: EventWhereUniqueInput
+    update: XOR<EventUpdateWithoutCreatedByInput, EventUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<EventCreateWithoutCreatedByInput, EventUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type EventUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: EventWhereUniqueInput
+    data: XOR<EventUpdateWithoutCreatedByInput, EventUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type EventUpdateManyWithWhereWithoutCreatedByInput = {
+    where: EventScalarWhereInput
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type EventScalarWhereInput = {
+    AND?: EventScalarWhereInput | EventScalarWhereInput[]
+    OR?: EventScalarWhereInput[]
+    NOT?: EventScalarWhereInput | EventScalarWhereInput[]
+    id?: StringFilter<"Event"> | string
+    name?: StringFilter<"Event"> | string
+    description?: StringFilter<"Event"> | string
+    date?: DateTimeFilter<"Event"> | Date | string
+    location?: StringFilter<"Event"> | string
+    saunaId?: StringFilter<"Event"> | string
+    createdById?: StringFilter<"Event"> | string
+  }
+
+  export type EventUpsertWithWhereUniqueWithoutParticipantsInput = {
+    where: EventWhereUniqueInput
+    update: XOR<EventUpdateWithoutParticipantsInput, EventUncheckedUpdateWithoutParticipantsInput>
+    create: XOR<EventCreateWithoutParticipantsInput, EventUncheckedCreateWithoutParticipantsInput>
+  }
+
+  export type EventUpdateWithWhereUniqueWithoutParticipantsInput = {
+    where: EventWhereUniqueInput
+    data: XOR<EventUpdateWithoutParticipantsInput, EventUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type EventUpdateManyWithWhereWithoutParticipantsInput = {
+    where: EventScalarWhereInput
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyWithoutParticipantsInput>
   }
 
   export type UserCreateWithoutSaunasInput = {
@@ -13245,6 +22592,11 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserUncheckedCreateWithoutSaunasInput = {
@@ -13256,6 +22608,11 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
   }
 
   export type UserCreateOrConnectWithoutSaunasInput = {
@@ -13265,28 +22622,46 @@ export namespace Prisma {
 
   export type SaunaSessionCreateWithoutSaunaInput = {
     id?: string
-    harviaSessionId: string
+    harviaSessionId?: string | null
     startTimestamp: Date | string
-    endTimestamp: Date | string
-    durationMs: number
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
     maxTemperature?: number | null
     avgTemperature?: number | null
+    minTemperature?: number | null
     maxHumidity?: number | null
     avgHumidity?: number | null
-    measurements?: SaunaMeasurementCreateNestedManyWithoutSaunaSessionInput
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
+    participants?: UserCreateNestedManyWithoutSaunaSessionsInput
+    posts?: PostCreateNestedManyWithoutSaunaSessionInput
   }
 
   export type SaunaSessionUncheckedCreateWithoutSaunaInput = {
     id?: string
-    harviaSessionId: string
+    harviaSessionId?: string | null
     startTimestamp: Date | string
-    endTimestamp: Date | string
-    durationMs: number
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
     maxTemperature?: number | null
     avgTemperature?: number | null
+    minTemperature?: number | null
     maxHumidity?: number | null
     avgHumidity?: number | null
-    measurements?: SaunaMeasurementUncheckedCreateNestedManyWithoutSaunaSessionInput
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
+    participants?: UserUncheckedCreateNestedManyWithoutSaunaSessionsInput
+    posts?: PostUncheckedCreateNestedManyWithoutSaunaSessionInput
   }
 
   export type SaunaSessionCreateOrConnectWithoutSaunaInput = {
@@ -13296,39 +22671,90 @@ export namespace Prisma {
 
   export type SaunaSessionCreateManySaunaInputEnvelope = {
     data: SaunaSessionCreateManySaunaInput | SaunaSessionCreateManySaunaInput[]
+    skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutSaunasInput = {
+  export type SaunaMeasurementCreateWithoutSaunaInput = {
+    id?: string
+    timestamp: Date | string
+    temperature: number
+    humidity: number
+    precence: number
+  }
+
+  export type SaunaMeasurementUncheckedCreateWithoutSaunaInput = {
+    id?: string
+    timestamp: Date | string
+    temperature: number
+    humidity: number
+    precence: number
+  }
+
+  export type SaunaMeasurementCreateOrConnectWithoutSaunaInput = {
+    where: SaunaMeasurementWhereUniqueInput
+    create: XOR<SaunaMeasurementCreateWithoutSaunaInput, SaunaMeasurementUncheckedCreateWithoutSaunaInput>
+  }
+
+  export type SaunaMeasurementCreateManySaunaInputEnvelope = {
+    data: SaunaMeasurementCreateManySaunaInput | SaunaMeasurementCreateManySaunaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EventCreateWithoutSaunaInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    createdBy: UserCreateNestedOneWithoutCreatedEventsInput
+    participants?: UserCreateNestedManyWithoutParticipatedEventsInput
+  }
+
+  export type EventUncheckedCreateWithoutSaunaInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    createdById: string
+    participants?: UserUncheckedCreateNestedManyWithoutParticipatedEventsInput
+  }
+
+  export type EventCreateOrConnectWithoutSaunaInput = {
+    where: EventWhereUniqueInput
+    create: XOR<EventCreateWithoutSaunaInput, EventUncheckedCreateWithoutSaunaInput>
+  }
+
+  export type EventCreateManySaunaInputEnvelope = {
+    data: EventCreateManySaunaInput | EventCreateManySaunaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutSaunasInput = {
+    where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutSaunasInput, UserUncheckedUpdateWithoutSaunasInput>
     create: XOR<UserCreateWithoutSaunasInput, UserUncheckedCreateWithoutSaunasInput>
-    where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutSaunasInput = {
-    where?: UserWhereInput
+  export type UserUpdateWithWhereUniqueWithoutSaunasInput = {
+    where: UserWhereUniqueInput
     data: XOR<UserUpdateWithoutSaunasInput, UserUncheckedUpdateWithoutSaunasInput>
   }
 
-  export type UserUpdateWithoutSaunasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    posts?: PostUpdateManyWithoutCreatedByNestedInput
+  export type UserUpdateManyWithWhereWithoutSaunasInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutSaunasInput>
   }
 
-  export type UserUncheckedUpdateWithoutSaunasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    name?: StringNullableFilter<"User"> | string | null
+    email?: StringNullableFilter<"User"> | string | null
+    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
+    image?: StringNullableFilter<"User"> | string | null
   }
 
   export type SaunaSessionUpsertWithWhereUniqueWithoutSaunaInput = {
@@ -13347,20 +22773,48 @@ export namespace Prisma {
     data: XOR<SaunaSessionUpdateManyMutationInput, SaunaSessionUncheckedUpdateManyWithoutSaunaInput>
   }
 
-  export type SaunaSessionScalarWhereInput = {
-    AND?: SaunaSessionScalarWhereInput | SaunaSessionScalarWhereInput[]
-    OR?: SaunaSessionScalarWhereInput[]
-    NOT?: SaunaSessionScalarWhereInput | SaunaSessionScalarWhereInput[]
-    id?: StringFilter<"SaunaSession"> | string
-    harviaSessionId?: StringFilter<"SaunaSession"> | string
-    saunaId?: StringFilter<"SaunaSession"> | string
-    startTimestamp?: DateTimeFilter<"SaunaSession"> | Date | string
-    endTimestamp?: DateTimeFilter<"SaunaSession"> | Date | string
-    durationMs?: FloatFilter<"SaunaSession"> | number
-    maxTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
-    avgTemperature?: FloatNullableFilter<"SaunaSession"> | number | null
-    maxHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
-    avgHumidity?: FloatNullableFilter<"SaunaSession"> | number | null
+  export type SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaInput = {
+    where: SaunaMeasurementWhereUniqueInput
+    update: XOR<SaunaMeasurementUpdateWithoutSaunaInput, SaunaMeasurementUncheckedUpdateWithoutSaunaInput>
+    create: XOR<SaunaMeasurementCreateWithoutSaunaInput, SaunaMeasurementUncheckedCreateWithoutSaunaInput>
+  }
+
+  export type SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaInput = {
+    where: SaunaMeasurementWhereUniqueInput
+    data: XOR<SaunaMeasurementUpdateWithoutSaunaInput, SaunaMeasurementUncheckedUpdateWithoutSaunaInput>
+  }
+
+  export type SaunaMeasurementUpdateManyWithWhereWithoutSaunaInput = {
+    where: SaunaMeasurementScalarWhereInput
+    data: XOR<SaunaMeasurementUpdateManyMutationInput, SaunaMeasurementUncheckedUpdateManyWithoutSaunaInput>
+  }
+
+  export type SaunaMeasurementScalarWhereInput = {
+    AND?: SaunaMeasurementScalarWhereInput | SaunaMeasurementScalarWhereInput[]
+    OR?: SaunaMeasurementScalarWhereInput[]
+    NOT?: SaunaMeasurementScalarWhereInput | SaunaMeasurementScalarWhereInput[]
+    id?: StringFilter<"SaunaMeasurement"> | string
+    saunaId?: StringFilter<"SaunaMeasurement"> | string
+    timestamp?: DateTimeFilter<"SaunaMeasurement"> | Date | string
+    temperature?: FloatFilter<"SaunaMeasurement"> | number
+    humidity?: FloatFilter<"SaunaMeasurement"> | number
+    precence?: FloatFilter<"SaunaMeasurement"> | number
+  }
+
+  export type EventUpsertWithWhereUniqueWithoutSaunaInput = {
+    where: EventWhereUniqueInput
+    update: XOR<EventUpdateWithoutSaunaInput, EventUncheckedUpdateWithoutSaunaInput>
+    create: XOR<EventCreateWithoutSaunaInput, EventUncheckedCreateWithoutSaunaInput>
+  }
+
+  export type EventUpdateWithWhereUniqueWithoutSaunaInput = {
+    where: EventWhereUniqueInput
+    data: XOR<EventUpdateWithoutSaunaInput, EventUncheckedUpdateWithoutSaunaInput>
+  }
+
+  export type EventUpdateManyWithWhereWithoutSaunaInput = {
+    where: EventScalarWhereInput
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyWithoutSaunaInput>
   }
 
   export type SaunaCreateWithoutSessionsInput = {
@@ -13368,7 +22822,9 @@ export namespace Prisma {
     harviaDeviceId: string
     name: string
     location?: string | null
-    user: UserCreateNestedOneWithoutSaunasInput
+    users?: UserCreateNestedManyWithoutSaunasInput
+    saunaMeasurements?: SaunaMeasurementCreateNestedManyWithoutSaunaInput
+    events?: EventCreateNestedManyWithoutSaunaInput
   }
 
   export type SaunaUncheckedCreateWithoutSessionsInput = {
@@ -13376,7 +22832,9 @@ export namespace Prisma {
     harviaDeviceId: string
     name: string
     location?: string | null
-    userId: string
+    users?: UserUncheckedCreateNestedManyWithoutSaunasInput
+    saunaMeasurements?: SaunaMeasurementUncheckedCreateNestedManyWithoutSaunaInput
+    events?: EventUncheckedCreateNestedManyWithoutSaunaInput
   }
 
   export type SaunaCreateOrConnectWithoutSessionsInput = {
@@ -13384,27 +22842,76 @@ export namespace Prisma {
     create: XOR<SaunaCreateWithoutSessionsInput, SaunaUncheckedCreateWithoutSessionsInput>
   }
 
-  export type SaunaMeasurementCreateWithoutSaunaSessionInput = {
+  export type UserCreateWithoutSaunaSessionsInput = {
     id?: string
-    timestamp: Date | string
-    temperature: number
-    humidity: number
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
   }
 
-  export type SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput = {
+  export type UserUncheckedCreateWithoutSaunaSessionsInput = {
     id?: string
-    timestamp: Date | string
-    temperature: number
-    humidity: number
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
   }
 
-  export type SaunaMeasurementCreateOrConnectWithoutSaunaSessionInput = {
-    where: SaunaMeasurementWhereUniqueInput
-    create: XOR<SaunaMeasurementCreateWithoutSaunaSessionInput, SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput>
+  export type UserCreateOrConnectWithoutSaunaSessionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSaunaSessionsInput, UserUncheckedCreateWithoutSaunaSessionsInput>
   }
 
-  export type SaunaMeasurementCreateManySaunaSessionInputEnvelope = {
-    data: SaunaMeasurementCreateManySaunaSessionInput | SaunaMeasurementCreateManySaunaSessionInput[]
+  export type PostCreateWithoutSaunaSessionInput = {
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutPostsInput
+    achievement?: AchievementCreateNestedOneWithoutPostsInput
+    likes?: LikeCreateNestedManyWithoutPostInput
+    images?: PostImageCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutSaunaSessionInput = {
+    id?: number
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    achievementId?: string | null
+    likes?: LikeUncheckedCreateNestedManyWithoutPostInput
+    images?: PostImageUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutSaunaSessionInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutSaunaSessionInput, PostUncheckedCreateWithoutSaunaSessionInput>
+  }
+
+  export type PostCreateManySaunaSessionInputEnvelope = {
+    data: PostCreateManySaunaSessionInput | PostCreateManySaunaSessionInput[]
+    skipDuplicates?: boolean
   }
 
   export type SaunaUpsertWithoutSessionsInput = {
@@ -13423,7 +22930,9 @@ export namespace Prisma {
     harviaDeviceId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutSaunasNestedInput
+    users?: UserUpdateManyWithoutSaunasNestedInput
+    saunaMeasurements?: SaunaMeasurementUpdateManyWithoutSaunaNestedInput
+    events?: EventUpdateManyWithoutSaunaNestedInput
   }
 
   export type SaunaUncheckedUpdateWithoutSessionsInput = {
@@ -13431,102 +22940,775 @@ export namespace Prisma {
     harviaDeviceId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutSaunasNestedInput
+    saunaMeasurements?: SaunaMeasurementUncheckedUpdateManyWithoutSaunaNestedInput
+    events?: EventUncheckedUpdateManyWithoutSaunaNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutSaunaSessionsInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutSaunaSessionsInput, UserUncheckedUpdateWithoutSaunaSessionsInput>
+    create: XOR<UserCreateWithoutSaunaSessionsInput, UserUncheckedCreateWithoutSaunaSessionsInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutSaunaSessionsInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutSaunaSessionsInput, UserUncheckedUpdateWithoutSaunaSessionsInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutSaunaSessionsInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutSaunaSessionsInput>
+  }
+
+  export type PostUpsertWithWhereUniqueWithoutSaunaSessionInput = {
+    where: PostWhereUniqueInput
+    update: XOR<PostUpdateWithoutSaunaSessionInput, PostUncheckedUpdateWithoutSaunaSessionInput>
+    create: XOR<PostCreateWithoutSaunaSessionInput, PostUncheckedCreateWithoutSaunaSessionInput>
+  }
+
+  export type PostUpdateWithWhereUniqueWithoutSaunaSessionInput = {
+    where: PostWhereUniqueInput
+    data: XOR<PostUpdateWithoutSaunaSessionInput, PostUncheckedUpdateWithoutSaunaSessionInput>
+  }
+
+  export type PostUpdateManyWithWhereWithoutSaunaSessionInput = {
+    where: PostScalarWhereInput
+    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutSaunaSessionInput>
+  }
+
+  export type PostCreateWithoutLikesInput = {
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutPostsInput
+    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    achievement?: AchievementCreateNestedOneWithoutPostsInput
+    images?: PostImageCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutLikesInput = {
+    id?: number
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    saunaSessionId?: string | null
+    achievementId?: string | null
+    images?: PostImageUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutLikesInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutLikesInput, PostUncheckedCreateWithoutLikesInput>
+  }
+
+  export type UserCreateWithoutLikesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+  }
+
+  export type UserUncheckedCreateWithoutLikesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+  }
+
+  export type UserCreateOrConnectWithoutLikesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+  }
+
+  export type PostUpsertWithoutLikesInput = {
+    update: XOR<PostUpdateWithoutLikesInput, PostUncheckedUpdateWithoutLikesInput>
+    create: XOR<PostCreateWithoutLikesInput, PostUncheckedCreateWithoutLikesInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutLikesInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutLikesInput, PostUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type PostUpdateWithoutLikesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    achievement?: AchievementUpdateOneWithoutPostsNestedInput
+    images?: PostImageUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutLikesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type UserUpsertWithoutLikesInput = {
+    update: XOR<UserUpdateWithoutLikesInput, UserUncheckedUpdateWithoutLikesInput>
+    create: XOR<UserCreateWithoutLikesInput, UserUncheckedCreateWithoutLikesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLikesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLikesInput, UserUncheckedUpdateWithoutLikesInput>
+  }
+
+  export type UserUpdateWithoutLikesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLikesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type PostCreateWithoutImagesInput = {
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutPostsInput
+    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    achievement?: AchievementCreateNestedOneWithoutPostsInput
+    likes?: LikeCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutImagesInput = {
+    id?: number
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    saunaSessionId?: string | null
+    achievementId?: string | null
+    likes?: LikeUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutImagesInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+  }
+
+  export type PostUpsertWithoutImagesInput = {
+    update: XOR<PostUpdateWithoutImagesInput, PostUncheckedUpdateWithoutImagesInput>
+    create: XOR<PostCreateWithoutImagesInput, PostUncheckedCreateWithoutImagesInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutImagesInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutImagesInput, PostUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type PostUpdateWithoutImagesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    achievement?: AchievementUpdateOneWithoutPostsNestedInput
+    likes?: LikeUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutImagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostCreateWithoutAchievementInput = {
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutPostsInput
+    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    likes?: LikeCreateNestedManyWithoutPostInput
+    images?: PostImageCreateNestedManyWithoutPostInput
+    comments?: CommentCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutAchievementInput = {
+    id?: number
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    saunaSessionId?: string | null
+    likes?: LikeUncheckedCreateNestedManyWithoutPostInput
+    images?: PostImageUncheckedCreateNestedManyWithoutPostInput
+    comments?: CommentUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutAchievementInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutAchievementInput, PostUncheckedCreateWithoutAchievementInput>
+  }
+
+  export type PostCreateManyAchievementInputEnvelope = {
+    data: PostCreateManyAchievementInput | PostCreateManyAchievementInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostUpsertWithWhereUniqueWithoutAchievementInput = {
+    where: PostWhereUniqueInput
+    update: XOR<PostUpdateWithoutAchievementInput, PostUncheckedUpdateWithoutAchievementInput>
+    create: XOR<PostCreateWithoutAchievementInput, PostUncheckedCreateWithoutAchievementInput>
+  }
+
+  export type PostUpdateWithWhereUniqueWithoutAchievementInput = {
+    where: PostWhereUniqueInput
+    data: XOR<PostUpdateWithoutAchievementInput, PostUncheckedUpdateWithoutAchievementInput>
+  }
+
+  export type PostUpdateManyWithWhereWithoutAchievementInput = {
+    where: PostScalarWhereInput
+    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutAchievementInput>
+  }
+
+  export type SaunaCreateWithoutSaunaMeasurementsInput = {
+    id?: string
+    harviaDeviceId: string
+    name: string
+    location?: string | null
+    users?: UserCreateNestedManyWithoutSaunasInput
+    sessions?: SaunaSessionCreateNestedManyWithoutSaunaInput
+    events?: EventCreateNestedManyWithoutSaunaInput
+  }
+
+  export type SaunaUncheckedCreateWithoutSaunaMeasurementsInput = {
+    id?: string
+    harviaDeviceId: string
+    name: string
+    location?: string | null
+    users?: UserUncheckedCreateNestedManyWithoutSaunasInput
+    sessions?: SaunaSessionUncheckedCreateNestedManyWithoutSaunaInput
+    events?: EventUncheckedCreateNestedManyWithoutSaunaInput
+  }
+
+  export type SaunaCreateOrConnectWithoutSaunaMeasurementsInput = {
+    where: SaunaWhereUniqueInput
+    create: XOR<SaunaCreateWithoutSaunaMeasurementsInput, SaunaUncheckedCreateWithoutSaunaMeasurementsInput>
+  }
+
+  export type SaunaUpsertWithoutSaunaMeasurementsInput = {
+    update: XOR<SaunaUpdateWithoutSaunaMeasurementsInput, SaunaUncheckedUpdateWithoutSaunaMeasurementsInput>
+    create: XOR<SaunaCreateWithoutSaunaMeasurementsInput, SaunaUncheckedCreateWithoutSaunaMeasurementsInput>
+    where?: SaunaWhereInput
+  }
+
+  export type SaunaUpdateToOneWithWhereWithoutSaunaMeasurementsInput = {
+    where?: SaunaWhereInput
+    data: XOR<SaunaUpdateWithoutSaunaMeasurementsInput, SaunaUncheckedUpdateWithoutSaunaMeasurementsInput>
+  }
+
+  export type SaunaUpdateWithoutSaunaMeasurementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateManyWithoutSaunasNestedInput
+    sessions?: SaunaSessionUpdateManyWithoutSaunaNestedInput
+    events?: EventUpdateManyWithoutSaunaNestedInput
+  }
+
+  export type SaunaUncheckedUpdateWithoutSaunaMeasurementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutSaunasNestedInput
+    sessions?: SaunaSessionUncheckedUpdateManyWithoutSaunaNestedInput
+    events?: EventUncheckedUpdateManyWithoutSaunaNestedInput
+  }
+
+  export type UserCreateWithoutCommentsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+  }
+
+  export type UserUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+  }
+
+  export type UserCreateOrConnectWithoutCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type PostCreateWithoutCommentsInput = {
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutPostsInput
+    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    achievement?: AchievementCreateNestedOneWithoutPostsInput
+    likes?: LikeCreateNestedManyWithoutPostInput
+    images?: PostImageCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutCommentsInput = {
+    id?: number
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    saunaSessionId?: string | null
+    achievementId?: string | null
+    likes?: LikeUncheckedCreateNestedManyWithoutPostInput
+    images?: PostImageUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutCommentsInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutCommentsInput, PostUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserUpsertWithoutCommentsInput = {
+    update: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type PostUpsertWithoutCommentsInput = {
+    update: XOR<PostUpdateWithoutCommentsInput, PostUncheckedUpdateWithoutCommentsInput>
+    create: XOR<PostCreateWithoutCommentsInput, PostUncheckedCreateWithoutCommentsInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutCommentsInput, PostUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type PostUpdateWithoutCommentsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    achievement?: AchievementUpdateOneWithoutPostsNestedInput
+    likes?: LikeUpdateManyWithoutPostNestedInput
+    images?: PostImageUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutCommentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
+    images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type SaunaCreateWithoutEventsInput = {
+    id?: string
+    harviaDeviceId: string
+    name: string
+    location?: string | null
+    users?: UserCreateNestedManyWithoutSaunasInput
+    sessions?: SaunaSessionCreateNestedManyWithoutSaunaInput
+    saunaMeasurements?: SaunaMeasurementCreateNestedManyWithoutSaunaInput
+  }
+
+  export type SaunaUncheckedCreateWithoutEventsInput = {
+    id?: string
+    harviaDeviceId: string
+    name: string
+    location?: string | null
+    users?: UserUncheckedCreateNestedManyWithoutSaunasInput
+    sessions?: SaunaSessionUncheckedCreateNestedManyWithoutSaunaInput
+    saunaMeasurements?: SaunaMeasurementUncheckedCreateNestedManyWithoutSaunaInput
+  }
+
+  export type SaunaCreateOrConnectWithoutEventsInput = {
+    where: SaunaWhereUniqueInput
+    create: XOR<SaunaCreateWithoutEventsInput, SaunaUncheckedCreateWithoutEventsInput>
+  }
+
+  export type UserCreateWithoutCreatedEventsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedEventsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedEventsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedEventsInput, UserUncheckedCreateWithoutCreatedEventsInput>
+  }
+
+  export type UserCreateWithoutParticipatedEventsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutParticipatedEventsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutParticipatedEventsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutParticipatedEventsInput, UserUncheckedCreateWithoutParticipatedEventsInput>
+  }
+
+  export type SaunaUpsertWithoutEventsInput = {
+    update: XOR<SaunaUpdateWithoutEventsInput, SaunaUncheckedUpdateWithoutEventsInput>
+    create: XOR<SaunaCreateWithoutEventsInput, SaunaUncheckedCreateWithoutEventsInput>
+    where?: SaunaWhereInput
+  }
+
+  export type SaunaUpdateToOneWithWhereWithoutEventsInput = {
+    where?: SaunaWhereInput
+    data: XOR<SaunaUpdateWithoutEventsInput, SaunaUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type SaunaUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateManyWithoutSaunasNestedInput
+    sessions?: SaunaSessionUpdateManyWithoutSaunaNestedInput
+    saunaMeasurements?: SaunaMeasurementUpdateManyWithoutSaunaNestedInput
+  }
+
+  export type SaunaUncheckedUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutSaunasNestedInput
+    sessions?: SaunaSessionUncheckedUpdateManyWithoutSaunaNestedInput
+    saunaMeasurements?: SaunaMeasurementUncheckedUpdateManyWithoutSaunaNestedInput
+  }
+
+  export type UserUpsertWithoutCreatedEventsInput = {
+    update: XOR<UserUpdateWithoutCreatedEventsInput, UserUncheckedUpdateWithoutCreatedEventsInput>
+    create: XOR<UserCreateWithoutCreatedEventsInput, UserUncheckedCreateWithoutCreatedEventsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedEventsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedEventsInput, UserUncheckedUpdateWithoutCreatedEventsInput>
+  }
+
+  export type UserUpdateWithoutCreatedEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutParticipatedEventsInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutParticipatedEventsInput, UserUncheckedUpdateWithoutParticipatedEventsInput>
+    create: XOR<UserCreateWithoutParticipatedEventsInput, UserUncheckedCreateWithoutParticipatedEventsInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutParticipatedEventsInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutParticipatedEventsInput, UserUncheckedUpdateWithoutParticipatedEventsInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutParticipatedEventsInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutParticipatedEventsInput>
+  }
+
+  export type LikeCreateManyPostInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type PostImageCreateManyPostInput = {
+    id?: string
+    url: string
+    createdAt?: Date | string
+  }
+
+  export type CommentCreateManyPostInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+  }
+
+  export type LikeUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type LikeUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SaunaMeasurementUpsertWithWhereUniqueWithoutSaunaSessionInput = {
-    where: SaunaMeasurementWhereUniqueInput
-    update: XOR<SaunaMeasurementUpdateWithoutSaunaSessionInput, SaunaMeasurementUncheckedUpdateWithoutSaunaSessionInput>
-    create: XOR<SaunaMeasurementCreateWithoutSaunaSessionInput, SaunaMeasurementUncheckedCreateWithoutSaunaSessionInput>
-  }
-
-  export type SaunaMeasurementUpdateWithWhereUniqueWithoutSaunaSessionInput = {
-    where: SaunaMeasurementWhereUniqueInput
-    data: XOR<SaunaMeasurementUpdateWithoutSaunaSessionInput, SaunaMeasurementUncheckedUpdateWithoutSaunaSessionInput>
-  }
-
-  export type SaunaMeasurementUpdateManyWithWhereWithoutSaunaSessionInput = {
-    where: SaunaMeasurementScalarWhereInput
-    data: XOR<SaunaMeasurementUpdateManyMutationInput, SaunaMeasurementUncheckedUpdateManyWithoutSaunaSessionInput>
-  }
-
-  export type SaunaMeasurementScalarWhereInput = {
-    AND?: SaunaMeasurementScalarWhereInput | SaunaMeasurementScalarWhereInput[]
-    OR?: SaunaMeasurementScalarWhereInput[]
-    NOT?: SaunaMeasurementScalarWhereInput | SaunaMeasurementScalarWhereInput[]
-    id?: StringFilter<"SaunaMeasurement"> | string
-    saunaSessionId?: StringFilter<"SaunaMeasurement"> | string
-    timestamp?: DateTimeFilter<"SaunaMeasurement"> | Date | string
-    temperature?: FloatFilter<"SaunaMeasurement"> | number
-    humidity?: FloatFilter<"SaunaMeasurement"> | number
-  }
-
-  export type SaunaSessionCreateWithoutMeasurementsInput = {
-    id?: string
-    harviaSessionId: string
-    startTimestamp: Date | string
-    endTimestamp: Date | string
-    durationMs: number
-    maxTemperature?: number | null
-    avgTemperature?: number | null
-    maxHumidity?: number | null
-    avgHumidity?: number | null
-    sauna: SaunaCreateNestedOneWithoutSessionsInput
-  }
-
-  export type SaunaSessionUncheckedCreateWithoutMeasurementsInput = {
-    id?: string
-    harviaSessionId: string
-    saunaId: string
-    startTimestamp: Date | string
-    endTimestamp: Date | string
-    durationMs: number
-    maxTemperature?: number | null
-    avgTemperature?: number | null
-    maxHumidity?: number | null
-    avgHumidity?: number | null
-  }
-
-  export type SaunaSessionCreateOrConnectWithoutMeasurementsInput = {
-    where: SaunaSessionWhereUniqueInput
-    create: XOR<SaunaSessionCreateWithoutMeasurementsInput, SaunaSessionUncheckedCreateWithoutMeasurementsInput>
-  }
-
-  export type SaunaSessionUpsertWithoutMeasurementsInput = {
-    update: XOR<SaunaSessionUpdateWithoutMeasurementsInput, SaunaSessionUncheckedUpdateWithoutMeasurementsInput>
-    create: XOR<SaunaSessionCreateWithoutMeasurementsInput, SaunaSessionUncheckedCreateWithoutMeasurementsInput>
-    where?: SaunaSessionWhereInput
-  }
-
-  export type SaunaSessionUpdateToOneWithWhereWithoutMeasurementsInput = {
-    where?: SaunaSessionWhereInput
-    data: XOR<SaunaSessionUpdateWithoutMeasurementsInput, SaunaSessionUncheckedUpdateWithoutMeasurementsInput>
-  }
-
-  export type SaunaSessionUpdateWithoutMeasurementsInput = {
+  export type LikeUncheckedUpdateManyWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaSessionId?: StringFieldUpdateOperationsInput | string
-    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    durationMs?: FloatFieldUpdateOperationsInput | number
-    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-    sauna?: SaunaUpdateOneRequiredWithoutSessionsNestedInput
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SaunaSessionUncheckedUpdateWithoutMeasurementsInput = {
+  export type PostImageUpdateWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaSessionId?: StringFieldUpdateOperationsInput | string
-    saunaId?: StringFieldUpdateOperationsInput | string
-    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    durationMs?: FloatFieldUpdateOperationsInput | number
-    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImageUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostImageUncheckedUpdateManyWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CommentUncheckedUpdateManyWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
   }
 
   export type AccountCreateManyUserInput = {
@@ -13542,6 +23724,7 @@ export namespace Prisma {
     id_token?: string | null
     session_state?: string | null
     refresh_token_expires_in?: number | null
+    email?: string | null
   }
 
   export type SessionCreateManyUserInput = {
@@ -13553,15 +23736,34 @@ export namespace Prisma {
   export type PostCreateManyCreatedByInput = {
     id?: number
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    saunaSessionId?: string | null
+    achievementId?: string | null
   }
 
-  export type SaunaCreateManyUserInput = {
+  export type LikeCreateManyUserInput = {
     id?: string
-    harviaDeviceId: string
+    postId: number
+    createdAt?: Date | string
+  }
+
+  export type CommentCreateManyCreatedByInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    postId: number
+  }
+
+  export type EventCreateManyCreatedByInput = {
+    id?: string
     name: string
-    location?: string | null
+    description: string
+    date: Date | string
+    location: string
+    saunaId: string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -13577,6 +23779,7 @@ export namespace Prisma {
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
     session_state?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountUncheckedUpdateWithoutUserInput = {
@@ -13592,6 +23795,7 @@ export namespace Prisma {
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
     session_state?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountUncheckedUpdateManyWithoutUserInput = {
@@ -13607,6 +23811,7 @@ export namespace Prisma {
     id_token?: NullableStringFieldUpdateOperationsInput | string | null
     session_state?: NullableStringFieldUpdateOperationsInput | string | null
     refresh_token_expires_in?: NullableIntFieldUpdateOperationsInput | number | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SessionUpdateWithoutUserInput = {
@@ -13629,123 +23834,594 @@ export namespace Prisma {
 
   export type PostUpdateWithoutCreatedByInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    achievement?: AchievementUpdateOneWithoutPostsNestedInput
+    likes?: LikeUpdateManyWithoutPostNestedInput
+    images?: PostImageUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateWithoutCreatedByInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
+    images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateManyWithoutCreatedByInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    achievementId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type SaunaUpdateWithoutUserInput = {
+  export type SaunaUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
     harviaDeviceId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SaunaSessionUpdateManyWithoutSaunaNestedInput
+    saunaMeasurements?: SaunaMeasurementUpdateManyWithoutSaunaNestedInput
+    events?: EventUpdateManyWithoutSaunaNestedInput
   }
 
-  export type SaunaUncheckedUpdateWithoutUserInput = {
+  export type SaunaUncheckedUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
     harviaDeviceId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SaunaSessionUncheckedUpdateManyWithoutSaunaNestedInput
+    saunaMeasurements?: SaunaMeasurementUncheckedUpdateManyWithoutSaunaNestedInput
+    events?: EventUncheckedUpdateManyWithoutSaunaNestedInput
   }
 
-  export type SaunaUncheckedUpdateManyWithoutUserInput = {
+  export type SaunaUncheckedUpdateManyWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
     harviaDeviceId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type SaunaSessionUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+    sauna?: SaunaUpdateOneRequiredWithoutSessionsNestedInput
+    posts?: PostUpdateManyWithoutSaunaSessionNestedInput
+  }
+
+  export type SaunaSessionUncheckedUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaId?: StringFieldUpdateOperationsInput | string
+    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+    posts?: PostUncheckedUpdateManyWithoutSaunaSessionNestedInput
+  }
+
+  export type SaunaSessionUncheckedUpdateManyWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaId?: StringFieldUpdateOperationsInput | string
+    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type LikeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type LikeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LikeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    post?: PostUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type CommentUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EventUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    sauna?: SaunaUpdateOneRequiredWithoutEventsNestedInput
+    participants?: UserUpdateManyWithoutParticipatedEventsNestedInput
+  }
+
+  export type EventUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    saunaId?: StringFieldUpdateOperationsInput | string
+    participants?: UserUncheckedUpdateManyWithoutParticipatedEventsNestedInput
+  }
+
+  export type EventUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    saunaId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EventUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    sauna?: SaunaUpdateOneRequiredWithoutEventsNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutCreatedEventsNestedInput
+  }
+
+  export type EventUncheckedUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    saunaId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EventUncheckedUpdateManyWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    saunaId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
   export type SaunaSessionCreateManySaunaInput = {
     id?: string
-    harviaSessionId: string
+    harviaSessionId?: string | null
     startTimestamp: Date | string
-    endTimestamp: Date | string
-    durationMs: number
+    endTimestamp?: Date | string | null
+    durationMs?: number | null
     maxTemperature?: number | null
     avgTemperature?: number | null
+    minTemperature?: number | null
     maxHumidity?: number | null
     avgHumidity?: number | null
+    minHumidity?: number | null
+    maxPresence?: number | null
+    avgPresence?: number | null
+    latestPIRTimestamp?: Date | string | null
+    status?: $Enums.SaunaSessionStatus
+    endedManually?: boolean
+    manual?: boolean
   }
 
-  export type SaunaSessionUpdateWithoutSaunaInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    harviaSessionId?: StringFieldUpdateOperationsInput | string
-    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    durationMs?: FloatFieldUpdateOperationsInput | number
-    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-    measurements?: SaunaMeasurementUpdateManyWithoutSaunaSessionNestedInput
-  }
-
-  export type SaunaSessionUncheckedUpdateWithoutSaunaInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    harviaSessionId?: StringFieldUpdateOperationsInput | string
-    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    durationMs?: FloatFieldUpdateOperationsInput | number
-    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-    measurements?: SaunaMeasurementUncheckedUpdateManyWithoutSaunaSessionNestedInput
-  }
-
-  export type SaunaSessionUncheckedUpdateManyWithoutSaunaInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    harviaSessionId?: StringFieldUpdateOperationsInput | string
-    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    durationMs?: FloatFieldUpdateOperationsInput | number
-    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
-    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
-  }
-
-  export type SaunaMeasurementCreateManySaunaSessionInput = {
+  export type SaunaMeasurementCreateManySaunaInput = {
     id?: string
     timestamp: Date | string
     temperature: number
     humidity: number
+    precence: number
   }
 
-  export type SaunaMeasurementUpdateWithoutSaunaSessionInput = {
+  export type EventCreateManySaunaInput = {
+    id?: string
+    name: string
+    description: string
+    date: Date | string
+    location: string
+    createdById: string
+  }
+
+  export type UserUpdateWithoutSaunasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSaunasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutSaunasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SaunaSessionUpdateWithoutSaunaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+    participants?: UserUpdateManyWithoutSaunaSessionsNestedInput
+    posts?: PostUpdateManyWithoutSaunaSessionNestedInput
+  }
+
+  export type SaunaSessionUncheckedUpdateWithoutSaunaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+    participants?: UserUncheckedUpdateManyWithoutSaunaSessionsNestedInput
+    posts?: PostUncheckedUpdateManyWithoutSaunaSessionNestedInput
+  }
+
+  export type SaunaSessionUncheckedUpdateManyWithoutSaunaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    harviaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    startTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMs?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    minTemperature?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    minHumidity?: NullableFloatFieldUpdateOperationsInput | number | null
+    maxPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    avgPresence?: NullableFloatFieldUpdateOperationsInput | number | null
+    latestPIRTimestamp?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSaunaSessionStatusFieldUpdateOperationsInput | $Enums.SaunaSessionStatus
+    endedManually?: BoolFieldUpdateOperationsInput | boolean
+    manual?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SaunaMeasurementUpdateWithoutSaunaInput = {
     id?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
+    precence?: FloatFieldUpdateOperationsInput | number
   }
 
-  export type SaunaMeasurementUncheckedUpdateWithoutSaunaSessionInput = {
+  export type SaunaMeasurementUncheckedUpdateWithoutSaunaInput = {
     id?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
+    precence?: FloatFieldUpdateOperationsInput | number
   }
 
-  export type SaunaMeasurementUncheckedUpdateManyWithoutSaunaSessionInput = {
+  export type SaunaMeasurementUncheckedUpdateManyWithoutSaunaInput = {
     id?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     temperature?: FloatFieldUpdateOperationsInput | number
     humidity?: FloatFieldUpdateOperationsInput | number
+    precence?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type EventUpdateWithoutSaunaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    createdBy?: UserUpdateOneRequiredWithoutCreatedEventsNestedInput
+    participants?: UserUpdateManyWithoutParticipatedEventsNestedInput
+  }
+
+  export type EventUncheckedUpdateWithoutSaunaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    participants?: UserUncheckedUpdateManyWithoutParticipatedEventsNestedInput
+  }
+
+  export type EventUncheckedUpdateManyWithoutSaunaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostCreateManySaunaSessionInput = {
+    id?: number
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    achievementId?: string | null
+  }
+
+  export type UserUpdateWithoutSaunaSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSaunaSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutSaunaSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PostUpdateWithoutSaunaSessionInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
+    achievement?: AchievementUpdateOneWithoutPostsNestedInput
+    likes?: LikeUpdateManyWithoutPostNestedInput
+    images?: PostImageUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutSaunaSessionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
+    images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateManyWithoutSaunaSessionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PostCreateManyAchievementInput = {
+    id?: number
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    saunaSessionId?: string | null
+  }
+
+  export type PostUpdateWithoutAchievementInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    likes?: LikeUpdateManyWithoutPostNestedInput
+    images?: PostImageUpdateManyWithoutPostNestedInput
+    comments?: CommentUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutAchievementInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
+    images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateManyWithoutAchievementInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserUpdateWithoutParticipatedEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutParticipatedEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutParticipatedEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

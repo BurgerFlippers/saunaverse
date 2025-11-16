@@ -36,6 +36,13 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
   };
 };
 
+export const createWorkerTRPCContext = async () => {
+  return {
+    db,
+    session: null,
+  };
+};
+
 /**
  * 2. INITIALIZATION
  *
