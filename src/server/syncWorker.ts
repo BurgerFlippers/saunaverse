@@ -62,7 +62,7 @@ export async function syncHarviaData() {
       }
 
       let harviaIdToken = harviaAccount.id_token;
-      let harviaExpiresAt = harviaAccount.expires_at
+      const harviaExpiresAt = harviaAccount.expires_at
         ? harviaAccount.expires_at * 1000
         : 0;
 
@@ -260,7 +260,7 @@ async function detectAndManageSaunaSessions() {
     });
 
     for (const sauna of allSaunas) {
-      let userForSync = sauna.users.find(
+      const userForSync = sauna.users.find(
         (u) => u.accounts && u.accounts.length > 0,
       );
       let harviaIdToken: string | null | undefined =

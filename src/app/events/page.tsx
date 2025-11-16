@@ -7,16 +7,12 @@ import { api } from "@/trpc/react";
 
 export default function EventsPage() {
   const { data: events, refetch } = api.event.getEvents.useQuery();
-  const [acceptedStates, setAcceptedStates] = useState<{
-    [key: string]: boolean;
-  }>({});
-  const [participantCounts, setParticipantCounts] = useState<{
-    [key: string]: number;
-  }>({});
-  const [steamStates, setSteamStates] = useState<{ [key: string]: boolean }>(
+  const [acceptedStates, setAcceptedStates] = useState<Record<string, boolean>>({});
+  const [participantCounts, setParticipantCounts] = useState<Record<string, number>>({});
+  const [steamStates, setSteamStates] = useState<Record<string, boolean>>(
     {},
   );
-  const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const participateMutation = api.event.participate.useMutation({
     onSuccess: () => {

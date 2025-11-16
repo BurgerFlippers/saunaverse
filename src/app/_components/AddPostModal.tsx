@@ -157,7 +157,7 @@ export function AddPostModal({
             <p className="font-bold text-white">Manual Entry</p>
           </div>
           {unpostedSessions
-            ?.filter((s) => s.saunaId === selectedSauna!.id && s.endTimestamp)
+            ?.filter((s) => s.saunaId === selectedSauna.id && s.endTimestamp)
             .map((s) => (
               <div
                 key={s.id}

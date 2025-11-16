@@ -68,7 +68,7 @@ export function Programs({ removeProgram }: ProgramsProps) {
     },
   ]);
 
-  const [steamStates, setSteamStates] = useState<{ [key: number]: boolean }>(
+  const [steamStates, setSteamStates] = useState<Record<number, boolean>>(
     {},
   );
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -78,7 +78,7 @@ export function Programs({ removeProgram }: ProgramsProps) {
     programName: string;
   } | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
-  const cardRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
+  const cardRefs = useRef<Record<number, HTMLDivElement | null>>({});
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Steam fade-in effect on card enter view

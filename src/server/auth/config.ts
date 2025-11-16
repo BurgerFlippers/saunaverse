@@ -84,7 +84,7 @@ export const authConfig = {
         try {
           const newTokens = await refreshHarviaIdToken(
             token.harviaRefreshToken as string,
-            token.email as string,
+            token.email,
           );
 
           token.harviaIdToken = newTokens.idToken;
