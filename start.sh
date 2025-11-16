@@ -9,4 +9,4 @@ npm run db:seed
 echo "Done"
 
 # Start all apps via pm2-runtime (PID 1 in Docker)
-exec pm2-runtime ecosystem.config.js
+exec pm2-runtime ecosystem.config.cjs

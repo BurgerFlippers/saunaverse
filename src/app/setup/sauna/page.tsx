@@ -178,22 +178,23 @@ function HarviaStep({ onNext }: { onNext: () => void }) {
             key={device.id}
             onClick={() => setSelectedDevice(device.id)}
             className={`cursor-pointer rounded-lg p-4 transition-colors duration-100 ${
-              selectedDevice === device.id ? "bg-gray-700" : "bg-gray-800"
+              selectedDevice === device.id ? "bg-gray-700" : "bg-gray-900"
             }`}
           >
             {device.name}
           </div>
         ))}
-        Junction demo account devices
+        {filteredDemoDevices && <span>Junction devices</span>}
+
         {filteredDemoDevices?.map((device) => (
           <div
             key={device.id}
             onClick={() => setSelectedDevice(device.id)}
             className={`cursor-pointer rounded-lg p-4 transition-colors duration-100 ${
-              selectedDevice === device.id ? "bg-gray-700" : "bg-gray-800"
+              selectedDevice === device.id ? "bg-gray-700" : "bg-gray-900"
             }`}
           >
-            {device.name} {device.type}
+            {device.name}
           </div>
         ))}
       </div>
