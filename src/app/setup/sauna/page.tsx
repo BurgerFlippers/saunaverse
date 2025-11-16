@@ -102,7 +102,11 @@ function HarviaStep({ onNext }: { onNext: () => void }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [selectedDevice, setSelectedDevice] = useState("");
-  const linkHarvia = api.user.linkHarviaAccount.useMutation();
+  const linkHarvia = api.user.linkHarviaAccount.useMutation({
+    onSuccess: () => {
+      setShowLogin(false);
+    },
+  });
   const { data: demoDevices } = api.sauna.getDemoSaunas.useQuery();
   const { data: devices } = api.sauna.discoverDevices.useQuery(undefined, {
     enabled: linkHarvia.isSuccess,
