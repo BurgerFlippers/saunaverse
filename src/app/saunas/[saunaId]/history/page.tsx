@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { api } from "@/trpc/react";
 import { SaunaGraph } from "@/app/_components/SaunaGraph";
 
 export default function SaunaHistoryPage({
   params,
 }: {
-  params: { saunaId: string };
+  params: Promise<{ saunaId: string }>;
 }) {
+  const { saunaId } = use(params);
   const [startDate, setStartDate] = useState(
     new Date(new Date().setDate(new Date().getDate() - 7)),
   );
@@ -16,7 +17,7 @@ export default function SaunaHistoryPage({
 
   const { data: measurements } = api.sauna.getSaunaMeasurements.useQuery(
     {
-      saunaId: params.saunaId,
+      saunaId: saunaId,
       startDate,
       endDate,
     },
@@ -24,7 +25,7 @@ export default function SaunaHistoryPage({
   );
 
   const { data: sessions } = api.sauna.getSaunaSessions.useQuery({
-    saunaId: params.saunaId,
+    saunaId: saunaId,
     startDate,
     endDate,
   });

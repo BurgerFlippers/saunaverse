@@ -167,10 +167,3 @@ export default function YouPage() {
     </>
   );
 }
-
-export function SignoutButton() {
-  const handleSignout = () => {
-    signOut({ redirectTo: "/setup" });
-  };
-  return <button onClick={handleSignout}>Logout</button>;
-}

@@ -7,9 +7,15 @@ import { api } from "@/trpc/react";
 
 export default function EventsPage() {
   const { data: events, refetch } = api.event.getEvents.useQuery();
-  const [acceptedStates, setAcceptedStates] = useState<{ [key: string]: boolean }>({});
-  const [participantCounts, setParticipantCounts] = useState<{ [key: string]: number }>({});
-  const [steamStates, setSteamStates] = useState<{ [key: string]: boolean }>({});
+  const [acceptedStates, setAcceptedStates] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [participantCounts, setParticipantCounts] = useState<{
+    [key: string]: number;
+  }>({});
+  const [steamStates, setSteamStates] = useState<{ [key: string]: boolean }>(
+    {},
+  );
   const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const participateMutation = api.event.participate.useMutation({
@@ -17,22 +23,33 @@ export default function EventsPage() {
       refetch();
     },
   });
-  const cancelParticipationMutation = api.event.cancelParticipation.useMutation({
-    onSuccess: () => {
-      refetch();
+  const cancelParticipationMutation = api.event.cancelParticipation.useMutation(
+    {
+      onSuccess: () => {
+        refetch();
+      },
     },
-  });
+  );
 
   const handleAccept = (eventId: string, currentAttendees: number) => {
     setAcceptedStates((prev) => ({ ...prev, [eventId]: true }));
-    setParticipantCounts((prev) => ({ ...prev, [eventId]: currentAttendees + 1 }));
+    setParticipantCounts((prev) => ({
+      ...prev,
+      [eventId]: currentAttendees + 1,
+    }));
     setSteamStates((prev) => ({ ...prev, [eventId]: true }));
     participateMutation.mutate({ eventId });
   };
 
-  const handleCancelParticipation = (eventId: string, currentAttendees: number) => {
+  const handleCancelParticipation = (
+    eventId: string,
+    currentAttendees: number,
+  ) => {
     setAcceptedStates((prev) => ({ ...prev, [eventId]: false }));
-    setParticipantCounts((prev) => ({ ...prev, [eventId]: currentAttendees - 1 }));
+    setParticipantCounts((prev) => ({
+      ...prev,
+      [eventId]: currentAttendees - 1,
+    }));
     cancelParticipationMutation.mutate({ eventId });
   };
 
@@ -80,7 +97,9 @@ export default function EventsPage() {
           return (
             <div
               key={event.id}
-              ref={(el) => (cardRefs.current[event.id] = el)}
+              ref={(el) => {
+                cardRefs.current[event.id] = el;
+              }}
               data-card-id={event.id}
               className={`steam-fade ${steamStates[event.id] ? "active" : ""}`}
             >
@@ -103,25 +122,37 @@ export default function EventsPage() {
                   <div className="mb-3 space-y-2">
                     <div className="flex items-center gap-2 text-gray-300">
                       <Calendar className="h-4 w-4" />
-                      <span className="font-normal" style={{ fontSize: "13px" }}>
+                      <span
+                        className="font-normal"
+                        style={{ fontSize: "13px" }}
+                      >
                         {event.date.toLocaleDateString()}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-300">
                       <Clock className="h-4 w-4" />
-                      <span className="font-normal" style={{ fontSize: "13px" }}>
+                      <span
+                        className="font-normal"
+                        style={{ fontSize: "13px" }}
+                      >
                         {event.date.toLocaleTimeString()}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-300">
                       <MapPin className="h-4 w-4" />
-                      <span className="font-normal" style={{ fontSize: "13px" }}>
+                      <span
+                        className="font-normal"
+                        style={{ fontSize: "13px" }}
+                      >
                         {event.location}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-300">
                       <Users className="h-4 w-4" />
-                      <span className="font-normal" style={{ fontSize: "13px" }}>
+                      <span
+                        className="font-normal"
+                        style={{ fontSize: "13px" }}
+                      >
                         {currentAttendees} / {event.maxAttendees} attending
                       </span>
                     </div>
@@ -138,7 +169,10 @@ export default function EventsPage() {
                     <button
                       className="w-full rounded-xl border-2 border-[#D01400] bg-[#D01400] py-2 font-bold text-white transition-opacity hover:opacity-80"
                       style={{ fontSize: "13px" }}
-                      onClick={() => handleAccept(event.id, currentAttendees)}
+                      onClick={() =>
+                        currentAttendees &&
+                        handleAccept(event.id, currentAttendees)
+                      }
                     >
                       Accept
                     </button>
@@ -154,6 +188,7 @@ export default function EventsPage() {
                         className="w-full rounded-xl border-2 border-gray-600 bg-transparent py-2 font-bold text-gray-300 transition-opacity hover:opacity-80"
                         style={{ fontSize: "13px" }}
                         onClick={() =>
+                          currentAttendees &&
                           handleCancelParticipation(event.id, currentAttendees)
                         }
                       >

@@ -21,6 +21,8 @@ services:
       - HARVIA_PASSWORD=${HARVIA_PASSWORD}
       - HARVIA_USERNAME=${HARVIA_USERNAME}
       - AUTH_SECRET=${AUTH_SECRET}
+    command: >
+      sh -c "npm run db:migrate && npm run db:seed && npm run start"
 
 volumes:
   postgres_data:

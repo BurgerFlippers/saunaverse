@@ -8,22 +8,10 @@ import { MemoizedSessionChart, SessionChart } from "./SessionChart";
 import { useEffect } from "react";
 import { formatDuration } from "./ui/utils";
 
-import { Sauna } from "generated/prisma/client";
-
-type SaunaSession = {
-  id: string;
-  sauna: {
-    name: string;
-  };
-  startTimestamp: Date;
-  endTimestamp: Date | null;
-  avgTemperature: number | null;
-  maxTemperature: number | null;
-  avgHumidity: number | null;
-};
+import type { Sauna, SaunaSession } from "generated/prisma/client";
 
 type AddPostModalProps = {
-  session?: SaunaSession;
+  session?: SaunaSession & { sauna: Sauna };
   onClose: () => void;
 };
 
@@ -40,7 +28,7 @@ export function AddPostModal({
   const [isManualEntry, setIsManualEntry] = useState(false);
   const [manualSession, setManualSession] = useState({
     date: new Date().toISOString().split("T")[0],
-    time: new Date().toTimeString().split(" ")[0].substring(0, 5),
+    time: new Date().toTimeString().split(" ")[0]?.substring(0, 5),
     duration: "60",
   });
   const { data: saunas } = api.sauna.getSaunas.useQuery();
