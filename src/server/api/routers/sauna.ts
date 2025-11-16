@@ -215,13 +215,15 @@ export const saunaRouter = createTRPCRouter({
       z.object({
         name: z.string(),
         location: z.string(),
-        harviaDeviceId: z.string().optional(),
+        harviaDeviceId: z.string().nullish(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const existingSauna = await ctx.db.sauna.findUnique({
-        where: { harviaDeviceId: input.harviaDeviceId },
-      });
+      const existingSauna = input.harviaDeviceId
+        ? await ctx.db.sauna.findUnique({
+            where: { harviaDeviceId: input.harviaDeviceId },
+          })
+        : undefined;
 
       if (existingSauna) {
         const sessions = await ctx.db.saunaSession.findMany({
