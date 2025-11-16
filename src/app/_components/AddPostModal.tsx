@@ -116,30 +116,48 @@ export function AddPostModal({
     }
   };
 
-  const renderStepOne = () => (
-    <div>
-      <h3 className="text-lg font-bold">Select a Sauna</h3>
-      <div className="grid grid-cols-2 gap-4">
-        {saunas?.map((sauna) => (
-          <div
-            key={sauna.id}
-            onClick={() => {
-              setSelectedSauna(sauna);
-              if (sauna.harviaDeviceId) {
-                setStep(2);
-              } else {
-                setIsManualEntry(true);
-                setStep(3);
-              }
-            }}
-            className="cursor-pointer rounded-lg bg-gray-800 p-4 text-center"
+  const renderStepOne = () => {
+    if (!saunas?.length) {
+      return (
+        <div className="text-center">
+          <p>No saunas found.</p>
+          <button
+            onClick={() => router.push("/setup/sauna")}
+            className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white"
           >
-            {sauna.name}
-          </div>
-        ))}
+            Set Up a Sauna
+          </button>
+        </div>
+      );
+    }
+    return (
+      <div>
+        <h3 className="text-lg font-bold">Select a Sauna</h3>
+        <div className="grid grid-cols-2 gap-4">
+          {saunas?.map((sauna) => (
+            <div
+              key={sauna.id}
+              onClick={() => {
+                setSelectedSauna(sauna);
+                if (sauna.harviaDeviceId) {
+                  setStep(2);
+                } else {
+                  setIsManualEntry(true);
+                  setStep(3);
+                }
+              }}
+              className="cursor-pointer rounded-lg bg-gray-800 p-4 text-center"
+            >
+              {sauna.name}
+              {!sauna.harviaDeviceId && (
+                <span className="ml-2 text-xs text-gray-400">(manual)</span>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderStepTwo = () => {
     if (!selectedSauna) return null;
