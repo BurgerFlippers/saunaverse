@@ -61,13 +61,12 @@ export const authConfig = {
               const randomSession =
                 sessions[Math.floor(Math.random() * sessions.length)];
               if (randomSession) {
-                await db.post.create({
+                await db.saunaSession.update({
+                  where: { id: randomSession.id },
                   data: {
-                    name: "My First Sauna Session!",
-                    description:
-                      "Just joined and already enjoying a great sauna session.",
-                    saunaSessionId: randomSession.id,
-                    createdById: user.id,
+                    participants: {
+                      connect: { id: user.id },
+                    },
                   },
                 });
               }
@@ -117,8 +116,7 @@ export const authConfig = {
           token.harviaIdToken = newTokens.idToken;
           token.harviaAccessToken = newTokens.accessToken;
           token.harviaExpiresIn = newTokens.expiresIn;
-          token.harviaTokenExpiresAt =
-            Date.now() + newTokens.expiresIn * 1000;
+          token.harviaTokenExpiresAt = Date.now() + newTokens.expiresIn * 1000;
           return token;
         } catch (error) {
           console.error("Error refreshing Harvia token:", error);

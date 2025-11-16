@@ -24,7 +24,7 @@ export function UnsharedSessionCard({ session }: UnsharedSessionCardProps) {
     <>
       <div className="flex items-center justify-between rounded-lg bg-[#1F1F23] p-4">
         <div>
-          <h3 className="text-lg font-bold">Recent Session</h3>
+          <h3 className="text-lg font-bold">Your Recent Session</h3>
           <p className="text-sm text-gray-400">
             {session.sauna.name} -{" "}
             {new Date(session.startTimestamp).toLocaleDateString()}
@@ -32,10 +32,16 @@ export function UnsharedSessionCard({ session }: UnsharedSessionCardProps) {
         </div>
         <div className="flex items-center gap-4">
           <div className="text-right">
-            <p className="mb-1.5 font-normal text-gray-300" style={{ fontSize: "11px" }}>
+            <p
+              className="mb-1.5 font-normal text-gray-300"
+              style={{ fontSize: "11px" }}
+            >
               Duration
             </p>
-            <p className="mb-0 leading-none font-bold text-white" style={{ fontSize: "19px" }}>
+            <p
+              className="mb-0 leading-none font-bold text-white"
+              style={{ fontSize: "19px" }}
+            >
               {session.endTimestamp
                 ? formatDuration(
                     new Date(session.endTimestamp).getTime() -
@@ -46,10 +52,16 @@ export function UnsharedSessionCard({ session }: UnsharedSessionCardProps) {
           </div>
           {session.avgTemperature && (
             <div className="text-right">
-              <p className="mb-1.5 font-normal text-gray-300" style={{ fontSize: "11px" }}>
+              <p
+                className="mb-1.5 font-normal text-gray-300"
+                style={{ fontSize: "11px" }}
+              >
                 Avg / Max Temp
               </p>
-              <p className="mb-0 leading-none font-bold text-white" style={{ fontSize: "19px" }}>
+              <p
+                className="mb-0 leading-none font-bold text-white"
+                style={{ fontSize: "19px" }}
+              >
                 {session.avgTemperature.toFixed(0)}° /{" "}
                 {session.maxTemperature?.toFixed(0)}°
               </p>
