@@ -1,7 +1,9 @@
 #!/bin/bash
+set -e
 
-npm run db:migrate 
+# Run migrations & seed data before starting services
+npm run db:migrate
 npm run db:seed
 
-npm run start:worker &
-npm run start
+# Start all apps via pm2-runtime (PID 1 in Docker)
+exec pm2-runtime ecosystem.config.js

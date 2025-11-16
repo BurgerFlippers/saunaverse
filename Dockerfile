@@ -47,6 +47,7 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN apk add --no-cache bash
+RUN npm install -g pm2
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
@@ -56,6 +57,7 @@ COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 ENV PORT 3000
+RUN chmod +x start.sh
 
 ENTRYPOINT "/bin/bash"
-CMD ["start.sh"]
+CMD ["./start.sh"]
