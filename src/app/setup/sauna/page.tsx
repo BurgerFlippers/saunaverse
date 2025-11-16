@@ -176,7 +176,9 @@ function HarviaStep({ onNext }: { onNext: () => void }) {
 
   return (
     <div className="flex w-full max-w-sm flex-col gap-4">
+      <span>Select Harvia sauna device</span>
       <div className="flex max-h-64 w-full flex-col gap-2 overflow-y-auto">
+        {devices && <span>My saunas</span>}
         {devices?.map((device) => (
           <div
             key={device.id}
@@ -188,7 +190,7 @@ function HarviaStep({ onNext }: { onNext: () => void }) {
             {device.name}
           </div>
         ))}
-        {filteredDemoDevices && <span>Junction devices</span>}
+        {filteredDemoDevices && <span>Junction saunas</span>}
 
         {filteredDemoDevices?.map((device) => (
           <div
