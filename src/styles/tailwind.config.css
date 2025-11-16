@@ -1,0 +1,13 @@
+@theme {
+  --colors-background-main: var(--background-main);
+  --colors-background-secondary: var(--background-secondary);
+  --colors-heat-primary: var(--heat-primary);
+  --colors-heat-secondary: var(--heat-secondary);
+  --colors-intensity-red: var(--intensity-red);
+  --colors-neutral-wellness: var(--neutral-wellness);
+  --colors-neutral-gray: var(--neutral-gray);
+  --colors-achievement-gold: var(--achievement-gold);
+  --colors-text-on-colored-bg: var(--text-on-colored-bg);
+
+  --font-family-sans: "var(--font-rubik)";
+}
