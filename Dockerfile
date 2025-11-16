@@ -47,7 +47,7 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN apk add --no-cache bash
-RUN npm install -g pm2 prisma
+RUN npm install -g pm2 prisma tsx
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
