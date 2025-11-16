@@ -76,8 +76,8 @@ model User {
     saunaSessions      SaunaSession[] @relation("SaunaSessionToUser")
     likes              Like[]
     comments           Comment[]
-    createdEvents      Event[]  @relation("CreatedEvents")
-    participatedEvents Event[]  @relation("ParticipatedEvents")
+    createdEvents      Event[]        @relation("CreatedEvents")
+    participatedEvents Event[]        @relation("ParticipatedEvents")
 }
 
 model VerificationToken {
@@ -90,7 +90,7 @@ model VerificationToken {
 
 model Sauna {
     id                String             @id @default(cuid())
-    harviaDeviceId    String             @unique
+    harviaDeviceId    String?            @unique
     name              String
     location          String?
     users             User[]
@@ -149,8 +149,8 @@ model PostImage {
 }
 
 model Achievement {
-    id          String @id @default(cuid())
-    name        String @unique
+    id          String  @id @default(cuid())
+    name        String  @unique
     description String
     metric      String?
     value       String?
@@ -182,14 +182,16 @@ model Comment {
 }
 
 model Event {
-    id          String   @id @default(cuid())
-    name        String
-    description String
-    date        DateTime
-    location    String
-    sauna       Sauna    @relation(fields: [saunaId], references: [id])
-    saunaId     String
-    createdBy   User     @relation("CreatedEvents", fields: [createdById], references: [id])
-    createdById String
+    id           String   @id @default(cuid())
+    name         String
+    description  String
+    date         DateTime
+    location     String
+    maxAttendees Int
+    status       String   @default("invited")
+    sauna        Sauna    @relation(fields: [saunaId], references: [id])
+    saunaId      String
+    createdBy    User     @relation("CreatedEvents", fields: [createdById], references: [id])
+    createdById  String
     participants User[]   @relation("ParticipatedEvents")
 }

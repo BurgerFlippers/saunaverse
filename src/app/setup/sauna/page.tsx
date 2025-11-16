@@ -63,7 +63,7 @@ function CreateSaunaStep({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createSauna.mutate({ name, location: "", harviaDeviceId: "" });
+    createSauna.mutate({ name, location: "" });
   };
 
   return (

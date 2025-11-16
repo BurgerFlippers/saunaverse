@@ -215,7 +215,7 @@ export const saunaRouter = createTRPCRouter({
       z.object({
         name: z.string(),
         location: z.string(),
-        harviaDeviceId: z.string(),
+        harviaDeviceId: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

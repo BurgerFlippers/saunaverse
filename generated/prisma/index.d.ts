@@ -8203,7 +8203,7 @@ export namespace Prisma {
 
   export type SaunaGroupByOutputType = {
     id: string
-    harviaDeviceId: string
+    harviaDeviceId: string | null
     name: string
     location: string | null
     _count: SaunaCountAggregateOutputType | null
@@ -8279,7 +8279,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      harviaDeviceId: string
+      harviaDeviceId: string | null
       name: string
       location: string | null
     }, ExtArgs["result"]["sauna"]>
@@ -16047,8 +16047,18 @@ export namespace Prisma {
 
   export type AggregateEvent = {
     _count: EventCountAggregateOutputType | null
+    _avg: EventAvgAggregateOutputType | null
+    _sum: EventSumAggregateOutputType | null
     _min: EventMinAggregateOutputType | null
     _max: EventMaxAggregateOutputType | null
+  }
+
+  export type EventAvgAggregateOutputType = {
+    maxAttendees: number | null
+  }
+
+  export type EventSumAggregateOutputType = {
+    maxAttendees: number | null
   }
 
   export type EventMinAggregateOutputType = {
@@ -16057,6 +16067,8 @@ export namespace Prisma {
     description: string | null
     date: Date | null
     location: string | null
+    maxAttendees: number | null
+    status: string | null
     saunaId: string | null
     createdById: string | null
   }
@@ -16067,6 +16079,8 @@ export namespace Prisma {
     description: string | null
     date: Date | null
     location: string | null
+    maxAttendees: number | null
+    status: string | null
     saunaId: string | null
     createdById: string | null
   }
@@ -16077,11 +16091,21 @@ export namespace Prisma {
     description: number
     date: number
     location: number
+    maxAttendees: number
+    status: number
     saunaId: number
     createdById: number
     _all: number
   }
 
+
+  export type EventAvgAggregateInputType = {
+    maxAttendees?: true
+  }
+
+  export type EventSumAggregateInputType = {
+    maxAttendees?: true
+  }
 
   export type EventMinAggregateInputType = {
     id?: true
@@ -16089,6 +16113,8 @@ export namespace Prisma {
     description?: true
     date?: true
     location?: true
+    maxAttendees?: true
+    status?: true
     saunaId?: true
     createdById?: true
   }
@@ -16099,6 +16125,8 @@ export namespace Prisma {
     description?: true
     date?: true
     location?: true
+    maxAttendees?: true
+    status?: true
     saunaId?: true
     createdById?: true
   }
@@ -16109,6 +16137,8 @@ export namespace Prisma {
     description?: true
     date?: true
     location?: true
+    maxAttendees?: true
+    status?: true
     saunaId?: true
     createdById?: true
     _all?: true
@@ -16152,6 +16182,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: EventAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EventSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: EventMinAggregateInputType
@@ -16182,6 +16224,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: EventCountAggregateInputType | true
+    _avg?: EventAvgAggregateInputType
+    _sum?: EventSumAggregateInputType
     _min?: EventMinAggregateInputType
     _max?: EventMaxAggregateInputType
   }
@@ -16192,9 +16236,13 @@ export namespace Prisma {
     description: string
     date: Date
     location: string
+    maxAttendees: number
+    status: string
     saunaId: string
     createdById: string
     _count: EventCountAggregateOutputType | null
+    _avg: EventAvgAggregateOutputType | null
+    _sum: EventSumAggregateOutputType | null
     _min: EventMinAggregateOutputType | null
     _max: EventMaxAggregateOutputType | null
   }
@@ -16219,6 +16267,8 @@ export namespace Prisma {
     description?: boolean
     date?: boolean
     location?: boolean
+    maxAttendees?: boolean
+    status?: boolean
     saunaId?: boolean
     createdById?: boolean
     sauna?: boolean | SaunaDefaultArgs<ExtArgs>
@@ -16233,6 +16283,8 @@ export namespace Prisma {
     description?: boolean
     date?: boolean
     location?: boolean
+    maxAttendees?: boolean
+    status?: boolean
     saunaId?: boolean
     createdById?: boolean
     sauna?: boolean | SaunaDefaultArgs<ExtArgs>
@@ -16245,6 +16297,8 @@ export namespace Prisma {
     description?: boolean
     date?: boolean
     location?: boolean
+    maxAttendees?: boolean
+    status?: boolean
     saunaId?: boolean
     createdById?: boolean
     sauna?: boolean | SaunaDefaultArgs<ExtArgs>
@@ -16257,11 +16311,13 @@ export namespace Prisma {
     description?: boolean
     date?: boolean
     location?: boolean
+    maxAttendees?: boolean
+    status?: boolean
     saunaId?: boolean
     createdById?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "date" | "location" | "saunaId" | "createdById", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "date" | "location" | "maxAttendees" | "status" | "saunaId" | "createdById", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sauna?: boolean | SaunaDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
@@ -16290,6 +16346,8 @@ export namespace Prisma {
       description: string
       date: Date
       location: string
+      maxAttendees: number
+      status: string
       saunaId: string
       createdById: string
     }, ExtArgs["result"]["event"]>
@@ -16723,6 +16781,8 @@ export namespace Prisma {
     readonly description: FieldRef<"Event", 'String'>
     readonly date: FieldRef<"Event", 'DateTime'>
     readonly location: FieldRef<"Event", 'String'>
+    readonly maxAttendees: FieldRef<"Event", 'Int'>
+    readonly status: FieldRef<"Event", 'String'>
     readonly saunaId: FieldRef<"Event", 'String'>
     readonly createdById: FieldRef<"Event", 'String'>
   }
@@ -17337,6 +17397,8 @@ export namespace Prisma {
     description: 'description',
     date: 'date',
     location: 'location',
+    maxAttendees: 'maxAttendees',
+    status: 'status',
     saunaId: 'saunaId',
     createdById: 'createdById'
   };
@@ -17820,7 +17882,7 @@ export namespace Prisma {
     OR?: SaunaWhereInput[]
     NOT?: SaunaWhereInput | SaunaWhereInput[]
     id?: StringFilter<"Sauna"> | string
-    harviaDeviceId?: StringFilter<"Sauna"> | string
+    harviaDeviceId?: StringNullableFilter<"Sauna"> | string | null
     name?: StringFilter<"Sauna"> | string
     location?: StringNullableFilter<"Sauna"> | string | null
     users?: UserListRelationFilter
@@ -17831,7 +17893,7 @@ export namespace Prisma {
 
   export type SaunaOrderByWithRelationInput = {
     id?: SortOrder
-    harviaDeviceId?: SortOrder
+    harviaDeviceId?: SortOrderInput | SortOrder
     name?: SortOrder
     location?: SortOrderInput | SortOrder
     users?: UserOrderByRelationAggregateInput
@@ -17856,7 +17918,7 @@ export namespace Prisma {
 
   export type SaunaOrderByWithAggregationInput = {
     id?: SortOrder
-    harviaDeviceId?: SortOrder
+    harviaDeviceId?: SortOrderInput | SortOrder
     name?: SortOrder
     location?: SortOrderInput | SortOrder
     _count?: SaunaCountOrderByAggregateInput
@@ -17869,7 +17931,7 @@ export namespace Prisma {
     OR?: SaunaScalarWhereWithAggregatesInput[]
     NOT?: SaunaScalarWhereWithAggregatesInput | SaunaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Sauna"> | string
-    harviaDeviceId?: StringWithAggregatesFilter<"Sauna"> | string
+    harviaDeviceId?: StringNullableWithAggregatesFilter<"Sauna"> | string | null
     name?: StringWithAggregatesFilter<"Sauna"> | string
     location?: StringNullableWithAggregatesFilter<"Sauna"> | string | null
   }
@@ -18307,6 +18369,8 @@ export namespace Prisma {
     description?: StringFilter<"Event"> | string
     date?: DateTimeFilter<"Event"> | Date | string
     location?: StringFilter<"Event"> | string
+    maxAttendees?: IntFilter<"Event"> | number
+    status?: StringFilter<"Event"> | string
     saunaId?: StringFilter<"Event"> | string
     createdById?: StringFilter<"Event"> | string
     sauna?: XOR<SaunaScalarRelationFilter, SaunaWhereInput>
@@ -18320,6 +18384,8 @@ export namespace Prisma {
     description?: SortOrder
     date?: SortOrder
     location?: SortOrder
+    maxAttendees?: SortOrder
+    status?: SortOrder
     saunaId?: SortOrder
     createdById?: SortOrder
     sauna?: SaunaOrderByWithRelationInput
@@ -18336,6 +18402,8 @@ export namespace Prisma {
     description?: StringFilter<"Event"> | string
     date?: DateTimeFilter<"Event"> | Date | string
     location?: StringFilter<"Event"> | string
+    maxAttendees?: IntFilter<"Event"> | number
+    status?: StringFilter<"Event"> | string
     saunaId?: StringFilter<"Event"> | string
     createdById?: StringFilter<"Event"> | string
     sauna?: XOR<SaunaScalarRelationFilter, SaunaWhereInput>
@@ -18349,11 +18417,15 @@ export namespace Prisma {
     description?: SortOrder
     date?: SortOrder
     location?: SortOrder
+    maxAttendees?: SortOrder
+    status?: SortOrder
     saunaId?: SortOrder
     createdById?: SortOrder
     _count?: EventCountOrderByAggregateInput
+    _avg?: EventAvgOrderByAggregateInput
     _max?: EventMaxOrderByAggregateInput
     _min?: EventMinOrderByAggregateInput
+    _sum?: EventSumOrderByAggregateInput
   }
 
   export type EventScalarWhereWithAggregatesInput = {
@@ -18365,6 +18437,8 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Event"> | string
     date?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     location?: StringWithAggregatesFilter<"Event"> | string
+    maxAttendees?: IntWithAggregatesFilter<"Event"> | number
+    status?: StringWithAggregatesFilter<"Event"> | string
     saunaId?: StringWithAggregatesFilter<"Event"> | string
     createdById?: StringWithAggregatesFilter<"Event"> | string
   }
@@ -18754,7 +18828,7 @@ export namespace Prisma {
 
   export type SaunaCreateInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     users?: UserCreateNestedManyWithoutSaunasInput
@@ -18765,7 +18839,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedCreateInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     users?: UserUncheckedCreateNestedManyWithoutSaunasInput
@@ -18776,7 +18850,7 @@ export namespace Prisma {
 
   export type SaunaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutSaunasNestedInput
@@ -18787,7 +18861,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutSaunasNestedInput
@@ -18798,21 +18872,21 @@ export namespace Prisma {
 
   export type SaunaCreateManyInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
   }
 
   export type SaunaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SaunaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -19262,6 +19336,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     sauna: SaunaCreateNestedOneWithoutEventsInput
     createdBy: UserCreateNestedOneWithoutCreatedEventsInput
     participants?: UserCreateNestedManyWithoutParticipatedEventsInput
@@ -19273,6 +19349,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     saunaId: string
     createdById: string
     participants?: UserUncheckedCreateNestedManyWithoutParticipatedEventsInput
@@ -19284,6 +19362,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     sauna?: SaunaUpdateOneRequiredWithoutEventsNestedInput
     createdBy?: UserUpdateOneRequiredWithoutCreatedEventsNestedInput
     participants?: UserUpdateManyWithoutParticipatedEventsNestedInput
@@ -19295,6 +19375,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     saunaId?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
     participants?: UserUncheckedUpdateManyWithoutParticipatedEventsNestedInput
@@ -19306,6 +19388,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     saunaId: string
     createdById: string
   }
@@ -19316,6 +19400,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type EventUncheckedUpdateManyInput = {
@@ -19324,6 +19410,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     saunaId?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
   }
@@ -20180,8 +20268,14 @@ export namespace Prisma {
     description?: SortOrder
     date?: SortOrder
     location?: SortOrder
+    maxAttendees?: SortOrder
+    status?: SortOrder
     saunaId?: SortOrder
     createdById?: SortOrder
+  }
+
+  export type EventAvgOrderByAggregateInput = {
+    maxAttendees?: SortOrder
   }
 
   export type EventMaxOrderByAggregateInput = {
@@ -20190,6 +20284,8 @@ export namespace Prisma {
     description?: SortOrder
     date?: SortOrder
     location?: SortOrder
+    maxAttendees?: SortOrder
+    status?: SortOrder
     saunaId?: SortOrder
     createdById?: SortOrder
   }
@@ -20200,8 +20296,14 @@ export namespace Prisma {
     description?: SortOrder
     date?: SortOrder
     location?: SortOrder
+    maxAttendees?: SortOrder
+    status?: SortOrder
     saunaId?: SortOrder
     createdById?: SortOrder
+  }
+
+  export type EventSumOrderByAggregateInput = {
+    maxAttendees?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutPostsInput = {
@@ -22173,7 +22275,7 @@ export namespace Prisma {
 
   export type SaunaCreateWithoutUsersInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     sessions?: SaunaSessionCreateNestedManyWithoutSaunaInput
@@ -22183,7 +22285,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedCreateWithoutUsersInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     sessions?: SaunaSessionUncheckedCreateNestedManyWithoutSaunaInput
@@ -22299,6 +22401,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     sauna: SaunaCreateNestedOneWithoutEventsInput
     participants?: UserCreateNestedManyWithoutParticipatedEventsInput
   }
@@ -22309,6 +22413,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     saunaId: string
     participants?: UserUncheckedCreateNestedManyWithoutParticipatedEventsInput
   }
@@ -22329,6 +22435,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     sauna: SaunaCreateNestedOneWithoutEventsInput
     createdBy: UserCreateNestedOneWithoutCreatedEventsInput
   }
@@ -22339,6 +22447,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     saunaId: string
     createdById: string
   }
@@ -22461,7 +22571,7 @@ export namespace Prisma {
     OR?: SaunaScalarWhereInput[]
     NOT?: SaunaScalarWhereInput | SaunaScalarWhereInput[]
     id?: StringFilter<"Sauna"> | string
-    harviaDeviceId?: StringFilter<"Sauna"> | string
+    harviaDeviceId?: StringNullableFilter<"Sauna"> | string | null
     name?: StringFilter<"Sauna"> | string
     location?: StringNullableFilter<"Sauna"> | string | null
   }
@@ -22563,6 +22673,8 @@ export namespace Prisma {
     description?: StringFilter<"Event"> | string
     date?: DateTimeFilter<"Event"> | Date | string
     location?: StringFilter<"Event"> | string
+    maxAttendees?: IntFilter<"Event"> | number
+    status?: StringFilter<"Event"> | string
     saunaId?: StringFilter<"Event"> | string
     createdById?: StringFilter<"Event"> | string
   }
@@ -22706,6 +22818,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     createdBy: UserCreateNestedOneWithoutCreatedEventsInput
     participants?: UserCreateNestedManyWithoutParticipatedEventsInput
   }
@@ -22716,6 +22830,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     createdById: string
     participants?: UserUncheckedCreateNestedManyWithoutParticipatedEventsInput
   }
@@ -22819,7 +22935,7 @@ export namespace Prisma {
 
   export type SaunaCreateWithoutSessionsInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     users?: UserCreateNestedManyWithoutSaunasInput
@@ -22829,7 +22945,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedCreateWithoutSessionsInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     users?: UserUncheckedCreateNestedManyWithoutSaunasInput
@@ -22927,7 +23043,7 @@ export namespace Prisma {
 
   export type SaunaUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutSaunasNestedInput
@@ -22937,7 +23053,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutSaunasNestedInput
@@ -23242,7 +23358,7 @@ export namespace Prisma {
 
   export type SaunaCreateWithoutSaunaMeasurementsInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     users?: UserCreateNestedManyWithoutSaunasInput
@@ -23252,7 +23368,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedCreateWithoutSaunaMeasurementsInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     users?: UserUncheckedCreateNestedManyWithoutSaunasInput
@@ -23278,7 +23394,7 @@ export namespace Prisma {
 
   export type SaunaUpdateWithoutSaunaMeasurementsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutSaunasNestedInput
@@ -23288,7 +23404,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedUpdateWithoutSaunaMeasurementsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutSaunasNestedInput
@@ -23444,7 +23560,7 @@ export namespace Prisma {
 
   export type SaunaCreateWithoutEventsInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     users?: UserCreateNestedManyWithoutSaunasInput
@@ -23454,7 +23570,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedCreateWithoutEventsInput = {
     id?: string
-    harviaDeviceId: string
+    harviaDeviceId?: string | null
     name: string
     location?: string | null
     users?: UserUncheckedCreateNestedManyWithoutSaunasInput
@@ -23554,7 +23670,7 @@ export namespace Prisma {
 
   export type SaunaUpdateWithoutEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutSaunasNestedInput
@@ -23564,7 +23680,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedUpdateWithoutEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutSaunasNestedInput
@@ -23763,6 +23879,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     saunaId: string
   }
 
@@ -23869,7 +23987,7 @@ export namespace Prisma {
 
   export type SaunaUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SaunaSessionUpdateManyWithoutSaunaNestedInput
@@ -23879,7 +23997,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SaunaSessionUncheckedUpdateManyWithoutSaunaNestedInput
@@ -23889,7 +24007,7 @@ export namespace Prisma {
 
   export type SaunaUncheckedUpdateManyWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    harviaDeviceId?: StringFieldUpdateOperationsInput | string
+    harviaDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     location?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -24007,6 +24125,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     sauna?: SaunaUpdateOneRequiredWithoutEventsNestedInput
     participants?: UserUpdateManyWithoutParticipatedEventsNestedInput
   }
@@ -24017,6 +24137,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     saunaId?: StringFieldUpdateOperationsInput | string
     participants?: UserUncheckedUpdateManyWithoutParticipatedEventsNestedInput
   }
@@ -24027,6 +24149,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     saunaId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -24036,6 +24160,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     sauna?: SaunaUpdateOneRequiredWithoutEventsNestedInput
     createdBy?: UserUpdateOneRequiredWithoutCreatedEventsNestedInput
   }
@@ -24046,6 +24172,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     saunaId?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
   }
@@ -24056,6 +24184,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     saunaId?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
   }
@@ -24094,6 +24224,8 @@ export namespace Prisma {
     description: string
     date: Date | string
     location: string
+    maxAttendees: number
+    status?: string
     createdById: string
   }
 
@@ -24231,6 +24363,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     createdBy?: UserUpdateOneRequiredWithoutCreatedEventsNestedInput
     participants?: UserUpdateManyWithoutParticipatedEventsNestedInput
   }
@@ -24241,6 +24375,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
     participants?: UserUncheckedUpdateManyWithoutParticipatedEventsNestedInput
   }
@@ -24251,6 +24387,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
+    maxAttendees?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     createdById?: StringFieldUpdateOperationsInput | string
   }
 
