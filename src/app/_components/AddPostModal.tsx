@@ -181,6 +181,7 @@ export function AddPostModal({
                 key={s.id}
                 onClick={() => {
                   setSession(s);
+                  setIsManualEntry(false);
                   setStep(3);
                 }}
                 className="cursor-pointer p-4 hover:bg-gray-800"
