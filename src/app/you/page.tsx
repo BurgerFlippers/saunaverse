@@ -70,7 +70,7 @@ export default function YouPage() {
             <div className="mb-3 flex items-center gap-2">
               <Flame className="h-5 w-5 text-[#D01400]" />
               <h3 className="font-bold text-white" style={{ fontSize: "16px" }}>
-                Weekly Streak
+                Weekly Saunas
               </h3>
             </div>
             <div className="flex justify-between gap-2">
@@ -115,7 +115,7 @@ export default function YouPage() {
               <p className="text-3xl font-bold text-white">
                 {mockUserStats.currentStreak}
               </p>
-              <p className="text-xs font-normal text-gray-400">days</p>
+              <p className="text-xs font-normal text-gray-400">weeks</p>
             </div>
 
             <div className="rounded-xl bg-[#2C2B36] p-4">
@@ -156,7 +156,7 @@ export default function YouPage() {
         </Card>
 
         <Card className="heat-wave rounded-2xl border-[#2C2B36] bg-[#1F1F23] p-5">
-          <h3 className="mb-4 text-xl font-bold text-white">My Posts</h3>
+          <h3 className="mb-4 text-xl font-bold text-white">My Sessions</h3>
           <div className="space-y-3">
             {myPosts?.map((post) => (
               <PostCard key={post.id} post={post as any} />

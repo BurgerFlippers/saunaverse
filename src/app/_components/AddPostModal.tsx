@@ -402,7 +402,7 @@ export function AddPostModal({
       <div className="relative w-full max-w-2xl rounded-2xl border border-[#2C2B36] bg-[#1F1F23]">
         <div className="flex items-center justify-between border-b border-[#2C2B36] px-5 py-4">
           <h2 className="mb-0" style={{ fontSize: "22px" }}>
-            Share Your Sauna Session
+            Mark Your Sauna Session
           </h2>
           <button
             onClick={onClose}
