@@ -48,6 +48,37 @@ export const saunaRouter = createTRPCRouter({
     return uniqueSaunas;
   }),
 
+  getMySessionsAndPosts: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+
+    return ctx.db.saunaSession.findMany({
+      where: {
+        participants: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        sauna: true,
+        posts: {
+          include: {
+            likes: true,
+            createdBy: true,
+            comments: { include: { createdBy: true } },
+            achievement: true,
+          },
+          where: {
+            createdById: userId,
+          },
+        },
+      },
+      orderBy: {
+        startTimestamp: "desc",
+      },
+    });
+  }),
+
   getAllSaunaSessions: protectedProcedure
     .input(
       z.object({
@@ -260,7 +291,7 @@ export const saunaRouter = createTRPCRouter({
         },
       });
 
-      await syncHarviaData();
+      if (sauna.harviaDeviceId) await syncHarviaData();
 
       return sauna;
     }),
@@ -288,12 +319,15 @@ export const saunaRouter = createTRPCRouter({
         startTimestamp: z.date(),
         endTimestamp: z.date(),
         durationMs: z.number(),
+        temperature: z.number().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const { temperature, ...rest } = input;
       return ctx.db.saunaSession.create({
         data: {
-          ...input,
+          ...rest,
+          avgTemperature: temperature,
           status: "ENDED",
           manual: true,
           participants: {
@@ -378,6 +412,27 @@ export const saunaRouter = createTRPCRouter({
     }),
 
   getDemoSaunas: protectedProcedure.query(async ({ ctx }) => {
+    return fetchDemoSaunasData();
+  }),
+});
+
+let demoSaunasCache:
+  | {
+      name: string;
+      id: string;
+      type: string;
+      attr: {
+        key: string;
+        value: string;
+      }[];
+    }[]
+  | null = null;
+
+async function fetchDemoSaunasData() {
+  if (demoSaunasCache) return demoSaunasCache;
+
+  console.log("Fetching demo saunas...");
+  try {
     const harviaTokens = await getHarviaIdToken(
       process.env.HARVIA_USERNAME!,
       process.env.HARVIA_PASSWORD!,
@@ -420,6 +475,18 @@ export const saunaRouter = createTRPCRouter({
       }),
     );
 
+    demoSaunasCache = devicesWithNames;
     return devicesWithNames;
-  }),
+  } catch (error) {
+    console.error("Failed to fetch demo saunas", error);
+    // In case of error, we don't cache null, so next retry might work
+    // But we should probably return empty array or rethrow
+    throw error;
+  }
+}
+
+// Trigger background fetch on module load
+void fetchDemoSaunasData().catch((e) => {
+  // Swallow error on background fetch, it will be retried on request
+  console.log("Background fetch of demo saunas failed (will retry on request)");
 });

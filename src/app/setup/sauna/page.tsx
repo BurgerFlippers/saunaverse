@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { api } from "@/trpc/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const deviceNameBlacklist: string[] = ["MiniSaunaSens", "MicroSaunaSens"];
 
@@ -73,7 +73,7 @@ function CreateSaunaStep({
     >
       <input
         type="text"
-        placeholder="VIP sauna"
+        placeholder="Mökkisauna"
         value={name}
         onChange={(e) => setName(e.target.value)}
         className="rounded-lg border border-[#2C2B36] bg-[#1F1F23] p-4 text-white focus:border-blue-500 focus:ring-blue-500"
@@ -81,7 +81,7 @@ function CreateSaunaStep({
       />
       <button
         type="submit"
-        className="rounded-lg bg-[#D01400] p-4 font-bold text-white transition-colors hover:bg-[#FF7A28]"
+        className="cursor-pointer rounded-lg bg-[#D01400] p-4 font-bold text-white transition-colors hover:bg-[#FF7A28]"
         disabled={createSauna.isPending}
       >
         {createSauna.isPending ? "Creating..." : "Continue"}
@@ -89,7 +89,7 @@ function CreateSaunaStep({
       <button
         type="button"
         onClick={onSkip}
-        className="rounded-lg bg-transparent p-4 font-bold text-gray-400 transition-colors hover:bg-white/10"
+        className="cursor-pointer rounded-lg bg-transparent p-4 font-bold text-gray-400 transition-colors hover:bg-white/10"
       >
         Continue without own sauna
       </button>
@@ -176,7 +176,7 @@ function HarviaStep({ onNext }: { onNext: () => void }) {
 
   return (
     <div className="flex w-full max-w-sm flex-col gap-4">
-      <span>Select Harvia sauna device</span>
+      <span>Select a Harvia sauna</span>
       <div className="flex max-h-64 w-full flex-col gap-2 overflow-y-auto">
         {devices && <span>My saunas</span>}
         {devices?.map((device) => (
@@ -190,7 +190,7 @@ function HarviaStep({ onNext }: { onNext: () => void }) {
             {device.name}
           </div>
         ))}
-        {filteredDemoDevices && <span>Junction saunas</span>}
+        <span>Junction DEMO saunas</span>
 
         {filteredDemoDevices?.map((device) => (
           <div
@@ -213,9 +213,9 @@ function HarviaStep({ onNext }: { onNext: () => void }) {
       </button>
       <button
         onClick={() => setShowLogin(true)}
-        className="rounded-lg bg-transparent p-4 font-bold text-gray-400 transition-colors hover:bg-white/10"
+        className="cursor-pointer rounded-lg bg-transparent p-4 font-bold text-gray-400 transition-colors hover:bg-white/10"
       >
-        Login with your own Harvia account
+        Login with Harvia to add own saunas
       </button>
     </div>
   );
@@ -228,6 +228,15 @@ export default function SaunaSetupPage() {
     "harvia" | "manual" | "none" | null
   >(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const type = searchParams.get("type");
+    if (type === "harvia") {
+      setSaunaType("harvia");
+      setStep(2);
+    }
+  }, [searchParams]);
 
   const handleSaunaTypeSelect = (type: "harvia" | "manual" | "none") => {
     setSaunaType(type);

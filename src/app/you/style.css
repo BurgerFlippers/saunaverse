@@ -1,0 +1,94 @@
+/* Stone drop animation */
+@keyframes dropIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    60% {
+        transform: translateY(3px);
+    }
+
+    80% {
+        transform: translateY(-2px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes flameRealistic {
+    0% {
+        transform: scale(1) rotate(-2deg);
+        filter: brightness(1);
+    }
+
+    25% {
+        transform: scale(1.05, 1.15) rotate(2deg);
+        filter: brightness(1.1);
+    }
+
+    50% {
+        transform: scale(0.95, 0.9) rotate(-1deg);
+        filter: brightness(0.95);
+    }
+
+    75% {
+        transform: scale(1.02, 1.05) rotate(1deg);
+        filter: brightness(1.05);
+    }
+
+    100% {
+        transform: scale(1) rotate(-2deg);
+        filter: brightness(1);
+    }
+}
+
+@keyframes sparkFly {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--tx), -100px) scale(0);
+        opacity: 0;
+    }
+}
+
+.animate-levelup {
+    animation: fadeInOut 4s ease-in-out forwards;
+}
+
+
+.spark {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: #FFC533;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+}

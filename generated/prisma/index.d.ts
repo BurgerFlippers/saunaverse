@@ -2472,7 +2472,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     createdById: string
-    saunaSessionId: string | null
+    saunaSessionId: string
     achievementId: string | null
     _count: PostCountAggregateOutputType | null
     _avg: PostAvgAggregateOutputType | null
@@ -2505,7 +2505,7 @@ export namespace Prisma {
     saunaSessionId?: boolean
     achievementId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
-    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
     achievement?: boolean | Post$achievementArgs<ExtArgs>
     likes?: boolean | Post$likesArgs<ExtArgs>
     images?: boolean | Post$imagesArgs<ExtArgs>
@@ -2523,7 +2523,7 @@ export namespace Prisma {
     saunaSessionId?: boolean
     achievementId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
-    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
     achievement?: boolean | Post$achievementArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
@@ -2537,7 +2537,7 @@ export namespace Prisma {
     saunaSessionId?: boolean
     achievementId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
-    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
     achievement?: boolean | Post$achievementArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
@@ -2555,7 +2555,7 @@ export namespace Prisma {
   export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "createdById" | "saunaSessionId" | "achievementId", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
-    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
     achievement?: boolean | Post$achievementArgs<ExtArgs>
     likes?: boolean | Post$likesArgs<ExtArgs>
     images?: boolean | Post$imagesArgs<ExtArgs>
@@ -2564,12 +2564,12 @@ export namespace Prisma {
   }
   export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
-    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
     achievement?: boolean | Post$achievementArgs<ExtArgs>
   }
   export type PostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
-    saunaSession?: boolean | Post$saunaSessionArgs<ExtArgs>
+    saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
     achievement?: boolean | Post$achievementArgs<ExtArgs>
   }
 
@@ -2577,7 +2577,7 @@ export namespace Prisma {
     name: "Post"
     objects: {
       createdBy: Prisma.$UserPayload<ExtArgs>
-      saunaSession: Prisma.$SaunaSessionPayload<ExtArgs> | null
+      saunaSession: Prisma.$SaunaSessionPayload<ExtArgs>
       achievement: Prisma.$AchievementPayload<ExtArgs> | null
       likes: Prisma.$LikePayload<ExtArgs>[]
       images: Prisma.$PostImagePayload<ExtArgs>[]
@@ -2590,7 +2590,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       createdById: string
-      saunaSessionId: string | null
+      saunaSessionId: string
       achievementId: string | null
     }, ExtArgs["result"]["post"]>
     composites: {}
@@ -2987,7 +2987,7 @@ export namespace Prisma {
   export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    saunaSession<T extends Post$saunaSessionArgs<ExtArgs> = {}>(args?: Subset<T, Post$saunaSessionArgs<ExtArgs>>): Prisma__SaunaSessionClient<$Result.GetResult<Prisma.$SaunaSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    saunaSession<T extends SaunaSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SaunaSessionDefaultArgs<ExtArgs>>): Prisma__SaunaSessionClient<$Result.GetResult<Prisma.$SaunaSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     achievement<T extends Post$achievementArgs<ExtArgs> = {}>(args?: Subset<T, Post$achievementArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     likes<T extends Post$likesArgs<ExtArgs> = {}>(args?: Subset<T, Post$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     images<T extends Post$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Post$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3422,25 +3422,6 @@ export namespace Prisma {
      * Limit how many Posts to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Post.saunaSession
-   */
-  export type Post$saunaSessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SaunaSession
-     */
-    select?: SaunaSessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SaunaSession
-     */
-    omit?: SaunaSessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SaunaSessionInclude<ExtArgs> | null
-    where?: SaunaSessionWhereInput
   }
 
   /**
@@ -17525,10 +17506,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdById?: StringFilter<"Post"> | string
-    saunaSessionId?: StringNullableFilter<"Post"> | string | null
+    saunaSessionId?: StringFilter<"Post"> | string
     achievementId?: StringNullableFilter<"Post"> | string | null
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
-    saunaSession?: XOR<SaunaSessionNullableScalarRelationFilter, SaunaSessionWhereInput> | null
+    saunaSession?: XOR<SaunaSessionScalarRelationFilter, SaunaSessionWhereInput>
     achievement?: XOR<AchievementNullableScalarRelationFilter, AchievementWhereInput> | null
     likes?: LikeListRelationFilter
     images?: PostImageListRelationFilter
@@ -17542,7 +17523,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
-    saunaSessionId?: SortOrderInput | SortOrder
+    saunaSessionId?: SortOrder
     achievementId?: SortOrderInput | SortOrder
     createdBy?: UserOrderByWithRelationInput
     saunaSession?: SaunaSessionOrderByWithRelationInput
@@ -17562,10 +17543,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdById?: StringFilter<"Post"> | string
-    saunaSessionId?: StringNullableFilter<"Post"> | string | null
+    saunaSessionId?: StringFilter<"Post"> | string
     achievementId?: StringNullableFilter<"Post"> | string | null
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
-    saunaSession?: XOR<SaunaSessionNullableScalarRelationFilter, SaunaSessionWhereInput> | null
+    saunaSession?: XOR<SaunaSessionScalarRelationFilter, SaunaSessionWhereInput>
     achievement?: XOR<AchievementNullableScalarRelationFilter, AchievementWhereInput> | null
     likes?: LikeListRelationFilter
     images?: PostImageListRelationFilter
@@ -17579,7 +17560,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdById?: SortOrder
-    saunaSessionId?: SortOrderInput | SortOrder
+    saunaSessionId?: SortOrder
     achievementId?: SortOrderInput | SortOrder
     _count?: PostCountOrderByAggregateInput
     _avg?: PostAvgOrderByAggregateInput
@@ -17598,7 +17579,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     createdById?: StringWithAggregatesFilter<"Post"> | string
-    saunaSessionId?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    saunaSessionId?: StringWithAggregatesFilter<"Post"> | string
     achievementId?: StringNullableWithAggregatesFilter<"Post"> | string | null
   }
 
@@ -18449,7 +18430,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutPostsInput
-    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
     images?: PostImageCreateNestedManyWithoutPostInput
@@ -18463,7 +18444,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
-    saunaSessionId?: string | null
+    saunaSessionId: string
     achievementId?: string | null
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
@@ -18476,7 +18457,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
-    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
     images?: PostImageUpdateManyWithoutPostNestedInput
@@ -18490,7 +18471,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
-    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
@@ -18504,7 +18485,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
-    saunaSessionId?: string | null
+    saunaSessionId: string
     achievementId?: string | null
   }
 
@@ -18522,7 +18503,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
-    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -19473,9 +19454,9 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type SaunaSessionNullableScalarRelationFilter = {
-    is?: SaunaSessionWhereInput | null
-    isNot?: SaunaSessionWhereInput | null
+  export type SaunaSessionScalarRelationFilter = {
+    is?: SaunaSessionWhereInput
+    isNot?: SaunaSessionWhereInput
   }
 
   export type AchievementNullableScalarRelationFilter = {
@@ -20386,12 +20367,10 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
   }
 
-  export type SaunaSessionUpdateOneWithoutPostsNestedInput = {
+  export type SaunaSessionUpdateOneRequiredWithoutPostsNestedInput = {
     create?: XOR<SaunaSessionCreateWithoutPostsInput, SaunaSessionUncheckedCreateWithoutPostsInput>
     connectOrCreate?: SaunaSessionCreateOrConnectWithoutPostsInput
     upsert?: SaunaSessionUpsertWithoutPostsInput
-    disconnect?: SaunaSessionWhereInput | boolean
-    delete?: SaunaSessionWhereInput | boolean
     connect?: SaunaSessionWhereUniqueInput
     update?: XOR<XOR<SaunaSessionUpdateToOneWithWhereWithoutPostsInput, SaunaSessionUpdateWithoutPostsInput>, SaunaSessionUncheckedUpdateWithoutPostsInput>
   }
@@ -22243,7 +22222,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
     images?: PostImageCreateNestedManyWithoutPostInput
@@ -22256,7 +22235,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    saunaSessionId?: string | null
+    saunaSessionId: string
     achievementId?: string | null
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
@@ -22546,7 +22525,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdById?: StringFilter<"Post"> | string
-    saunaSessionId?: StringNullableFilter<"Post"> | string | null
+    saunaSessionId?: StringFilter<"Post"> | string
     achievementId?: StringNullableFilter<"Post"> | string | null
   }
 
@@ -23099,7 +23078,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutPostsInput
-    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
     images?: PostImageCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
@@ -23112,7 +23091,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
-    saunaSessionId?: string | null
+    saunaSessionId: string
     achievementId?: string | null
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
@@ -23177,7 +23156,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
-    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
     images?: PostImageUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
@@ -23190,7 +23169,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
-    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
@@ -23245,7 +23224,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutPostsInput
-    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
@@ -23258,7 +23237,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
-    saunaSessionId?: string | null
+    saunaSessionId: string
     achievementId?: string | null
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
@@ -23286,7 +23265,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
-    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
@@ -23299,7 +23278,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
-    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
@@ -23311,7 +23290,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutPostsInput
-    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
     images?: PostImageCreateNestedManyWithoutPostInput
     comments?: CommentCreateNestedManyWithoutPostInput
@@ -23324,7 +23303,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
-    saunaSessionId?: string | null
+    saunaSessionId: string
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
@@ -23455,7 +23434,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutPostsInput
-    saunaSession?: SaunaSessionCreateNestedOneWithoutPostsInput
+    saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
     images?: PostImageCreateNestedManyWithoutPostInput
@@ -23468,7 +23447,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
-    saunaSessionId?: string | null
+    saunaSessionId: string
     achievementId?: string | null
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
@@ -23539,7 +23518,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
-    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
     images?: PostImageUpdateManyWithoutPostNestedInput
@@ -23552,7 +23531,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
-    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
@@ -23855,7 +23834,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    saunaSessionId?: string | null
+    saunaSessionId: string
     achievementId?: string | null
   }
 
@@ -23955,7 +23934,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
     images?: PostImageUpdateManyWithoutPostNestedInput
@@ -23968,7 +23947,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
@@ -23981,7 +23960,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -24484,7 +24463,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById: string
-    saunaSessionId?: string | null
+    saunaSessionId: string
   }
 
   export type PostUpdateWithoutAchievementInput = {
@@ -24493,7 +24472,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
-    saunaSession?: SaunaSessionUpdateOneWithoutPostsNestedInput
+    saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
     images?: PostImageUpdateManyWithoutPostNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
@@ -24506,7 +24485,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
-    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaSessionId?: StringFieldUpdateOperationsInput | string
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
@@ -24519,7 +24498,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
-    saunaSessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    saunaSessionId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUpdateWithoutParticipatedEventsInput = {

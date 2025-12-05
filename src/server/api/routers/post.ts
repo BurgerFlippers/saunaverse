@@ -29,7 +29,6 @@ export const postRouter = createTRPCRouter({
       const postCount = await ctx.db.post.count({
         where: {
           createdById: userId,
-          saunaSessionId: { not: null },
         },
       });
 
@@ -99,9 +98,7 @@ export const postRouter = createTRPCRouter({
           }),
           description: input.description,
           createdBy: { connect: { id: ctx.session.user.id } },
-          saunaSession: input.saunaSessionId
-            ? { connect: { id: input.saunaSessionId } }
-            : undefined,
+          saunaSession: { connect: { id: input.saunaSessionId } },
           images: {
             create: input.images?.map((url) => ({ url })),
           },
@@ -161,7 +158,7 @@ export const postRouter = createTRPCRouter({
   }),
 
   getFeed: protectedProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.db.post.findMany({
+    return ctx.db.post.findMany({
       orderBy: { createdAt: "desc" },
       include: {
         saunaSession: {
@@ -179,37 +176,6 @@ export const postRouter = createTRPCRouter({
         },
       },
     });
-
-    const postsWithMeasurements = await Promise.all(
-      posts.map(async (post) => {
-        if (!post.saunaSession) {
-          return { ...post, saunaSession: null };
-        }
-
-        const measurements = await ctx.db.saunaMeasurement.findMany({
-          where: {
-            saunaId: post.saunaSession.saunaId,
-            timestamp: {
-              gte: post.saunaSession.startTimestamp,
-              lte: post.saunaSession.endTimestamp ?? new Date(),
-            },
-          },
-          orderBy: {
-            timestamp: "asc",
-          },
-        });
-
-        return {
-          ...post,
-          saunaSession: {
-            ...post.saunaSession,
-            measurements,
-          },
-        };
-      }),
-    );
-
-    return postsWithMeasurements;
   }),
 
   getLatest: protectedProcedure.query(async ({ ctx }) => {

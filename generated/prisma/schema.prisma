@@ -17,16 +17,16 @@ datasource db {
 }
 
 model Post {
-  id             Int           @id @default(autoincrement())
+  id             Int          @id @default(autoincrement())
   name           String
   description    String?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  createdBy      User          @relation(fields: [createdById], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  createdBy      User         @relation(fields: [createdById], references: [id])
   createdById    String
-  saunaSession   SaunaSession? @relation(fields: [saunaSessionId], references: [id])
-  saunaSessionId String?
-  achievement    Achievement?  @relation(fields: [achievementId], references: [id])
+  saunaSession   SaunaSession @relation(fields: [saunaSessionId], references: [id])
+  saunaSessionId String
+  achievement    Achievement? @relation(fields: [achievementId], references: [id])
   achievementId  String?
   likes          Like[]
   images         PostImage[]
