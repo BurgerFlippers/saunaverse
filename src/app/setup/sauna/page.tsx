@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { api } from "@/trpc/react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -221,7 +221,7 @@ function HarviaStep({ onNext }: { onNext: () => void }) {
   );
 }
 
-export default function SaunaSetupPage() {
+function SaunaSetupContent() {
   const [step, setStep] = useState(1);
   const [saunaId, setSaunaId] = useState<string | null>(null);
   const [saunaType, setSaunaType] = useState<
@@ -248,29 +248,41 @@ export default function SaunaSetupPage() {
   };
 
   return (
+    <div className="container flex max-w-md flex-col items-center justify-center gap-8 px-4 py-16">
+      <h1 className="text-4xl font-extrabold tracking-tight">Add your sauna</h1>
+      <p className="text-center text-lg text-gray-400">
+        Adding your sauna allows you to track sessions, host events, and share
+        your experiences with the community.
+      </p>
+      {step === 1 && <SaunaTypeStep onSelect={handleSaunaTypeSelect} />}
+      {step === 2 && saunaType === "manual" && (
+        <CreateSaunaStep
+          onNext={(id) => {
+            setSaunaId(id);
+            router.push("/");
+          }}
+          onSkip={() => router.push("/")}
+        />
+      )}
+      {step === 2 && saunaType === "harvia" && (
+        <HarviaStep onNext={() => router.push("/")} />
+      )}
+    </div>
+  );
+}
+
+export default function SaunaSetupPage() {
+  return (
     <main className="flex flex-col items-center justify-center bg-black text-white">
-      <div className="container flex max-w-md flex-col items-center justify-center gap-8 px-4 py-16">
-        <h1 className="text-4xl font-extrabold tracking-tight">
-          Add your sauna
-        </h1>
-        <p className="text-center text-lg text-gray-400">
-          Adding your sauna allows you to track sessions, host events, and share
-          your experiences with the community.
-        </p>
-        {step === 1 && <SaunaTypeStep onSelect={handleSaunaTypeSelect} />}
-        {step === 2 && saunaType === "manual" && (
-          <CreateSaunaStep
-            onNext={(id) => {
-              setSaunaId(id);
-              router.push("/");
-            }}
-            onSkip={() => router.push("/")}
-          />
-        )}
-        {step === 2 && saunaType === "harvia" && (
-          <HarviaStep onNext={() => router.push("/")} />
-        )}
-      </div>
+      <Suspense
+        fallback={
+          <div className="flex h-screen items-center justify-center text-white">
+            Loading...
+          </div>
+        }
+      >
+        <SaunaSetupContent />
+      </Suspense>
     </main>
   );
 }
