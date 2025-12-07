@@ -2,6 +2,7 @@
 set -e
 
 npx prisma migrate resolve --applied 0_init || echo "0_init already resolved or not needed"
+npx prisma migrate resolve --applied 20251207230242_add_performance_indexes || echo "0_init already resolved or not needed"
 
 # Run migrations & seed data before starting services
 npm run db:push
