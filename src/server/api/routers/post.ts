@@ -203,6 +203,62 @@ export const postRouter = createTRPCRouter({
     return post ?? null;
   }),
 
+  getById: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ ctx, input }) => {
+      const post = await ctx.db.post.findUnique({
+        where: { id: input.id },
+        include: {
+          saunaSession: {
+            include: {
+              sauna: true,
+              participants: true,
+            },
+          },
+          achievement: true,
+          createdBy: true,
+          likes: true,
+          images: true,
+          comments: {
+            include: { createdBy: true },
+          },
+        },
+      });
+
+      if (!post) return null;
+
+      // Manually attach measurements because they aren't directly related in schema
+      if (post.saunaSession) {
+        const measurements = await ctx.db.saunaMeasurement.findMany({
+          where: {
+            saunaId: post.saunaSession.saunaId,
+            timestamp: {
+              gte: post.saunaSession.startTimestamp,
+              lte: post.saunaSession.endTimestamp ?? new Date(),
+            },
+          },
+          orderBy: {
+            timestamp: "asc",
+          },
+        });
+
+        return {
+          ...post,
+          saunaSession: {
+            ...post.saunaSession,
+            measurements,
+          },
+        };
+      }
+
+      return {
+        ...post,
+        saunaSession: post.saunaSession
+          ? { ...post.saunaSession, measurements: [] }
+          : null,
+      };
+    }),
+
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),

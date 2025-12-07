@@ -88,7 +88,7 @@ export default function YouPage() {
 
   // Kiuas evolution state (demo only)
   const kiuasStones = sessions?.length;
-  const lifetimeStones = 150 + kiuasStones; // Total lifetime stones (permanent + current)
+  const lifetimeStones = 57 + kiuasStones; // Total lifetime stones (permanent + current)
   const year2024Stones = 52; // 2024 stones
 
   // Calculate current level and stones based on progressive difficulty
@@ -311,7 +311,7 @@ export default function YouPage() {
             <div className="mb-3 flex items-center gap-2">
               <Flame className="h-5 w-5 text-[#D01400]" />
               <h3 className="font-bold text-white" style={{ fontSize: "16px" }}>
-                Weekly Saunas
+                This Week
               </h3>
             </div>
             <div className="flex justify-between gap-2">
@@ -363,13 +363,11 @@ export default function YouPage() {
               <div className="mb-2 flex items-center gap-2">
                 <Trophy className="h-4 w-4 text-[#FFC533]" />
                 <p className="text-xs font-normal text-gray-300">
-                  Total Sessions
+                  Record Streak
                 </p>
               </div>
-              <p className="text-3xl font-bold text-white">
-                {sessions?.length}
-              </p>
-              <p className="text-xs font-normal text-gray-400">sessions</p>
+              <p className="text-3xl font-bold text-white">14</p>
+              <p className="text-xs font-normal text-gray-400">weeks</p>
             </div>
 
             <div className="rounded-xl bg-[#2C2B36] p-4">
@@ -528,7 +526,7 @@ export default function YouPage() {
                 <p className="mb-2 text-5xl font-bold text-white">
                   {kiuasStones}
                 </p>
-                <p className="text-sm text-[#BFC5CA]">Total sessions</p>
+                <p className="text-sm text-[#BFC5CA]">Sessions</p>
               </div>
             </div>
           </div>

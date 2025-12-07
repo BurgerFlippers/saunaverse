@@ -23,6 +23,6 @@ export const mockSessions: Session[] = [
 export const mockUserStats = {
   currentStreak: 7,
   totalSessions: 128,
-  totalMinutes: 4320,
+  totalMinutes: 8320,
   maxTemp: 102,
 };

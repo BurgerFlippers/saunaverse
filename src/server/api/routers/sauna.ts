@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 import { SaunaSessionStatus } from "@/../generated/prisma/client";
 import {
   GET_USER_DEVICES_QUERY,
@@ -112,7 +116,7 @@ export const saunaRouter = createTRPCRouter({
       return sessions;
     }),
 
-  getSaunaSessionMeasurements: protectedProcedure
+  getSaunaSessionMeasurements: publicProcedure
     .input(
       z.object({
         saunaSessionId: z.string(),

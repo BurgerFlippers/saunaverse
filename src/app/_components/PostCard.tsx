@@ -30,17 +30,21 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
   const [showComments, setShowComments] = useState(false);
   const [showAddPostModal, setShowAddPostModal] = useState(false);
 
+  // If we don't have a session, we can't mutate anyway
+  const canMutate = !!session?.user;
+
   const commentMutation = api.post.createComment.useMutation({
     onSuccess: () => {
       utils.post.getFeed.invalidate();
       utils.sauna.getMySessionsAndPosts.invalidate();
+      if (post?.id) utils.post.getById.invalidate({ id: post.id });
       setComment("");
     },
   });
 
   const handleCommentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!post) return;
+    if (!post || !canMutate) return;
     commentMutation.mutate({ postId: post.id, content: comment });
   };
 
@@ -81,6 +85,7 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
       utils.post.getFeed.invalidate();
       utils.sauna.getMySessionsAndPosts.invalidate();
       utils.post.getLatest.invalidate();
+      if (post?.id) utils.post.getById.invalidate({ id: post.id });
     },
   });
 
@@ -115,13 +120,14 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
       utils.post.getAll.invalidate();
       utils.post.getFeed.invalidate();
       utils.post.getLatest.invalidate();
+      if (post?.id) utils.post.getById.invalidate({ id: post.id });
     },
   });
 
   const isLiked = post?.likes.some((like) => like.userId === session?.user?.id);
 
   const handleLike = () => {
-    if (!post) return;
+    if (!post || !canMutate) return;
     if (isLiked) {
       unlikeMutation.mutate({ postId: post.id });
     } else {
@@ -343,6 +349,7 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
                 liked={!!isLiked}
                 onLike={handleLike}
                 count={post.likes.length}
+                disabled={!canMutate}
               />
               <button
                 onClick={() => setShowComments(!showComments)}
@@ -356,17 +363,15 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
                   {post.comments.length}
                 </span>
               </button>
-              <button className="flex items-center gap-2 transition-colors hover:opacity-80">
-                <Bookmark className="h-5 w-5 stroke-gray-400" />
-              </button>
               <button
                 onClick={async () => {
+                  const url = `${window.location.origin}/post/${post.id}`;
                   const shareData = {
                     title: `${post.createdBy.name}'s Sauna Session`,
                     text: `Check out ${post.createdBy.name}'s sauna session ${
-                      post.description || ""
+                      post.name || ""
                     }!`,
-                    url: window.location.href,
+                    url,
                   };
 
                   try {
@@ -374,7 +379,7 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
                       await navigator.share(shareData);
                     } else {
                       // Fallback: copy link to clipboard
-                      await navigator.clipboard.writeText(window.location.href);
+                      await navigator.clipboard.writeText(url);
                       alert("Link copied to clipboard!");
                     }
                   } catch (err) {
@@ -423,32 +428,41 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
                   </div>
                 ))}
               </div>
-              <div className="flex items-center gap-2">
-                <div
-                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white font-bold text-black"
-                  style={{ fontSize: "11px" }}
-                >
-                  {session?.user.name?.charAt(0)}
+              {canMutate ? (
+                <div className="flex items-center gap-2">
+                  <div
+                    className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white font-bold text-black"
+                    style={{ fontSize: "11px" }}
+                  >
+                    {session?.user.name?.charAt(0)}
+                  </div>
+                  <input
+                    type="text"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    onKeyPress={(e) =>
+                      e.key === "Enter" && handleCommentSubmit(e)
+                    }
+                    placeholder="Add a comment..."
+                    className="flex-1 border border-[#2C2B36] bg-[#1F1F23] px-3 py-2 font-normal text-gray-300 focus:border-[#D01400] focus:outline-none"
+                    style={{ fontSize: "13px" }}
+                  />
+                  <button
+                    onClick={handleCommentSubmit}
+                    className="rounded-lg bg-[#D01400] p-2 transition-opacity hover:opacity-80 disabled:opacity-30"
+                    disabled={!comment.trim()}
+                  >
+                    <Send className="h-4 w-4 text-white" />
+                  </button>
                 </div>
-                <input
-                  type="text"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  onKeyPress={(e) =>
-                    e.key === "Enter" && handleCommentSubmit(e)
-                  }
-                  placeholder="Add a comment..."
-                  className="flex-1 border border-[#2C2B36] bg-[#1F1F23] px-3 py-2 font-normal text-gray-300 focus:border-[#D01400] focus:outline-none"
-                  style={{ fontSize: "13px" }}
-                />
-                <button
-                  onClick={handleCommentSubmit}
-                  className="rounded-lg bg-[#D01400] p-2 transition-opacity hover:opacity-80 disabled:opacity-30"
-                  disabled={!comment.trim()}
-                >
-                  <Send className="h-4 w-4 text-white" />
-                </button>
-              </div>
+              ) : (
+                <div className="text-center text-sm text-gray-500">
+                  <a href="/login" className="text-white hover:underline">
+                    Log in
+                  </a>{" "}
+                  to like and comment
+                </div>
+              )}
             </div>
           )}
         </>
