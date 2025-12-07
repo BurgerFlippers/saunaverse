@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+npx prisma migrate resolve --applied 0_init || echo "0_init already resolved or not needed"
+
 # Run migrations & seed data before starting services
 npm run db:push
 npm run db:migrate
