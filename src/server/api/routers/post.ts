@@ -157,26 +157,65 @@ export const postRouter = createTRPCRouter({
     return postsWithMeasurements;
   }),
 
-  getFeed: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.db.post.findMany({
-      orderBy: { createdAt: "desc" },
-      include: {
-        saunaSession: {
-          include: {
-            sauna: true,
-            participants: true,
+  getFeed: protectedProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100).default(10),
+        cursor: z.number().nullish(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const limit = input.limit ?? 10;
+      const { cursor } = input;
+
+      const items = await ctx.db.post.findMany({
+        take: limit + 1,
+        cursor: cursor ? { id: cursor } : undefined,
+        orderBy: { createdAt: "desc" },
+        include: {
+          saunaSession: {
+            include: {
+              sauna: true,
+              participants: true,
+            },
           },
+          achievement: true,
+          createdBy: true,
+          likes: {
+            where: { userId: ctx.session.user.id },
+            select: { userId: true },
+          },
+          _count: {
+            select: {
+              likes: true,
+              comments: true,
+            },
+          },
+          images: true,
         },
-        achievement: true,
-        createdBy: true,
-        likes: true,
-        images: true,
-        comments: {
-          include: { createdBy: true },
-        },
-      },
-    });
-  }),
+      });
+
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (items.length > limit) {
+        const nextItem = items.pop();
+        nextCursor = nextItem!.id;
+      }
+
+      return {
+        items,
+        nextCursor,
+      };
+    }),
+
+  getComments: protectedProcedure
+    .input(z.object({ postId: z.number() }))
+    .query(async ({ ctx, input }) => {
+      return ctx.db.comment.findMany({
+        where: { postId: input.postId },
+        include: { createdBy: true },
+        orderBy: { createdAt: "asc" },
+      });
+    }),
 
   getLatest: protectedProcedure.query(async ({ ctx }) => {
     const post = await ctx.db.post.findFirst({
@@ -254,7 +293,7 @@ export const postRouter = createTRPCRouter({
       return {
         ...post,
         saunaSession: post.saunaSession
-          ? { ...post.saunaSession, measurements: [] }
+          ? { ...post.saunaSession, measurements: [] as any[] }
           : null,
       };
     }),

@@ -18,9 +18,13 @@ import { useRef, useState } from "react";
 import { formatDuration, timeAgo, generateSessionTitle } from "./ui/utils";
 import { AddPostModal } from "./AddPostModal";
 
+// Define types based on the new optimized output
+type FeedPost = RouterOutputs["post"]["getFeed"]["items"][number];
+// Allow for fallback to the full post type from other queries if needed
+// The 'any' is a practical compromise to avoid complex union types for different query outputs
 interface PostCardProps {
-  post?: RouterOutputs["post"]["getFeed"][number];
-  session: RouterOutputs["post"]["getFeed"][number]["saunaSession"];
+  post?: FeedPost | any;
+  session: FeedPost["saunaSession"] | any;
 }
 
 export function PostCard({ post, session: saunaSession }: PostCardProps) {
@@ -30,14 +34,28 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
   const [showComments, setShowComments] = useState(false);
   const [showAddPostModal, setShowAddPostModal] = useState(false);
 
+  // Fetch comments only when expanded and if we don't already have them in the post object
+  // (The 'You' page query might still include comments directly)
+  const hasEmbeddedComments = post?.comments && Array.isArray(post.comments);
+  const { data: fetchedComments } = api.post.getComments.useQuery(
+    { postId: post?.id ?? 0 },
+    { enabled: !!post?.id && showComments && !hasEmbeddedComments },
+  );
+
+  const displayComments = hasEmbeddedComments ? post.comments : fetchedComments;
+
   // If we don't have a session, we can't mutate anyway
   const canMutate = !!session?.user;
 
   const commentMutation = api.post.createComment.useMutation({
     onSuccess: () => {
+      // Invalidate both feed and specific comments
       utils.post.getFeed.invalidate();
+      if (post?.id) {
+        utils.post.getComments.invalidate({ postId: post.id });
+        utils.post.getById.invalidate({ id: post.id });
+      }
       utils.sauna.getMySessionsAndPosts.invalidate();
-      if (post?.id) utils.post.getById.invalidate({ id: post.id });
       setComment("");
     },
   });
@@ -54,31 +72,8 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
       await utils.post.getFeed.cancel();
       await utils.post.getLatest.cancel();
 
-      const previousPosts = utils.post.getAll.getData();
-
-      utils.post.getAll.setData(undefined, (old) =>
-        old?.map((p) =>
-          p.id === postId
-            ? {
-                ...p,
-                likes: [
-                  ...p.likes,
-                  {
-                    userId: session!.user.id,
-                    postId,
-                    id: "optimistic",
-                    createdAt: new Date(),
-                  },
-                ],
-              }
-            : p,
-        ),
-      );
-
-      return { previousPosts };
-    },
-    onError: (err, newPost, context) => {
-      utils.post.getAll.setData(undefined, context?.previousPosts);
+      // Optimistic updates could be more complex with pagination
+      // For now we rely on invalidation, but we could update infinite data cache
     },
     onSettled: () => {
       utils.post.getAll.invalidate();
@@ -95,25 +90,7 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
       await utils.post.getFeed.cancel();
       await utils.post.getLatest.cancel();
 
-      const previousPosts = utils.post.getAll.getData();
-
-      utils.post.getAll.setData(undefined, (old) =>
-        old?.map((p) =>
-          p.id === postId
-            ? {
-                ...p,
-                likes: p.likes.filter(
-                  (like) => like.userId !== session!.user.id,
-                ),
-              }
-            : p,
-        ),
-      );
-
-      return { previousPosts };
-    },
-    onError: (err, newPost, context) => {
-      utils.post.getAll.setData(undefined, context?.previousPosts);
+      // Simplified for now
     },
     onSettled: () => {
       utils.sauna.getMySessionsAndPosts.invalidate();
@@ -124,7 +101,10 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
     },
   });
 
-  const isLiked = post?.likes.some((like) => like.userId === session?.user?.id);
+  const isLiked = post?.likes.some((like: any) => like.userId === session?.user?.id);
+  // Handle both optimized count object and direct array length
+  const likeCount = post?._count?.likes ?? post?.likes?.length ?? 0;
+  const commentCount = post?._count?.comments ?? post?.comments?.length ?? 0;
 
   const handleLike = () => {
     if (!post || !canMutate) return;
@@ -348,7 +328,7 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
               <LoylyLikeButton
                 liked={!!isLiked}
                 onLike={handleLike}
-                count={post.likes.length}
+                count={likeCount}
                 disabled={!canMutate}
               />
               <button
@@ -360,7 +340,7 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
                   className="font-normal text-gray-300"
                   style={{ fontSize: "13px" }}
                 >
-                  {post.comments.length}
+                  {commentCount}
                 </span>
               </button>
               <button
@@ -395,7 +375,7 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
           {showComments && (
             <div className="border-t border-[#2C2B36] px-5 pt-3 pb-4">
               <div className="mb-3 space-y-3">
-                {post.comments.map((comment) => (
+                {displayComments?.map((comment: any) => (
                   <div key={comment.id} className="flex gap-3">
                     <div
                       className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white font-bold text-black"
@@ -427,6 +407,11 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
                     </div>
                   </div>
                 ))}
+                {!displayComments && (
+                  <div className="py-2 text-center text-sm text-gray-500">
+                    Loading comments...
+                  </div>
+                )}
               </div>
               {canMutate ? (
                 <div className="flex items-center gap-2">
