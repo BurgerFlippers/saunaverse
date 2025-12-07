@@ -5,6 +5,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
+import type { SaunaMeasurement } from "@/../generated/prisma/client";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -191,7 +192,15 @@ export const postRouter = createTRPCRouter({
               comments: true,
             },
           },
-          images: true,
+          // Exclude the actual URL (base64 data) from the feed query
+          images: {
+            select: {
+              id: true,
+              postId: true,
+              createdAt: true,
+              // We intentionally do NOT select 'url' here to keep payload small
+            },
+          },
         },
       });
 
@@ -215,6 +224,16 @@ export const postRouter = createTRPCRouter({
         include: { createdBy: true },
         orderBy: { createdAt: "asc" },
       });
+    }),
+
+  getImage: protectedProcedure
+    .input(z.object({ imageId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const image = await ctx.db.postImage.findUnique({
+        where: { id: input.imageId },
+        select: { url: true },
+      });
+      return image;
     }),
 
   getLatest: protectedProcedure.query(async ({ ctx }) => {
@@ -293,7 +312,7 @@ export const postRouter = createTRPCRouter({
       return {
         ...post,
         saunaSession: post.saunaSession
-          ? { ...post.saunaSession, measurements: [] as any[] }
+          ? { ...post.saunaSession, measurements: [] as SaunaMeasurement[] }
           : null,
       };
     }),

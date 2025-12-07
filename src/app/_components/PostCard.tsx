@@ -296,17 +296,12 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
             {/* Photos section - if available */}
             {post?.images && post.images.length > 0 && (
               <div className="flex flex-shrink-0 gap-3">
-                {post.images.map((image, index) => (
-                  <div
-                    key={index}
-                    className="h-[240px] w-[240px] flex-shrink-0 overflow-hidden rounded-xl"
-                  >
-                    <img
-                      src={image.url}
-                      alt={`Post image ${index + 1}`}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
+                {post.images.map((image: any, index: number) => (
+                  <PostImage
+                    key={image.id ?? index}
+                    image={image}
+                    index={index}
+                  />
                 ))}
               </div>
             )}
@@ -470,5 +465,34 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
         />
       )}
     </Card>
+  );
+}
+
+function PostImage({ image, index }: { image: any; index: number }) {
+  // If we already have the URL (e.g. from upload or full post query), use it
+  // Otherwise fetch it
+  const { data: fetchedImage } = api.post.getImage.useQuery(
+    { imageId: image.id },
+    { enabled: !image.url && !!image.id },
+  );
+
+  const url = image.url ?? fetchedImage?.url;
+
+  if (!url) {
+    return (
+      <div className="flex h-[240px] w-[240px] flex-shrink-0 items-center justify-center rounded-xl bg-[#2C2B36]">
+        <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-white" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="h-[240px] w-[240px] flex-shrink-0 overflow-hidden rounded-xl">
+      <img
+        src={url}
+        alt={`Post image ${index + 1}`}
+        className="h-full w-full object-cover"
+      />
+    </div>
   );
 }

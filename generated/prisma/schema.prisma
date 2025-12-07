@@ -33,6 +33,9 @@ model Post {
   comments       Comment[]
 
   @@index([name])
+  @@index([createdById])
+  @@index([saunaSessionId])
+  @@index([createdAt])
 }
 
 // Necessary for Next auth
@@ -147,6 +150,8 @@ model PostImage {
   postId    Int
   url       String
   createdAt DateTime @default(now())
+
+  @@index([postId])
 }
 
 model Achievement {
@@ -180,6 +185,9 @@ model Comment {
   createdById String
   post        Post     @relation(fields: [postId], references: [id])
   postId      Int
+
+  @@index([postId])
+  @@index([createdById])
 }
 
 model Event {
