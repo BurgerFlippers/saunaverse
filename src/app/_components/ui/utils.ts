@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
+import type { SaunaMeasurement } from "generated/prisma";
 import { twMerge } from "tailwind-merge";
 
 export const formatDuration = (ms: number) => {
@@ -68,14 +69,15 @@ export function generateSessionTitle(
     seed = (seed << 5) - seed + sessionId.charCodeAt(i);
     seed |= 0; // Convert to 32bit integer
   }
-  
+
   // Simple LCG for deterministic randomness
   const rand = () => {
-      seed = (seed * 9301 + 49297) % 233280;
-      return Math.abs(seed / 233280);
+    seed = (seed * 9301 + 49297) % 233280;
+    return Math.abs(seed / 233280);
   };
 
-  const getRandomItem = <T>(arr: T[]): T => arr[Math.floor(rand() * arr.length)] as T;
+  const getRandomItem = <T>(arr: T[]): T =>
+    arr[Math.floor(rand() * arr.length)] as T;
 
   const adjectives = [
     "Relaxing",
@@ -98,7 +100,7 @@ export function generateSessionTitle(
   // 3: [Adjective] [Time] [Noun]
   // 4: [Temp] [Noun] (if temp available)
   // 5: [Time] [Temp] [Noun] (if temp available)
-  
+
   const availablePatterns = [0, 1, 2, 3];
   if (tempAdjective) {
     availablePatterns.push(4, 5);
@@ -109,12 +111,44 @@ export function generateSessionTitle(
   const adj = getRandomItem(adjectives);
 
   switch (pattern) {
-    case 0: return `${timeOfDay} ${noun}`;
-    case 1: return `${adj} ${noun}`;
-    case 2: return `${timeOfDay} ${noun}`; // Weighting simple ones more
-    case 3: return `${adj} ${timeOfDay} ${noun}`;
-    case 4: return `${tempAdjective} ${noun}`;
-    case 5: return `${timeOfDay} ${tempAdjective} ${noun}`;
-    default: return `${timeOfDay} ${noun}`;
+    case 0:
+      return `${timeOfDay} ${noun}`;
+    case 1:
+      return `${adj} ${noun}`;
+    case 2:
+      return `${timeOfDay} ${noun}`; // Weighting simple ones more
+    case 3:
+      return `${adj} ${timeOfDay} ${noun}`;
+    case 4:
+      return `${tempAdjective} ${noun}`;
+    case 5:
+      return `${timeOfDay} ${tempAdjective} ${noun}`;
+    default:
+      return `${timeOfDay} ${noun}`;
   }
 }
+
+export const smoothData = (data: SaunaMeasurement[], windowMinutes: number) => {
+  if (!data || data.length === 0) {
+    return [];
+  }
+
+  return data.map((current, index) => {
+    const windowStartTime =
+      new Date(current.timestamp).getTime() - windowMinutes * 60 * 1000;
+    const windowData = data.slice(0, index + 1).filter((d) => {
+      return new Date(d.timestamp).getTime() >= windowStartTime;
+    });
+
+    const sumTemp = windowData.reduce((acc, val) => acc + val.temperature, 0);
+    const sumHumidity = windowData.reduce((acc, val) => acc + val.humidity, 0);
+    const sumPrecence = windowData.reduce((acc, val) => acc + val.precence, 0);
+
+    return {
+      ...current,
+      temperature: sumTemp / windowData.length,
+      humidity: sumHumidity / windowData.length,
+      precence: sumPrecence / windowData.length,
+    };
+  });
+};

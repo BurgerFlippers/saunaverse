@@ -12,6 +12,7 @@ import {
 import type { SaunaMeasurement } from "@/../generated/prisma/client";
 import { memo, useMemo } from "react";
 import { api } from "@/trpc/react";
+import { smoothData } from "./ui/utils";
 
 interface SessionChartProps {
   measurements?: SaunaMeasurement[];
@@ -68,40 +69,6 @@ export const SessionChart = memo(function SessionChart({
 
   // Calculate max temperature for dynamic Y-axis
   const { chartData, yAxisDomain } = useMemo(() => {
-    const smoothData = (data: SaunaMeasurement[], windowMinutes: number) => {
-      if (!data || data.length === 0) {
-        return [];
-      }
-
-      return data.map((current, index) => {
-        const windowStartTime =
-          new Date(current.timestamp).getTime() - windowMinutes * 60 * 1000;
-        const windowData = data.slice(0, index + 1).filter((d) => {
-          return new Date(d.timestamp).getTime() >= windowStartTime;
-        });
-
-        const sumTemp = windowData.reduce(
-          (acc, val) => acc + val.temperature,
-          0,
-        );
-        const sumHumidity = windowData.reduce(
-          (acc, val) => acc + val.humidity,
-          0,
-        );
-        const sumPrecence = windowData.reduce(
-          (acc, val) => acc + val.precence,
-          0,
-        );
-
-        return {
-          ...current,
-          temperature: sumTemp / windowData.length,
-          humidity: sumHumidity / windowData.length,
-          precence: sumPrecence / windowData.length,
-        };
-      });
-    };
-
     const smoothedMeasurements = smoothData(measurements, 5);
 
     const maxTemp =
