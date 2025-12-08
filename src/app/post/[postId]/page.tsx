@@ -32,12 +32,15 @@ export async function generateMetadata(
 
   const previousImages = (await parent).openGraph?.images || [];
   const postImage = post.images?.[0]?.url;
+  const graphImage = `/api/og?id=${id}`;
 
   return {
-    title: `${post.createdBy.name}'s Sauna Session | Saunaverse`,
-    description: `Check out ${post.createdBy.name}'s sauna session: ${post.description || "A great session!"}`,
+    title: `${post.createdBy.name}'s ${post.name} | Saunaverse`,
+    description: `Check out ${post.createdBy.name}'s sauna session at ${post.saunaSession.sauna.name}${post.description ? ": " + post.description : ""}`,
     openGraph: {
-      images: postImage ? [postImage, ...previousImages] : previousImages,
+      images: postImage
+        ? [postImage, graphImage, ...previousImages]
+        : [graphImage, ...previousImages],
     },
   };
 }

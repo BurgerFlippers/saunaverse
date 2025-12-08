@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   title: "Saunaverse",
   description: "Uniting people through heat",
   icons: [{ rel: "icon", url: "/logo.png" }],
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000",
+  ),
 };
 
 const rubik = Rubik({

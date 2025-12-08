@@ -308,13 +308,6 @@ export const postRouter = createTRPCRouter({
           },
         };
       }
-
-      return {
-        ...post,
-        saunaSession: post.saunaSession
-          ? { ...post.saunaSession, measurements: [] as SaunaMeasurement[] }
-          : null,
-      };
     }),
 
   getSecretMessage: protectedProcedure.query(() => {
