@@ -184,6 +184,16 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
         </div>
       )}
 
+      {post?.insights && (post.insights as any[]).length > 0 && (
+        <div className="bg-blue-500/20 px-5 py-2 text-center text-white">
+          {(post.insights as any[]).map((insight: any, index: number) => (
+            <p key={index} className="font-semibold">
+              💡 {insight.label}
+            </p>
+          ))}
+        </div>
+      )}
+
       {/* Location & Description */}
       {saunaSession && (
         <div className="mt-0 pt-0 pr-3 pb-0 pl-5">

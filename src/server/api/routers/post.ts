@@ -5,8 +5,9 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import type { SaunaMeasurement } from "@/../generated/prisma/client";
 import { calculateCalorieUsage } from "@/server/util/health";
+import { generateInsight } from "@/server/util/insights";
+import type { Insight } from "@/server/util/insights";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -27,83 +28,62 @@ export const postRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
-      const postCount = await ctx.db.post.count({
-        where: {
-          createdById: userId,
-        },
-      });
-
-      let achievementId: string | undefined;
+      let insight: Insight | null = null;
       if (input.saunaSessionId) {
-        const userSessions = await ctx.db.saunaSession.findMany({
-          where: {
-            participants: { some: { id: userId } },
-            id: { not: input.saunaSessionId },
-          },
-          orderBy: { startTimestamp: "desc" },
-        });
-
-        const currentSession = await ctx.db.saunaSession.findUnique({
+        const session = await ctx.db.saunaSession.findUnique({
           where: { id: input.saunaSessionId },
         });
 
-        if (postCount === 0) {
-          const achievement = await ctx.db.achievement.findUnique({
-            where: { name: "First Sauna Session" },
-          });
-          achievementId = achievement?.id;
-        } else if (currentSession) {
-          const longestSession = userSessions.every(
-            (s) => (s.durationMs ?? 0) < (currentSession.durationMs ?? 0),
-          );
-          if (longestSession) {
-            const achievement = await ctx.db.achievement.findUnique({
-              where: { name: "Longest Sauna" },
-            });
-            achievementId = achievement?.id;
-          }
-
-          const hottestSauna = userSessions.every(
-            (s) =>
-              (s.maxTemperature ?? 0) < (currentSession.maxTemperature ?? 0),
-          );
-          if (hottestSauna) {
-            const achievement = await ctx.db.achievement.findUnique({
-              where: { name: "Hottest Sauna" },
-            });
-            achievementId = achievement?.id;
-          }
-        }
-        if (achievementId === undefined) {
-          const achievements = await ctx.db.achievement.findMany({
+        if (session) {
+          const biometrics = await ctx.db.userBiometrics.aggregate({
+            _avg: { heartRate: true },
             where: {
-              name: {
-                notIn: [
-                  "First Sauna Session",
-                  "Hottest Sauna",
-                  "Longest Sauna",
-                ],
+              userId: ctx.session.user.id,
+              timestamp: {
+                gte: session.startTimestamp,
+                lte: session.endTimestamp ?? new Date(),
               },
             },
           });
-          const randomIndex = Math.floor(Math.random() * achievements.length);
-          achievementId = achievements[randomIndex]?.id;
+
+          const calories =
+            session.durationMs && biometrics._avg.heartRate
+              ? calculateCalorieUsage(
+                  biometrics._avg.heartRate,
+                  session.durationMs,
+                )
+              : null;
+
+          const enrichedPost = {
+            duration: session.durationMs ? session.durationMs / 1000 : 0,
+            temperature: session.avgTemperature,
+            calories,
+            userId: ctx.session.user.id,
+            createdAt: new Date(),
+            id: -1,
+            name: input.name,
+            description: input.description,
+            createdById: ctx.session.user.id,
+            saunaSessionId: input.saunaSessionId,
+            achievementId: null,
+            updatedAt: new Date(),
+            insights: [],
+          };
+
+          insight = generateInsight(enrichedPost);
         }
       }
 
       return ctx.db.post.create({
         data: {
           name: input.name,
-          ...(achievementId && {
-            achievement: { connect: { id: achievementId } },
-          }),
           description: input.description,
           createdBy: { connect: { id: ctx.session.user.id } },
           saunaSession: { connect: { id: input.saunaSessionId } },
           images: {
             create: input.images?.map((url) => ({ url })),
           },
+          insights: insight ? [insight] : [],
         },
       });
     }),
@@ -127,36 +107,7 @@ export const postRouter = createTRPCRouter({
       },
     });
 
-    const postsWithMeasurements = await Promise.all(
-      posts.map(async (post) => {
-        if (!post.saunaSession) {
-          return { ...post, saunaSession: null };
-        }
-
-        const measurements = await ctx.db.saunaMeasurement.findMany({
-          where: {
-            saunaId: post.saunaSession.saunaId,
-            timestamp: {
-              gte: post.saunaSession.startTimestamp,
-              lte: post.saunaSession.endTimestamp ?? new Date(),
-            },
-          },
-          orderBy: {
-            timestamp: "asc",
-          },
-        });
-
-        return {
-          ...post,
-          saunaSession: {
-            ...post.saunaSession,
-            measurements,
-          },
-        };
-      }),
-    );
-
-    return postsWithMeasurements;
+    return posts;
   }),
 
   getFeed: protectedProcedure
@@ -183,6 +134,7 @@ export const postRouter = createTRPCRouter({
           },
           achievement: true,
           createdBy: true,
+
           likes: {
             where: { userId: ctx.session.user.id },
             select: { userId: true },
@@ -314,31 +266,7 @@ export const postRouter = createTRPCRouter({
         },
       });
 
-      if (!post) return null;
-
-      // Manually attach measurements because they aren't directly related in schema
-      if (post.saunaSession) {
-        const measurements = await ctx.db.saunaMeasurement.findMany({
-          where: {
-            saunaId: post.saunaSession.saunaId,
-            timestamp: {
-              gte: post.saunaSession.startTimestamp,
-              lte: post.saunaSession.endTimestamp ?? new Date(),
-            },
-          },
-          orderBy: {
-            timestamp: "asc",
-          },
-        });
-
-        return {
-          ...post,
-          saunaSession: {
-            ...post.saunaSession,
-            measurements,
-          },
-        };
-      }
+      return post;
     }),
 
   getSecretMessage: protectedProcedure.query(() => {

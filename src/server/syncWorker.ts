@@ -153,6 +153,7 @@ export async function syncPolarData() {
     });
 
     for (const user of usersWithPolar) {
+      console.log("Syncing polar for", user.id);
       await syncPolarDataForUser(user.id);
     }
     console.log("Polar data synchronization complete.");
@@ -176,30 +177,7 @@ export async function syncPolarDataForUser(
     });
 
     const polarAccount = user?.accounts[0];
-    if (!polarAccount?.access_token || !polarAccount.refresh_token) return;
-
-    let accessToken = polarAccount.access_token;
-
-    // Refresh token logic
-    if (
-      polarAccount.expires_at &&
-      Date.now() / 1000 > polarAccount.expires_at - 300
-    ) {
-      try {
-        const tokens = await refreshPolarToken(polarAccount.refresh_token);
-        accessToken = tokens.access_token;
-        await db.account.update({
-          where: { id: polarAccount.id },
-          data: {
-            access_token: tokens.access_token,
-            expires_at: Math.floor(Date.now() / 1000 + tokens.expires_in),
-          },
-        });
-      } catch (e) {
-        console.error(`Failed to refresh Polar token for user ${userId}`, e);
-        return;
-      }
-    }
+    if (!polarAccount?.access_token) return;
 
     const sessionDates = new Set<string>();
 
@@ -249,7 +227,10 @@ export async function syncPolarDataForUser(
       }
 
       console.log(`Fetching Polar HR data for user ${userId} on ${date}`);
-      const data = await getContinuousHeartRate(accessToken, date);
+      const data = await getContinuousHeartRate(
+        polarAccount.access_token,
+        date,
+      );
 
       if (data && data.heart_rate_samples) {
         console.log("got data", data.heart_rate_samples.length);

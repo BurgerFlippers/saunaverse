@@ -2433,6 +2433,7 @@ export namespace Prisma {
     createdById: number
     saunaSessionId: number
     achievementId: number
+    insights: number
     _all: number
   }
 
@@ -2476,6 +2477,7 @@ export namespace Prisma {
     createdById?: true
     saunaSessionId?: true
     achievementId?: true
+    insights?: true
     _all?: true
   }
 
@@ -2574,6 +2576,7 @@ export namespace Prisma {
     createdById: string
     saunaSessionId: string
     achievementId: string | null
+    insights: JsonValue | null
     _count: PostCountAggregateOutputType | null
     _avg: PostAvgAggregateOutputType | null
     _sum: PostSumAggregateOutputType | null
@@ -2604,6 +2607,7 @@ export namespace Prisma {
     createdById?: boolean
     saunaSessionId?: boolean
     achievementId?: boolean
+    insights?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
     achievement?: boolean | Post$achievementArgs<ExtArgs>
@@ -2622,6 +2626,7 @@ export namespace Prisma {
     createdById?: boolean
     saunaSessionId?: boolean
     achievementId?: boolean
+    insights?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
     achievement?: boolean | Post$achievementArgs<ExtArgs>
@@ -2636,6 +2641,7 @@ export namespace Prisma {
     createdById?: boolean
     saunaSessionId?: boolean
     achievementId?: boolean
+    insights?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
     achievement?: boolean | Post$achievementArgs<ExtArgs>
@@ -2650,9 +2656,10 @@ export namespace Prisma {
     createdById?: boolean
     saunaSessionId?: boolean
     achievementId?: boolean
+    insights?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "createdById" | "saunaSessionId" | "achievementId", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "createdById" | "saunaSessionId" | "achievementId" | "insights", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     saunaSession?: boolean | SaunaSessionDefaultArgs<ExtArgs>
@@ -2692,6 +2699,7 @@ export namespace Prisma {
       createdById: string
       saunaSessionId: string
       achievementId: string | null
+      insights: Prisma.JsonValue | null
     }, ExtArgs["result"]["post"]>
     composites: {}
   }
@@ -3129,6 +3137,7 @@ export namespace Prisma {
     readonly createdById: FieldRef<"Post", 'String'>
     readonly saunaSessionId: FieldRef<"Post", 'String'>
     readonly achievementId: FieldRef<"Post", 'String'>
+    readonly insights: FieldRef<"Post", 'Json'>
   }
     
 
@@ -18433,7 +18442,8 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     createdById: 'createdById',
     saunaSessionId: 'saunaSessionId',
-    achievementId: 'achievementId'
+    achievementId: 'achievementId',
+    insights: 'insights'
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -18612,12 +18622,29 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -18676,6 +18703,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -18725,6 +18766,7 @@ export namespace Prisma {
     createdById?: StringFilter<"Post"> | string
     saunaSessionId?: StringFilter<"Post"> | string
     achievementId?: StringNullableFilter<"Post"> | string | null
+    insights?: JsonNullableFilter<"Post">
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     saunaSession?: XOR<SaunaSessionScalarRelationFilter, SaunaSessionWhereInput>
     achievement?: XOR<AchievementNullableScalarRelationFilter, AchievementWhereInput> | null
@@ -18742,6 +18784,7 @@ export namespace Prisma {
     createdById?: SortOrder
     saunaSessionId?: SortOrder
     achievementId?: SortOrderInput | SortOrder
+    insights?: SortOrderInput | SortOrder
     createdBy?: UserOrderByWithRelationInput
     saunaSession?: SaunaSessionOrderByWithRelationInput
     achievement?: AchievementOrderByWithRelationInput
@@ -18762,6 +18805,7 @@ export namespace Prisma {
     createdById?: StringFilter<"Post"> | string
     saunaSessionId?: StringFilter<"Post"> | string
     achievementId?: StringNullableFilter<"Post"> | string | null
+    insights?: JsonNullableFilter<"Post">
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     saunaSession?: XOR<SaunaSessionScalarRelationFilter, SaunaSessionWhereInput>
     achievement?: XOR<AchievementNullableScalarRelationFilter, AchievementWhereInput> | null
@@ -18779,6 +18823,7 @@ export namespace Prisma {
     createdById?: SortOrder
     saunaSessionId?: SortOrder
     achievementId?: SortOrderInput | SortOrder
+    insights?: SortOrderInput | SortOrder
     _count?: PostCountOrderByAggregateInput
     _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
@@ -18798,6 +18843,7 @@ export namespace Prisma {
     createdById?: StringWithAggregatesFilter<"Post"> | string
     saunaSessionId?: StringWithAggregatesFilter<"Post"> | string
     achievementId?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    insights?: JsonNullableWithAggregatesFilter<"Post">
   }
 
   export type AccountWhereInput = {
@@ -19702,6 +19748,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy: UserCreateNestedOneWithoutPostsInput
     saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
@@ -19719,6 +19766,7 @@ export namespace Prisma {
     createdById: string
     saunaSessionId: string
     achievementId?: string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
@@ -19729,6 +19777,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
     saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
@@ -19746,6 +19795,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
@@ -19760,6 +19810,7 @@ export namespace Prisma {
     createdById: string
     saunaSessionId: string
     achievementId?: string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PostUpdateManyMutationInput = {
@@ -19767,6 +19818,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PostUncheckedUpdateManyInput = {
@@ -19778,6 +19830,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AccountCreateInput = {
@@ -20773,6 +20826,29 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
@@ -20833,6 +20909,7 @@ export namespace Prisma {
     createdById?: SortOrder
     saunaSessionId?: SortOrder
     achievementId?: SortOrder
+    insights?: SortOrder
   }
 
   export type PostAvgOrderByAggregateInput = {
@@ -20929,6 +21006,32 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -22917,6 +23020,29 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
@@ -23659,6 +23785,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
@@ -23674,6 +23801,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     saunaSessionId: string
     achievementId?: string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
@@ -23986,6 +24114,7 @@ export namespace Prisma {
     createdById?: StringFilter<"Post"> | string
     saunaSessionId?: StringFilter<"Post"> | string
     achievementId?: StringNullableFilter<"Post"> | string | null
+    insights?: JsonNullableFilter<"Post">
   }
 
   export type SaunaUpsertWithWhereUniqueWithoutUsersInput = {
@@ -24468,6 +24597,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy: UserCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
@@ -24483,6 +24613,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById: string
     achievementId?: string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
@@ -24566,6 +24697,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy: UserCreateNestedOneWithoutPostsInput
     saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
@@ -24582,6 +24714,7 @@ export namespace Prisma {
     createdById: string
     saunaSessionId: string
     achievementId?: string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
   }
@@ -24646,6 +24779,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
     saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
@@ -24662,6 +24796,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
   }
@@ -24716,6 +24851,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy: UserCreateNestedOneWithoutPostsInput
     saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
@@ -24732,6 +24868,7 @@ export namespace Prisma {
     createdById: string
     saunaSessionId: string
     achievementId?: string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
   }
@@ -24757,6 +24894,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
     saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
@@ -24773,6 +24911,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
   }
@@ -24782,6 +24921,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy: UserCreateNestedOneWithoutPostsInput
     saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
@@ -24797,6 +24937,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById: string
     saunaSessionId: string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
@@ -24928,6 +25069,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy: UserCreateNestedOneWithoutPostsInput
     saunaSession: SaunaSessionCreateNestedOneWithoutPostsInput
     achievement?: AchievementCreateNestedOneWithoutPostsInput
@@ -24944,6 +25086,7 @@ export namespace Prisma {
     createdById: string
     saunaSessionId: string
     achievementId?: string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     images?: PostImageUncheckedCreateNestedManyWithoutPostInput
   }
@@ -25014,6 +25157,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
     saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
@@ -25030,6 +25174,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
   }
@@ -25423,6 +25568,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     saunaSessionId: string
     achievementId?: string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type LikeCreateManyUserInput = {
@@ -25527,6 +25673,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
@@ -25542,6 +25689,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
@@ -25555,6 +25703,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     saunaSessionId?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SaunaUpdateWithoutUsersInput = {
@@ -25992,6 +26141,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById: string
     achievementId?: string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserUpdateWithoutSaunaSessionsInput = {
@@ -26041,6 +26191,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
     achievement?: AchievementUpdateOneWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
@@ -26056,6 +26207,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
@@ -26069,6 +26221,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
     achievementId?: NullableStringFieldUpdateOperationsInput | string | null
+    insights?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PostCreateManyAchievementInput = {
@@ -26079,6 +26232,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById: string
     saunaSessionId: string
+    insights?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type PostUpdateWithoutAchievementInput = {
@@ -26086,6 +26240,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
     saunaSession?: SaunaSessionUpdateOneRequiredWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
@@ -26101,6 +26256,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
     saunaSessionId?: StringFieldUpdateOperationsInput | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     images?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
@@ -26114,6 +26270,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: StringFieldUpdateOperationsInput | string
     saunaSessionId?: StringFieldUpdateOperationsInput | string
+    insights?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserUpdateWithoutParticipatedEventsInput = {
