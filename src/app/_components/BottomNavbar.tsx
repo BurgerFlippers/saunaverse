@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Activity, User, MoreHorizontal } from "lucide-react";
+import { Activity, User, MoreHorizontal, Settings } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
@@ -42,6 +42,15 @@ export function BottomNavbar() {
         >
           <MoreHorizontal className="h-6 w-6" />
           <span className="mt-1 text-xs font-normal">More</span>
+        </Link>
+        <Link
+          href="/settings"
+          className={`flex flex-col items-center px-6 py-3 transition-colors ${
+            pathname === "/settings" ? "text-white" : "text-white/60"
+          }`}
+        >
+          <Settings className="h-6 w-6" />
+          <span className="mt-1 text-xs font-normal">Settings</span>
         </Link>
       </div>
     </div>
