@@ -6,6 +6,7 @@ import {
   publicProcedure,
 } from "@/server/api/trpc";
 import type { SaunaMeasurement } from "@/../generated/prisma/client";
+import { calculateCalorieUsage } from "@/server/util/health";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -224,9 +225,10 @@ export const postRouter = createTRPCRouter({
               avgHeartRate: biometrics._avg.heartRate,
               kCalBurned:
                 item.saunaSession.durationMs && biometrics._avg.heartRate
-                  ? (item.saunaSession.durationMs / (1000 * 60)) *
-                    (biometrics._avg.heartRate - 60) *
-                    0.2
+                  ? calculateCalorieUsage(
+                      item.saunaSession.durationMs,
+                      biometrics._avg.heartRate,
+                    )
                   : null,
             },
           };
