@@ -9,19 +9,26 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import type { SaunaMeasurement } from "@/../generated/prisma/client";
+import type {
+  SaunaMeasurement,
+  UserBiometrics,
+} from "@/../generated/prisma/client";
 import { memo, useMemo } from "react";
 import { api } from "@/trpc/react";
 import { smoothData } from "./ui/utils";
 
 interface SessionChartProps {
-  measurements?: SaunaMeasurement[];
+  measurements?: {
+    measurements?: SaunaMeasurement[];
+    biometrics?: Pick<UserBiometrics, "heartRate" | "timestamp">[];
+  };
   sessionId?: string;
+  postId?: number;
 }
 
 const CHART_MARGIN = { top: 10, right: 10, left: 10, bottom: 10 };
 const AXIS_DOMAIN = [0, 100];
-const AXIS_TICKS = [0, 20, 40, 60, 80, 100];
+const AXIS_TICKS = [0, 20, 40, 60, 80, 100, 120, 140, 160];
 const TICK_STYLE = { fontSize: 11, fill: "#BFC5CA" };
 const TOOLTIP_STYLE = {
   background: "#1F1F23",
@@ -48,17 +55,17 @@ const formatLegend = (value: any) => {
   return "In sauna";
 };
 
-const EMPTY_ARRAY = [] as const;
-
 export const SessionChart = memo(function SessionChart({
   measurements: initialMeasurements,
   sessionId,
+  postId,
 }: SessionChartProps) {
   console.log("rendering sess start", sessionId);
   const { data: fetchedData, isLoading } =
     api.sauna.getSaunaSessionMeasurements.useQuery(
       {
         saunaSessionId: sessionId ?? "",
+        postId,
       },
       {
         enabled: !initialMeasurements && !!sessionId,
@@ -66,41 +73,71 @@ export const SessionChart = memo(function SessionChart({
       },
     );
 
-  const measurements =
-    initialMeasurements ?? fetchedData?.measurements ?? (EMPTY_ARRAY as any);
-  const biometrics = fetchedData?.biometrics ?? [];
+  const measurements = initialMeasurements ?? fetchedData ?? {};
+
+  const yAxisDomain = [0, 160];
 
   // Calculate max temperature for dynamic Y-axis
-  const { chartData, yAxisDomain } = useMemo(() => {
-    const smoothedMeasurements = smoothData(measurements, 5);
+  const { chartData } = useMemo(() => {
+    const smoothedMeasurements = smoothData(
+      measurements?.measurements ?? [],
+      5,
+    );
+    const biometricsData = measurements?.biometrics ?? [];
 
-    const maxTemp =
-      smoothedMeasurements.length > 0
-        ? Math.max(...smoothedMeasurements.map((d) => d.temperature))
-        : 100;
-    const yAxisDomain = maxTemp > 100 ? [0, 119] : [0, 100];
+    if (smoothedMeasurements.length === 0 && biometricsData.length === 0) {
+      return { chartData: [], yAxisDomain: [0, 100] };
+    }
 
-    const chartData = smoothedMeasurements.map((m) => {
-      // Find closest biometric point within 2 minutes
-      const mTime = new Date(m.timestamp).getTime();
-      const bio = biometrics.find(
-        (b) => Math.abs(new Date(b.timestamp).getTime() - mTime) < 2 * 60 * 1000,
-      );
+    const mTimes = smoothedMeasurements.map((m) =>
+      new Date(m.timestamp).getTime(),
+    );
+    const bTimes = biometricsData.map((b) => new Date(b.timestamp).getTime());
+    const allTimes = [...mTimes, ...bTimes];
+    const minTime = Math.min(...allTimes);
+    const maxTime = Math.max(...allTimes);
 
-      return {
-        time: new Date(m.timestamp).toLocaleTimeString([], {
+    const startMinute = Math.floor(minTime / 60000) * 60000;
+    const endMinute = Math.ceil(maxTime / 60000) * 60000;
+
+    // Bucket data by minute
+    const measurementsByMinute = new Map();
+    smoothedMeasurements.forEach((m) => {
+      const min = Math.floor(new Date(m.timestamp).getTime() / 60000) * 60000;
+      // We overwrite if multiple fall in same minute, effectively taking the last one
+      // Since data is smoothed, this is acceptable for minute-resolution graph
+      measurementsByMinute.set(min, m);
+    });
+
+    const biometricsByMinute = new Map();
+    biometricsData.forEach((b) => {
+      const min = Math.floor(new Date(b.timestamp).getTime() / 60000) * 60000;
+      biometricsByMinute.set(min, b);
+    });
+
+    const chartData = [];
+    for (let t = startMinute; t <= endMinute; t += 60000) {
+      const measurement = measurementsByMinute.get(t);
+      const biometric = biometricsByMinute.get(t);
+
+      // Only add point if we have data or if we want to show gaps (connectNulls handles gaps)
+      // But creating points for every minute is safer for X-axis continuity
+      chartData.push({
+        time: new Date(t).toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         }),
-        temperature: m.temperature,
-        humidity: m.humidity,
-        inSauna: m.precence > 10 ? 0 : null,
-        heartRate: bio?.heartRate,
-      };
-    });
+        temperature: measurement?.temperature,
+        humidity: measurement?.humidity,
+        inSauna: (measurement?.precence ?? 0) > 20 ? 0 : null,
+        heartRate: biometric?.heartRate,
+      });
+    }
 
     return { chartData, yAxisDomain };
-  }, [measurements, biometrics]);
+  }, [measurements]);
+
+  console.log(chartData);
 
   if (isLoading && !initialMeasurements) {
     return (
@@ -152,14 +189,6 @@ export const SessionChart = memo(function SessionChart({
               width={35}
             />
 
-            {/* Heart Rate Y-axis (hidden or scaled to fit?) */}
-            <YAxis
-              yAxisId="hr"
-              orientation="left"
-              domain={[0, 200]}
-              hide={true}
-            />
-
             {/* Hidden Y-axis for in-sauna indicator (at bottom) */}
             <YAxis yAxisId="inSauna" domain={[0, 1]} hide={true} />
 
@@ -186,6 +215,7 @@ export const SessionChart = memo(function SessionChart({
               isAnimationActive={false}
               yAxisId="inSauna"
               opacity={0.6}
+              connectNulls
             />
 
             <Line
@@ -196,6 +226,7 @@ export const SessionChart = memo(function SessionChart({
               strokeWidth={3}
               dot={false}
               name="temperature"
+              connectNulls
             />
             <Line
               yAxisId="temp"
@@ -205,16 +236,18 @@ export const SessionChart = memo(function SessionChart({
               strokeWidth={3}
               dot={false}
               name="humidity"
+              connectNulls
             />
             <Line
-              yAxisId="hr"
+              yAxisId="temp"
               type="monotone"
               dataKey="heartRate"
               stroke="#E11D48" // Rose-600
               strokeWidth={2}
               dot={false}
               name="heartRate"
-              connectNulls // Polar data might be sparse
+              connectNulls
+              // Polar data might be sparse
             />
           </LineChart>
         </div>

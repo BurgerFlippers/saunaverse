@@ -11,7 +11,7 @@ import {
   GET_DEVICE_STATE_QUERY,
   getHarviaIdToken,
 } from "@/server/api/harvia";
-import { syncHarviaData } from "@/server/syncWorker";
+import { syncHarviaData, syncPolarDataForUser } from "@/server/syncWorker";
 
 export const saunaRouter = createTRPCRouter({
   getSaunas: protectedProcedure.query(async ({ ctx }) => {
@@ -120,6 +120,7 @@ export const saunaRouter = createTRPCRouter({
     .input(
       z.object({
         saunaSessionId: z.string(),
+        postId: z.number().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -145,10 +146,24 @@ export const saunaRouter = createTRPCRouter({
       });
 
       let biometrics: { timestamp: Date; heartRate: number }[] = [];
-      if (ctx.session?.user?.id) {
+      let targetUserId: string | null = null;
+
+      if (input.postId) {
+        const post = await ctx.db.post.findUnique({
+          where: { id: input.postId },
+          select: { createdById: true, saunaSessionId: true },
+        });
+        if (post && post.saunaSessionId === input.saunaSessionId) {
+          targetUserId = post.createdById;
+        }
+      } else if (ctx.session?.user?.id) {
+        targetUserId = ctx.session.user.id;
+      }
+
+      if (targetUserId) {
         biometrics = await ctx.db.userBiometrics.findMany({
           where: {
-            userId: ctx.session.user.id,
+            userId: targetUserId,
             timestamp: {
               gt: saunaSession.startTimestamp,
               lt: saunaSession.endTimestamp ?? new Date(),
@@ -202,7 +217,7 @@ export const saunaRouter = createTRPCRouter({
   addParticipant: protectedProcedure
     .input(z.object({ sessionId: z.string(), userId: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.saunaSession.update({
+      const session = await ctx.db.saunaSession.update({
         where: { id: input.sessionId },
         data: {
           participants: {
@@ -210,6 +225,19 @@ export const saunaRouter = createTRPCRouter({
           },
         },
       });
+
+      const dates = [session.startTimestamp];
+      if (
+        session.endTimestamp &&
+        session.endTimestamp.getDate() !== session.startTimestamp.getDate()
+      ) {
+        dates.push(session.endTimestamp);
+      }
+      void syncPolarDataForUser(input.userId, dates).catch((err) =>
+        console.error(err),
+      );
+
+      return session;
     }),
 
   discoverDevices: protectedProcedure.query(async ({ ctx }) => {
@@ -346,7 +374,7 @@ export const saunaRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const { temperature, ...rest } = input;
-      return ctx.db.saunaSession.create({
+      const session = await ctx.db.saunaSession.create({
         data: {
           ...rest,
           avgTemperature: temperature,
@@ -357,6 +385,19 @@ export const saunaRouter = createTRPCRouter({
           },
         },
       });
+
+      const dates = [session.startTimestamp];
+      if (
+        session.endTimestamp &&
+        session.endTimestamp.getDate() !== session.startTimestamp.getDate()
+      ) {
+        dates.push(session.endTimestamp);
+      }
+      void syncPolarDataForUser(ctx.session.user.id, dates).catch((err) =>
+        console.error(err),
+      );
+
+      return session;
     }),
 
   getDeviceState: protectedProcedure

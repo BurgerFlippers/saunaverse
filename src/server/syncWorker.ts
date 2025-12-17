@@ -144,30 +144,74 @@ export async function syncPolarData() {
   console.log("Starting Polar data synchronization...");
   try {
     const usersWithPolar = await db.user.findMany({
-      include: {
-        accounts: {
-          where: { provider: "polar" },
-        },
-      },
       where: {
         accounts: {
           some: { provider: "polar" },
         },
       },
+      select: { id: true },
     });
 
     for (const user of usersWithPolar) {
-      const polarAccount = user.accounts[0];
-      if (!polarAccount?.access_token) continue;
+      await syncPolarDataForUser(user.id);
+    }
+    console.log("Polar data synchronization complete.");
+  } catch (error) {
+    console.error("Polar data synchronization failed:", error);
+  }
+}
 
-      let accessToken = polarAccount.access_token;
+export async function syncPolarDataForUser(
+  userId: string,
+  targetDates?: Date[],
+) {
+  try {
+    const user = await db.user.findUnique({
+      where: { id: userId },
+      include: {
+        accounts: {
+          where: { provider: "polar" },
+        },
+      },
+    });
 
-      console.log("syncing for", user.name);
+    const polarAccount = user?.accounts[0];
+    if (!polarAccount?.access_token || !polarAccount.refresh_token) return;
 
-      // Identify sessions the user participated in
+    let accessToken = polarAccount.access_token;
+
+    // Refresh token logic
+    if (
+      polarAccount.expires_at &&
+      Date.now() / 1000 > polarAccount.expires_at - 300
+    ) {
+      try {
+        const tokens = await refreshPolarToken(polarAccount.refresh_token);
+        accessToken = tokens.access_token;
+        await db.account.update({
+          where: { id: polarAccount.id },
+          data: {
+            access_token: tokens.access_token,
+            expires_at: Math.floor(Date.now() / 1000 + tokens.expires_in),
+          },
+        });
+      } catch (e) {
+        console.error(`Failed to refresh Polar token for user ${userId}`, e);
+        return;
+      }
+    }
+
+    const sessionDates = new Set<string>();
+
+    if (targetDates && targetDates.length > 0) {
+      for (const d of targetDates) {
+        sessionDates.add(d.toISOString().split("T")[0]!);
+      }
+    } else {
+      // Default: recent sessions
       const userSessions = await db.saunaSession.findMany({
         where: {
-          participants: { some: { id: user.id } },
+          participants: { some: { id: userId } },
           startTimestamp: {
             gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // Last 30 days
           },
@@ -175,50 +219,83 @@ export async function syncPolarData() {
         orderBy: { startTimestamp: "desc" },
       });
 
-      console.log(userSessions);
-
-      // Find unique dates of these sessions
-      const sessionDates = new Set<string>();
       for (const session of userSessions) {
         const dateString = session.startTimestamp.toISOString().split("T")[0]!;
         sessionDates.add(dateString);
       }
+      // Always sync today in default mode
+      sessionDates.add(new Date().toISOString().split("T")[0]!);
+    }
 
-      for (const date of sessionDates) {
-        console.log(`Fetching Polar HR data for user ${user.id} on ${date}`);
-        const data = await getContinuousHeartRate(accessToken, date);
+    for (const date of sessionDates) {
+      // Skip check if explicitly requested (targetDates provided), otherwise check if data exists
+      const isToday = date === new Date().toISOString().split("T")[0];
+      const checkExisting = !targetDates && !isToday;
 
-        if (data && data.heart_rate_samples) {
-          console.log("got data", data.heart_rate_samples.length);
-          continue;
-          for (const sample of data.heart_rate_samples) {
-            const timestamp = new Date(`${data.date}T${sample.sample_time}`);
+      if (checkExisting) {
+        const startOfDay = new Date(`${date}T00:00:00Z`);
+        const endOfDay = new Date(`${date}T23:59:59Z`);
+        const existingCount = await db.userBiometrics.count({
+          where: {
+            userId: userId,
+            timestamp: {
+              gte: startOfDay,
+              lte: endOfDay,
+            },
+          },
+        });
 
-            if (isNaN(timestamp.getTime())) continue;
+        if (existingCount > 10) continue;
+      }
 
-            await db.userBiometrics.upsert({
-              where: {
-                userId_timestamp: {
-                  userId: user.id,
-                  timestamp: timestamp,
-                },
-              },
-              create: {
-                userId: user.id,
-                timestamp: timestamp,
-                heartRate: sample.heart_rate,
-              },
-              update: {
-                heartRate: sample.heart_rate,
-              },
+      console.log(`Fetching Polar HR data for user ${userId} on ${date}`);
+      const data = await getContinuousHeartRate(accessToken, date);
+
+      if (data && data.heart_rate_samples) {
+        console.log("got data", data.heart_rate_samples.length);
+        const bucketedSamples = new Map<
+          number,
+          { sum: number; count: number; timestamp: Date }
+        >();
+
+        for (const sample of data.heart_rate_samples) {
+          const timestamp = new Date(`${data.date}T${sample.sample_time}`);
+          if (isNaN(timestamp.getTime())) continue;
+
+          // Round down to nearest 30 seconds
+          const bucketTime = Math.floor(timestamp.getTime() / 30000) * 30000;
+
+          if (!bucketedSamples.has(bucketTime)) {
+            bucketedSamples.set(bucketTime, {
+              sum: 0,
+              count: 0,
+              timestamp: new Date(bucketTime),
             });
           }
+
+          const bucket = bucketedSamples.get(bucketTime)!;
+          bucket.sum += sample.heart_rate;
+          bucket.count++;
+        }
+
+        const biometricsToCreate = Array.from(bucketedSamples.values()).map(
+          (bucket) => ({
+            userId: userId,
+            timestamp: bucket.timestamp,
+            heartRate: Math.round(bucket.sum / bucket.count),
+          }),
+        );
+
+        if (biometricsToCreate.length > 0) {
+          await db.userBiometrics.createMany({
+            data: biometricsToCreate,
+            skipDuplicates: true,
+          });
         }
       }
     }
-    console.log("Polar data synchronization complete.");
   } catch (error) {
-    console.error("Polar data synchronization failed:", error);
+    console.error(`Polar sync failed for user ${userId}`, error);
   }
 }
 

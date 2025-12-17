@@ -101,7 +101,9 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
     },
   });
 
-  const isLiked = post?.likes.some((like: any) => like.userId === session?.user?.id);
+  const isLiked = post?.likes.some(
+    (like: any) => like.userId === session?.user?.id,
+  );
   // Handle both optimized count object and direct array length
   const likeCount = post?._count?.likes ?? post?.likes?.length ?? 0;
   const commentCount = post?._count?.comments ?? post?.comments?.length ?? 0;
@@ -310,16 +312,16 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
         <div className="scrollbar-hide mt-0 overflow-x-auto">
           <div className="ml-5 flex gap-3 pb-0">
             {/* Chart */}
-            {!saunaSession.manual && (
-              <div
-                className={`flex-shrink-0 ${(post?.images?.length ?? 0 > 0) ? "w-[80%]" : "w-full"}`}
-              >
-                <SessionChart
-                  sessionId={saunaSession.id}
-                  key={saunaSession.id}
-                />
-              </div>
-            )}
+
+            <div
+              className={`flex-shrink-0 ${(post?.images?.length ?? 0 > 0) ? "w-[80%]" : "w-full"}`}
+            >
+              <SessionChart
+                sessionId={saunaSession.id}
+                postId={post?.id}
+                key={saunaSession.id}
+              />
+            </div>
 
             {/* Photos section - if available */}
             {post?.images && post.images.length > 0 && (
