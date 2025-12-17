@@ -228,69 +228,69 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
                 {saunaDuration}
               </p>
             </div>
-            {!saunaSession.manual && (
-              <>
-                <div>
-                  <p
-                    className="mb-1.5 font-normal text-gray-300"
-                    style={{ fontSize: "11px" }}
-                  >
-                    Avg Temp
-                  </p>
-                  <p
-                    className="mb-0 leading-none font-bold text-white"
-                    style={{ fontSize: "19px" }}
-                  >
-                    {saunaSession.avgTemperature?.toFixed(0)}°
-                  </p>
-                </div>
-                <div>
-                  <p
-                    className="mb-1.5 font-normal text-gray-300"
-                    style={{ fontSize: "11px" }}
-                  >
-                    Avg Humidity
-                  </p>
-                  <p
-                    className="mb-0 leading-none font-bold text-white"
-                    style={{ fontSize: "19px" }}
-                  >
-                    {saunaSession.avgHumidity?.toFixed(0)}%
-                  </p>
-                </div>
-                {saunaSession.avgHeartRate && (
-                  <div>
-                    <p
-                      className="mb-1.5 font-normal text-gray-300"
-                      style={{ fontSize: "11px" }}
-                    >
-                      Avg HR
-                    </p>
-                    <p
-                      className="mb-0 leading-none font-bold text-white"
-                      style={{ fontSize: "19px" }}
-                    >
-                      {saunaSession.avgHeartRate?.toFixed(0)} bpm
-                    </p>
-                  </div>
-                )}
-                {saunaSession.kCalBurned && (
-                  <div>
-                    <p
-                      className="mb-1.5 font-normal text-gray-300"
-                      style={{ fontSize: "11px" }}
-                    >
-                      kCal burned
-                    </p>
-                    <p
-                      className="mb-0 leading-none font-bold text-white"
-                      style={{ fontSize: "19px" }}
-                    >
-                      {saunaSession.kCalBurned?.toFixed(0)} kcal
-                    </p>
-                  </div>
-                )}
-              </>
+            {saunaSession.avgTemperature && (
+              <div>
+                <p
+                  className="mb-1.5 font-normal text-gray-300"
+                  style={{ fontSize: "11px" }}
+                >
+                  Avg Temp
+                </p>
+                <p
+                  className="mb-0 leading-none font-bold text-white"
+                  style={{ fontSize: "19px" }}
+                >
+                  {saunaSession.avgTemperature?.toFixed(0)}°
+                </p>
+              </div>
+            )}
+            {saunaSession.avgHumidity && (
+              <div>
+                <p
+                  className="mb-1.5 font-normal text-gray-300"
+                  style={{ fontSize: "11px" }}
+                >
+                  Avg Humidity
+                </p>
+                <p
+                  className="mb-0 leading-none font-bold text-white"
+                  style={{ fontSize: "19px" }}
+                >
+                  {saunaSession.avgHumidity?.toFixed(0)}%
+                </p>
+              </div>
+            )}
+            {saunaSession.avgHeartRate && (
+              <div>
+                <p
+                  className="mb-1.5 font-normal text-gray-300"
+                  style={{ fontSize: "11px" }}
+                >
+                  Avg HR
+                </p>
+                <p
+                  className="mb-0 leading-none font-bold text-white"
+                  style={{ fontSize: "19px" }}
+                >
+                  {saunaSession.avgHeartRate?.toFixed(0)} bpm
+                </p>
+              </div>
+            )}
+            {saunaSession.kCalBurned && (
+              <div>
+                <p
+                  className="mb-1.5 font-normal text-gray-300"
+                  style={{ fontSize: "11px" }}
+                >
+                  kCal burned
+                </p>
+                <p
+                  className="mb-0 leading-none font-bold text-white"
+                  style={{ fontSize: "19px" }}
+                >
+                  {saunaSession.kCalBurned?.toFixed(0)} kcal
+                </p>
+              </div>
             )}
           </div>
         </div>
