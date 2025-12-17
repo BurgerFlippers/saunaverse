@@ -41,6 +41,12 @@ export async function syncHarviaData() {
     });
 
     for (const sauna of saunas) {
+      console.log(
+        "syncing sauna: ",
+        sauna.name,
+        sauna.id,
+        sauna.harviaDeviceId,
+      );
       const userWithHarvia = sauna.users.find(
         (u) => u.accounts && u.accounts.length > 0,
       );
@@ -260,27 +266,6 @@ async function detectAndManageSaunaSessions() {
     });
 
     for (const sauna of allSaunas) {
-      const userForSync = sauna.users.find(
-        (u) => u.accounts && u.accounts.length > 0,
-      );
-      let harviaIdToken: string | null | undefined =
-        userForSync?.accounts[0]?.id_token;
-
-      if (!userForSync) {
-        const demoHarviaTokens = await getHarviaIdToken(
-          process.env.HARVIA_USERNAME!,
-          process.env.HARVIA_PASSWORD!,
-        );
-        harviaIdToken = demoHarviaTokens.idToken;
-      }
-
-      if (!harviaIdToken) {
-        console.warn(
-          `Skipping session detection for sauna ${sauna.name}: No valid Harvia token found.`,
-        );
-        continue;
-      }
-
       if (!sauna.harviaDeviceId) {
         console.warn(
           `Skipping session detection for sauna ${sauna.id}: No Harvia Device ID.`,
