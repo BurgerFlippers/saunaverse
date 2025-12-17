@@ -1,29 +1,21 @@
 "use client";
+
 import { Card } from "../_components/ui/card";
 import { Calendar, MapPin, Users, Clock } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
-export default function EventsPage() {
-  const [steamStates, setSteamStates] = useState<{ [key: number]: boolean }>(
-    {},
-  );
-  const [acceptedStates, setAcceptedStates] = useState<{
-    [key: number]: boolean;
-  }>({});
-  const [participantCounts, setParticipantCounts] = useState<{
-    [key: number]: number;
-  }>({});
+export function Events() {
+  const [steamStates, setSteamStates] = useState<{ [key: number]: boolean }>({});
+  const [acceptedStates, setAcceptedStates] = useState<{ [key: number]: boolean }>({});
+  const [participantCounts, setParticipantCounts] = useState<{ [key: number]: number }>({});
   const cardRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
 
-  // Steam fade-in effect on card enter view
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const cardId = parseInt(
-              entry.target.getAttribute("data-card-id") || "0",
-            );
+            const cardId = parseInt(entry.target.getAttribute("data-card-id") || "0");
             setSteamStates((prev) => ({ ...prev, [cardId]: true }));
             setTimeout(() => {
               setSteamStates((prev) => ({ ...prev, [cardId]: false }));
@@ -31,7 +23,7 @@ export default function EventsPage() {
           }
         });
       },
-      { threshold: 0.2 },
+      { threshold: 0.2 }
     );
 
     Object.values(cardRefs.current).forEach((ref) => {
@@ -45,20 +37,15 @@ export default function EventsPage() {
     setAcceptedStates((prev) => ({ ...prev, [eventId]: true }));
     setParticipantCounts((prev) => ({
       ...prev,
-      [eventId]:
-        prev[eventId] !== undefined ? prev[eventId] + 1 : currentAttendees + 1,
+      [eventId]: prev[eventId] !== undefined ? prev[eventId] + 1 : currentAttendees + 1,
     }));
   };
 
-  const handleCancelParticipation = (
-    eventId: number,
-    currentAttendees: number,
-  ) => {
+  const handleCancelParticipation = (eventId: number, currentAttendees: number) => {
     setAcceptedStates((prev) => ({ ...prev, [eventId]: false }));
     setParticipantCounts((prev) => ({
       ...prev,
-      [eventId]:
-        prev[eventId] !== undefined ? prev[eventId] - 1 : currentAttendees - 1,
+      [eventId]: prev[eventId] !== undefined ? prev[eventId] - 1 : currentAttendees - 1,
     }));
   };
 
@@ -146,23 +133,11 @@ export default function EventsPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "going":
-        return {
-          bg: "bg-[#10b981]/10",
-          border: "border-[#10b981]",
-          text: "text-[#10b981]",
-        };
+        return { bg: "bg-[#10b981]/10", border: "border-[#10b981]", text: "text-[#10b981]" };
       case "maybe":
-        return {
-          bg: "bg-[#f59e0b]/10",
-          border: "border-[#f59e0b]",
-          text: "text-[#f59e0b]",
-        };
+        return { bg: "bg-[#f59e0b]/10", border: "border-[#f59e0b]", text: "text-[#f59e0b]" };
       default:
-        return {
-          bg: "bg-[#D01400]/10",
-          border: "border-[#D01400]",
-          text: "text-[#D01400]",
-        };
+        return { bg: "bg-[#D01400]/10", border: "border-[#D01400]", text: "text-[#D01400]" };
     }
   };
 
@@ -197,79 +172,50 @@ export default function EventsPage() {
             >
               <Card className="heat-wave overflow-hidden rounded-2xl border-[#2C2B36] bg-[#1F1F23]">
                 <div className="p-5">
-                  {/* Invitation Text */}
-                  <p
-                    className="mb-3 font-normal text-gray-400"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="mb-3 font-normal text-gray-400" style={{ fontSize: "12px" }}>
                     {event.host} invited you to:
                   </p>
 
-                  {/* Event Title */}
-                  <h3
-                    className="mb-3 font-bold text-white"
-                    style={{ fontSize: "20px" }}
-                  >
+                  <h3 className="mb-3 font-bold text-white" style={{ fontSize: "20px" }}>
                     {event.title}
                   </h3>
 
-                  {/* Event Details */}
                   <div className="mb-3 space-y-2">
                     <div className="flex items-center gap-2 text-gray-300">
                       <Calendar className="h-4 w-4" />
-                      <span
-                        className="font-normal"
-                        style={{ fontSize: "13px" }}
-                      >
+                      <span className="font-normal" style={{ fontSize: "13px" }}>
                         {event.date}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-300">
                       <Clock className="h-4 w-4" />
-                      <span
-                        className="font-normal"
-                        style={{ fontSize: "13px" }}
-                      >
+                      <span className="font-normal" style={{ fontSize: "13px" }}>
                         {event.time}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-300">
                       <MapPin className="h-4 w-4" />
-                      <span
-                        className="font-normal"
-                        style={{ fontSize: "13px" }}
-                      >
+                      <span className="font-normal" style={{ fontSize: "13px" }}>
                         {event.location}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-300">
                       <Users className="h-4 w-4" />
-                      <span
-                        className="font-normal"
-                        style={{ fontSize: "13px" }}
-                      >
+                      <span className="font-normal" style={{ fontSize: "13px" }}>
                         {currentAttendees} / {event.maxAttendees} attending
                       </span>
                     </div>
                   </div>
 
-                  {/* Description */}
-                  <p
-                    className="mb-4 font-normal text-gray-400"
-                    style={{ fontSize: "12px" }}
-                  >
+                  <p className="mb-4 font-normal text-gray-400" style={{ fontSize: "12px" }}>
                     {event.description}
                   </p>
 
-                  {/* Action Buttons */}
                   {!acceptedStates[event.id] ? (
                     <button
                       className="w-full rounded-xl border-2 border-[#D01400] bg-[#D01400] py-2 font-bold text-white transition-opacity hover:opacity-80"
                       style={{ fontSize: "13px" }}
-                      onClick={() =>
-                        currentAttendees &&
-                        handleAccept(event.id, currentAttendees)
-                      }
+                      onClick={() => handleAccept(event.id, currentAttendees)}
                     >
                       Accept
                     </button>
@@ -284,10 +230,7 @@ export default function EventsPage() {
                       <button
                         className="w-full rounded-xl border-2 border-gray-600 bg-transparent py-2 font-bold text-gray-300 transition-opacity hover:opacity-80"
                         style={{ fontSize: "13px" }}
-                        onClick={() =>
-                          currentAttendees &&
-                          handleCancelParticipation(event.id, currentAttendees)
-                        }
+                        onClick={() => handleCancelParticipation(event.id, currentAttendees)}
                       >
                         Cancel Participation
                       </button>

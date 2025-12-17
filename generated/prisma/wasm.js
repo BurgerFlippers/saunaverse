@@ -277,7 +277,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\juuso\\Projects\\burgerflippers\\saunastrava\\generated\\prisma",
+      "value": "/Users/aapo/Tiedostotkoneella/Saunaversetoimiva/saunaverse/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -286,7 +286,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       },
       {
@@ -295,7 +295,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\juuso\\Projects\\burgerflippers\\saunastrava\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/aapo/Tiedostotkoneella/Saunaversetoimiva/saunaverse/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
