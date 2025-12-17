@@ -16,7 +16,7 @@ export default function LoginPage() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            signIn("name", { name, redirectTo: "/feed" });
+            signIn("name", { name, redirectTo: "/you" });
           }}
           className="flex flex-col gap-2"
         >
