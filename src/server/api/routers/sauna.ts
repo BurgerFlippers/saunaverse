@@ -106,7 +106,7 @@ export const saunaRouter = createTRPCRouter({
 
             const avgHeartRate = biometrics._avg.heartRate;
             const kCalBurned = avgHeartRate
-              ? calculateCalorieUsage(session.durationMs, avgHeartRate)
+              ? calculateCalorieUsage(avgHeartRate, session.durationMs)
               : null;
 
             return {

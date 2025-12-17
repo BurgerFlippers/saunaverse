@@ -226,8 +226,8 @@ export const postRouter = createTRPCRouter({
               kCalBurned:
                 item.saunaSession.durationMs && biometrics._avg.heartRate
                   ? calculateCalorieUsage(
-                      item.saunaSession.durationMs,
                       biometrics._avg.heartRate,
+                      item.saunaSession.durationMs,
                     )
                   : null,
             },
