@@ -120,19 +120,46 @@ export const SessionChart = memo(function SessionChart({
       const measurement = measurementsByMinute.get(t);
       const biometric = biometricsByMinute.get(t);
 
-      // Only add point if we have data or if we want to show gaps (connectNulls handles gaps)
-      // But creating points for every minute is safer for X-axis continuity
       chartData.push({
         time: new Date(t).toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         }),
-        temperature: measurement?.temperature,
-        humidity: measurement?.humidity,
+        temperature: measurement?.temperature ?? null,
+        humidity: measurement?.humidity ?? null,
         inSauna: (measurement?.precence ?? 0) > 20 ? 0 : null,
-        heartRate: biometric?.heartRate,
+        heartRate: biometric?.heartRate ?? null,
       });
     }
+
+    // Interpolate missing values to ensure tooltip shows values everywhere
+    const interpolate = (data: any[], key: string) => {
+      let lastValidIndex = -1;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i][key] !== null && data[i][key] !== undefined) {
+          if (lastValidIndex !== -1 && i > lastValidIndex + 1) {
+            // Fill gaps
+            const startVal = data[lastValidIndex][key];
+            const endVal = data[i][key];
+            const steps = i - lastValidIndex;
+            const stepVal = (endVal - startVal) / steps;
+            for (let j = 1; j < steps; j++) {
+              data[lastValidIndex + j][key] = startVal + stepVal * j;
+              if (key === "heartRate") {
+                data[lastValidIndex + j][key] = Math.round(
+                  data[lastValidIndex + j][key],
+                );
+              }
+            }
+          }
+          lastValidIndex = i;
+        }
+      }
+    };
+
+    interpolate(chartData, "temperature");
+    interpolate(chartData, "humidity");
+    interpolate(chartData, "heartRate");
 
     return { chartData, yAxisDomain };
   }, [measurements]);
