@@ -80,6 +80,34 @@ export const saunaRouter = createTRPCRouter({
       orderBy: {
         startTimestamp: "desc",
       },
+    }).then(async (sessions) => {
+      const enrichedSessions = await Promise.all(
+        sessions.map(async (session) => {
+          if (!session.durationMs || !session.startTimestamp || !session.endTimestamp) return session;
+
+          const biometrics = await ctx.db.userBiometrics.aggregate({
+            _avg: { heartRate: true },
+            where: {
+              userId: userId, // Current user
+              timestamp: {
+                gte: session.startTimestamp,
+                lte: session.endTimestamp,
+              },
+            },
+          });
+
+          const avgHeartRate = biometrics._avg.heartRate;
+          const kCalBurned = avgHeartRate ?
+            (session.durationMs / (1000 * 60)) * (avgHeartRate - 60) * 0.2 : null;
+
+          return {
+            ...session,
+            avgHeartRate,
+            kCalBurned,
+          };
+        }),
+      );
+      return enrichedSessions;
     });
   }),
 

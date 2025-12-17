@@ -23,8 +23,8 @@ type FeedPost = RouterOutputs["post"]["getFeed"]["items"][number];
 // Allow for fallback to the full post type from other queries if needed
 // The 'any' is a practical compromise to avoid complex union types for different query outputs
 interface PostCardProps {
-  post?: FeedPost | any;
-  session: FeedPost["saunaSession"] | any;
+  post?: FeedPost;
+  session: FeedPost["saunaSession"];
 }
 
 export function PostCard({ post, session: saunaSession }: PostCardProps) {
@@ -36,13 +36,12 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
 
   // Fetch comments only when expanded and if we don't already have them in the post object
   // (The 'You' page query might still include comments directly)
-  const hasEmbeddedComments = post?.comments && Array.isArray(post.comments);
   const { data: fetchedComments } = api.post.getComments.useQuery(
     { postId: post?.id ?? 0 },
-    { enabled: !!post?.id && showComments && !hasEmbeddedComments },
+    { enabled: !!post?.id && showComments },
   );
 
-  const displayComments = hasEmbeddedComments ? post.comments : fetchedComments;
+  const displayComments = fetchedComments;
 
   // If we don't have a session, we can't mutate anyway
   const canMutate = !!session?.user;
@@ -259,34 +258,38 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
                     {saunaSession.avgHumidity?.toFixed(0)}%
                   </p>
                 </div>
-                <div>
-                  <p
-                    className="mb-1.5 font-normal text-gray-300"
-                    style={{ fontSize: "11px" }}
-                  >
-                    Avg HR
-                  </p>
-                  <p
-                    className="mb-0 leading-none font-bold text-white"
-                    style={{ fontSize: "19px" }}
-                  >
-                    {saunaSession.avgHumidity?.toFixed(0)} bpm
-                  </p>
-                </div>
-                <div>
-                  <p
-                    className="mb-1.5 font-normal text-gray-300"
-                    style={{ fontSize: "11px" }}
-                  >
-                    kCal burned
-                  </p>
-                  <p
-                    className="mb-0 leading-none font-bold text-white"
-                    style={{ fontSize: "19px" }}
-                  >
-                    {saunaSession.avgHumidity?.toFixed(0)} kcal
-                  </p>
-                </div>
+                {saunaSession.avgHeartRate && (
+                  <div>
+                    <p
+                      className="mb-1.5 font-normal text-gray-300"
+                      style={{ fontSize: "11px" }}
+                    >
+                      Avg HR
+                    </p>
+                    <p
+                      className="mb-0 leading-none font-bold text-white"
+                      style={{ fontSize: "19px" }}
+                    >
+                      {saunaSession.avgHeartRate?.toFixed(0)} bpm
+                    </p>
+                  </div>
+                )}
+                {saunaSession.kCalBurned && (
+                  <div>
+                    <p
+                      className="mb-1.5 font-normal text-gray-300"
+                      style={{ fontSize: "11px" }}
+                    >
+                      kCal burned
+                    </p>
+                    <p
+                      className="mb-0 leading-none font-bold text-white"
+                      style={{ fontSize: "19px" }}
+                    >
+                      {saunaSession.kCalBurned?.toFixed(0)} kcal
+                    </p>
+                  </div>
+                )}
               </>
             )}
           </div>

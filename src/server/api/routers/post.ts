@@ -204,14 +204,43 @@ export const postRouter = createTRPCRouter({
         },
       });
 
+      const enrichedItems = await Promise.all(
+        items.map(async (item) => {
+          const biometrics = await ctx.db.userBiometrics.aggregate({
+            _avg: { heartRate: true },
+            where: {
+              userId: item.createdBy.id,
+              timestamp: {
+                gte: item.saunaSession.startTimestamp,
+                lte: item.saunaSession.endTimestamp ?? new Date(),
+              },
+            },
+          });
+
+          return {
+            ...item,
+            saunaSession: {
+              ...item.saunaSession,
+              avgHeartRate: biometrics._avg.heartRate,
+              kCalBurned:
+                item.saunaSession.durationMs && biometrics._avg.heartRate
+                  ? (item.saunaSession.durationMs / (1000 * 60)) *
+                    (biometrics._avg.heartRate - 60) *
+                    0.2
+                  : null,
+            },
+          };
+        }),
+      );
+
       let nextCursor: typeof cursor | undefined = undefined;
-      if (items.length > limit) {
-        const nextItem = items.pop();
+      if (enrichedItems.length > limit) {
+        const nextItem = enrichedItems.pop();
         nextCursor = nextItem!.id;
       }
 
       return {
-        items,
+        items: enrichedItems,
         nextCursor,
       };
     }),
