@@ -178,18 +178,14 @@ export function Programs({ removeProgram }: ProgramsProps) {
         </Card>
       )}
 
-      <div className="flex items-center justify-between px-3">
-        <h1 className="font-bold text-white" style={{ fontSize: "28px" }}>
-          Saved Programs
-        </h1>
-      </div>
-
-      <p
-        className="px-3 font-normal text-gray-400"
-        style={{ fontSize: "13px" }}
-      >
-        Sauna programs you've saved
-      </p>
+      <div className="px-4 pt-4 pb-2">
+  <h2 className="mb-1 font-bold text-white" style={{ fontSize: "24px" }}>
+    Saved Programs
+  </h2>
+  <p className="font-normal text-gray-400" style={{ fontSize: "13px" }}>
+    Sauna programs you've saved
+  </p>
+</div>
 
       <div className="space-y-3">
         {programs.map((program, index) => {
