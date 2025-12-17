@@ -214,7 +214,7 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
       {/* Stats Row */}
       {saunaSession && (
         <div className="mt-0 pt-0 pr-3 pb-0 pl-5">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-5 gap-4">
             <div>
               <p
                 className="mb-1.5 font-normal text-gray-300"
@@ -243,20 +243,6 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
                     style={{ fontSize: "19px" }}
                   >
                     {saunaSession.avgTemperature?.toFixed(0)}°
-                  </p>
-                </div>
-                <div>
-                  <p
-                    className="mb-1.5 font-normal text-gray-300"
-                    style={{ fontSize: "11px" }}
-                  >
-                    Max Temp
-                  </p>
-                  <p
-                    className="mb-0 leading-none font-bold text-white"
-                    style={{ fontSize: "19px" }}
-                  >
-                    {saunaSession.maxTemperature?.toFixed(0)}°
                   </p>
                 </div>
                 <div>
