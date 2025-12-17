@@ -144,7 +144,25 @@ export const saunaRouter = createTRPCRouter({
         },
       });
 
-      return measurements;
+      let biometrics: { timestamp: Date; heartRate: number }[] = [];
+      if (ctx.session?.user?.id) {
+        biometrics = await ctx.db.userBiometrics.findMany({
+          where: {
+            userId: ctx.session.user.id,
+            timestamp: {
+              gt: saunaSession.startTimestamp,
+              lt: saunaSession.endTimestamp ?? new Date(),
+            },
+          },
+          select: {
+            timestamp: true,
+            heartRate: true,
+          },
+          orderBy: { timestamp: "asc" },
+        });
+      }
+
+      return { measurements, biometrics };
     }),
 
   endSessionManually: protectedProcedure

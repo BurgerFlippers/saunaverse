@@ -251,6 +251,13 @@ exports.Prisma.EventScalarFieldEnum = {
   createdById: 'createdById'
 };
 
+exports.Prisma.UserBiometricsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  timestamp: 'timestamp',
+  heartRate: 'heartRate'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -284,7 +291,8 @@ exports.Prisma.ModelName = {
   Achievement: 'Achievement',
   SaunaMeasurement: 'SaunaMeasurement',
   Comment: 'Comment',
-  Event: 'Event'
+  Event: 'Event',
+  UserBiometrics: 'UserBiometrics'
 };
 
 /**

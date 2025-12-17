@@ -34,6 +34,7 @@ const LEGEND_STYLE = { fontSize: "12px", color: "#BFC5CA" };
 
 const formatTooltip = (value: number, name: string) => {
   if (name === "inSauna") return null;
+  if (name === "heartRate") return [`${value} bpm`, "Heart Rate"];
   return [
     `${value.toFixed(2)}${name === "temperature" ? "°" : "%"}`,
     name === "temperature" ? "Temperature" : "Humidity",
@@ -43,6 +44,7 @@ const formatTooltip = (value: number, name: string) => {
 const formatLegend = (value: any) => {
   if (value === "temperature") return "Temp (°C)";
   if (value === "humidity") return "Humidity (%)";
+  if (value === "heartRate") return "Heart Rate (bpm)";
   return "In sauna";
 };
 
@@ -53,7 +55,7 @@ export const SessionChart = memo(function SessionChart({
   sessionId,
 }: SessionChartProps) {
   console.log("rendering sess start", sessionId);
-  const { data: fetchedMeasurements, isLoading } =
+  const { data: fetchedData, isLoading } =
     api.sauna.getSaunaSessionMeasurements.useQuery(
       {
         saunaSessionId: sessionId ?? "",
@@ -65,7 +67,8 @@ export const SessionChart = memo(function SessionChart({
     );
 
   const measurements =
-    initialMeasurements ?? fetchedMeasurements ?? (EMPTY_ARRAY as any);
+    initialMeasurements ?? fetchedData?.measurements ?? (EMPTY_ARRAY as any);
+  const biometrics = fetchedData?.biometrics ?? [];
 
   // Calculate max temperature for dynamic Y-axis
   const { chartData, yAxisDomain } = useMemo(() => {
@@ -77,18 +80,27 @@ export const SessionChart = memo(function SessionChart({
         : 100;
     const yAxisDomain = maxTemp > 100 ? [0, 119] : [0, 100];
 
-    const chartData = smoothedMeasurements.map((m) => ({
-      time: new Date(m.timestamp).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      temperature: m.temperature,
-      humidity: m.humidity,
-      inSauna: m.precence > 10 ? 0 : null,
-    }));
+    const chartData = smoothedMeasurements.map((m) => {
+      // Find closest biometric point within 2 minutes
+      const mTime = new Date(m.timestamp).getTime();
+      const bio = biometrics.find(
+        (b) => Math.abs(new Date(b.timestamp).getTime() - mTime) < 2 * 60 * 1000,
+      );
+
+      return {
+        time: new Date(m.timestamp).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        temperature: m.temperature,
+        humidity: m.humidity,
+        inSauna: m.precence > 10 ? 0 : null,
+        heartRate: bio?.heartRate,
+      };
+    });
 
     return { chartData, yAxisDomain };
-  }, [measurements]);
+  }, [measurements, biometrics]);
 
   if (isLoading && !initialMeasurements) {
     return (
@@ -140,6 +152,14 @@ export const SessionChart = memo(function SessionChart({
               width={35}
             />
 
+            {/* Heart Rate Y-axis (hidden or scaled to fit?) */}
+            <YAxis
+              yAxisId="hr"
+              orientation="left"
+              domain={[0, 200]}
+              hide={true}
+            />
+
             {/* Hidden Y-axis for in-sauna indicator (at bottom) */}
             <YAxis yAxisId="inSauna" domain={[0, 1]} hide={true} />
 
@@ -185,6 +205,16 @@ export const SessionChart = memo(function SessionChart({
               strokeWidth={3}
               dot={false}
               name="humidity"
+            />
+            <Line
+              yAxisId="hr"
+              type="monotone"
+              dataKey="heartRate"
+              stroke="#E11D48" // Rose-600
+              strokeWidth={2}
+              dot={false}
+              name="heartRate"
+              connectNulls // Polar data might be sparse
             />
           </LineChart>
         </div>

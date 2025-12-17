@@ -82,6 +82,7 @@ model User {
     comments           Comment[]
     createdEvents      Event[]        @relation("CreatedEvents")
     participatedEvents Event[]        @relation("ParticipatedEvents")
+    biometrics         UserBiometrics[]
 }
 
 model VerificationToken {
@@ -203,4 +204,15 @@ model Event {
     createdBy    User     @relation("CreatedEvents", fields: [createdById], references: [id])
     createdById  String
     participants User[]   @relation("ParticipatedEvents")
+}
+
+model UserBiometrics {
+    id        String   @id @default(cuid())
+    userId    String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    timestamp DateTime
+    heartRate Int
+
+    @@unique([userId, timestamp])
+    @@index([userId, timestamp])
 }

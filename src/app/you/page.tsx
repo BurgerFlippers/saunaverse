@@ -23,6 +23,7 @@ import { useState, useEffect, useRef } from "react";
 import { YearSummary } from "../_components/YearSummary";
 import { AddPostModal } from "../_components/AddPostModal";
 import { PostCard } from "../_components/PostCard";
+import { LinkPolarAccount } from "../_components/LinkPolarAccount";
 
 export default function YouPage() {
   const { data: session } = useSession({
@@ -306,6 +307,10 @@ export default function YouPage() {
             <Calendar className="mr-2" />
             View Your 2024 Sauna Wrapped
           </button>
+
+          <div className="mt-4">
+            <LinkPolarAccount />
+          </div>
 
           <div className="mb-6">
             <div className="mb-3 flex items-center gap-2">

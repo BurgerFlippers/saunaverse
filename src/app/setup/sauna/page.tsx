@@ -241,7 +241,7 @@ function SaunaSetupContent() {
   const handleSaunaTypeSelect = (type: "harvia" | "manual" | "none") => {
     setSaunaType(type);
     if (type === "none") {
-      router.push("/");
+      router.push("/setup/polar");
     } else {
       setStep(2);
     }
@@ -259,13 +259,13 @@ function SaunaSetupContent() {
         <CreateSaunaStep
           onNext={(id) => {
             setSaunaId(id);
-            router.push("/");
+            router.push("/setup/polar");
           }}
-          onSkip={() => router.push("/")}
+          onSkip={() => router.push("/setup/polar")}
         />
       )}
       {step === 2 && saunaType === "harvia" && (
-        <HarviaStep onNext={() => router.push("/")} />
+        <HarviaStep onNext={() => router.push("/setup/polar")} />
       )}
     </div>
   );

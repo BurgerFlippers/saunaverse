@@ -78,6 +78,11 @@ export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
  * 
  */
 export type Event = $Result.DefaultSelection<Prisma.$EventPayload>
+/**
+ * Model UserBiometrics
+ * 
+ */
+export type UserBiometrics = $Result.DefaultSelection<Prisma.$UserBiometricsPayload>
 
 /**
  * Enums
@@ -344,6 +349,16 @@ export class PrismaClient<
     * ```
     */
   get event(): Prisma.EventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userBiometrics`: Exposes CRUD operations for the **UserBiometrics** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserBiometrics
+    * const userBiometrics = await prisma.userBiometrics.findMany()
+    * ```
+    */
+  get userBiometrics(): Prisma.UserBiometricsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -797,7 +812,8 @@ export namespace Prisma {
     Achievement: 'Achievement',
     SaunaMeasurement: 'SaunaMeasurement',
     Comment: 'Comment',
-    Event: 'Event'
+    Event: 'Event',
+    UserBiometrics: 'UserBiometrics'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -816,7 +832,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "account" | "session" | "user" | "verificationToken" | "sauna" | "saunaSession" | "like" | "postImage" | "achievement" | "saunaMeasurement" | "comment" | "event"
+      modelProps: "post" | "account" | "session" | "user" | "verificationToken" | "sauna" | "saunaSession" | "like" | "postImage" | "achievement" | "saunaMeasurement" | "comment" | "event" | "userBiometrics"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1782,6 +1798,80 @@ export namespace Prisma {
           }
         }
       }
+      UserBiometrics: {
+        payload: Prisma.$UserBiometricsPayload<ExtArgs>
+        fields: Prisma.UserBiometricsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserBiometricsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserBiometricsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload>
+          }
+          findFirst: {
+            args: Prisma.UserBiometricsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserBiometricsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload>
+          }
+          findMany: {
+            args: Prisma.UserBiometricsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload>[]
+          }
+          create: {
+            args: Prisma.UserBiometricsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload>
+          }
+          createMany: {
+            args: Prisma.UserBiometricsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserBiometricsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload>[]
+          }
+          delete: {
+            args: Prisma.UserBiometricsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload>
+          }
+          update: {
+            args: Prisma.UserBiometricsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserBiometricsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserBiometricsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserBiometricsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserBiometricsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserBiometricsPayload>
+          }
+          aggregate: {
+            args: Prisma.UserBiometricsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserBiometrics>
+          }
+          groupBy: {
+            args: Prisma.UserBiometricsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserBiometricsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserBiometricsCountArgs<ExtArgs>
+            result: $Utils.Optional<UserBiometricsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1891,6 +1981,7 @@ export namespace Prisma {
     saunaMeasurement?: SaunaMeasurementOmit
     comment?: CommentOmit
     event?: EventOmit
+    userBiometrics?: UserBiometricsOmit
   }
 
   /* Types for Logging */
@@ -2029,6 +2120,7 @@ export namespace Prisma {
     comments: number
     createdEvents: number
     participatedEvents: number
+    biometrics: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2041,6 +2133,7 @@ export namespace Prisma {
     comments?: boolean | UserCountOutputTypeCountCommentsArgs
     createdEvents?: boolean | UserCountOutputTypeCountCreatedEventsArgs
     participatedEvents?: boolean | UserCountOutputTypeCountParticipatedEventsArgs
+    biometrics?: boolean | UserCountOutputTypeCountBiometricsArgs
   }
 
   // Custom InputTypes
@@ -2115,6 +2208,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountParticipatedEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EventWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBiometricsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserBiometricsWhereInput
   }
 
 
@@ -5965,6 +6065,7 @@ export namespace Prisma {
     comments?: boolean | User$commentsArgs<ExtArgs>
     createdEvents?: boolean | User$createdEventsArgs<ExtArgs>
     participatedEvents?: boolean | User$participatedEventsArgs<ExtArgs>
+    biometrics?: boolean | User$biometricsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -6003,6 +6104,7 @@ export namespace Prisma {
     comments?: boolean | User$commentsArgs<ExtArgs>
     createdEvents?: boolean | User$createdEventsArgs<ExtArgs>
     participatedEvents?: boolean | User$participatedEventsArgs<ExtArgs>
+    biometrics?: boolean | User$biometricsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6020,6 +6122,7 @@ export namespace Prisma {
       comments: Prisma.$CommentPayload<ExtArgs>[]
       createdEvents: Prisma.$EventPayload<ExtArgs>[]
       participatedEvents: Prisma.$EventPayload<ExtArgs>[]
+      biometrics: Prisma.$UserBiometricsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6430,6 +6533,7 @@ export namespace Prisma {
     comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdEvents<T extends User$createdEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     participatedEvents<T extends User$participatedEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$participatedEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    biometrics<T extends User$biometricsArgs<ExtArgs> = {}>(args?: Subset<T, User$biometricsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7065,6 +7169,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * User.biometrics
+   */
+  export type User$biometricsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    where?: UserBiometricsWhereInput
+    orderBy?: UserBiometricsOrderByWithRelationInput | UserBiometricsOrderByWithRelationInput[]
+    cursor?: UserBiometricsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserBiometricsScalarFieldEnum | UserBiometricsScalarFieldEnum[]
   }
 
   /**
@@ -17205,6 +17333,1085 @@ export namespace Prisma {
 
 
   /**
+   * Model UserBiometrics
+   */
+
+  export type AggregateUserBiometrics = {
+    _count: UserBiometricsCountAggregateOutputType | null
+    _avg: UserBiometricsAvgAggregateOutputType | null
+    _sum: UserBiometricsSumAggregateOutputType | null
+    _min: UserBiometricsMinAggregateOutputType | null
+    _max: UserBiometricsMaxAggregateOutputType | null
+  }
+
+  export type UserBiometricsAvgAggregateOutputType = {
+    heartRate: number | null
+  }
+
+  export type UserBiometricsSumAggregateOutputType = {
+    heartRate: number | null
+  }
+
+  export type UserBiometricsMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    timestamp: Date | null
+    heartRate: number | null
+  }
+
+  export type UserBiometricsMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    timestamp: Date | null
+    heartRate: number | null
+  }
+
+  export type UserBiometricsCountAggregateOutputType = {
+    id: number
+    userId: number
+    timestamp: number
+    heartRate: number
+    _all: number
+  }
+
+
+  export type UserBiometricsAvgAggregateInputType = {
+    heartRate?: true
+  }
+
+  export type UserBiometricsSumAggregateInputType = {
+    heartRate?: true
+  }
+
+  export type UserBiometricsMinAggregateInputType = {
+    id?: true
+    userId?: true
+    timestamp?: true
+    heartRate?: true
+  }
+
+  export type UserBiometricsMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    timestamp?: true
+    heartRate?: true
+  }
+
+  export type UserBiometricsCountAggregateInputType = {
+    id?: true
+    userId?: true
+    timestamp?: true
+    heartRate?: true
+    _all?: true
+  }
+
+  export type UserBiometricsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserBiometrics to aggregate.
+     */
+    where?: UserBiometricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserBiometrics to fetch.
+     */
+    orderBy?: UserBiometricsOrderByWithRelationInput | UserBiometricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserBiometricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserBiometrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserBiometrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserBiometrics
+    **/
+    _count?: true | UserBiometricsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserBiometricsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserBiometricsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserBiometricsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserBiometricsMaxAggregateInputType
+  }
+
+  export type GetUserBiometricsAggregateType<T extends UserBiometricsAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserBiometrics]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserBiometrics[P]>
+      : GetScalarType<T[P], AggregateUserBiometrics[P]>
+  }
+
+
+
+
+  export type UserBiometricsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserBiometricsWhereInput
+    orderBy?: UserBiometricsOrderByWithAggregationInput | UserBiometricsOrderByWithAggregationInput[]
+    by: UserBiometricsScalarFieldEnum[] | UserBiometricsScalarFieldEnum
+    having?: UserBiometricsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserBiometricsCountAggregateInputType | true
+    _avg?: UserBiometricsAvgAggregateInputType
+    _sum?: UserBiometricsSumAggregateInputType
+    _min?: UserBiometricsMinAggregateInputType
+    _max?: UserBiometricsMaxAggregateInputType
+  }
+
+  export type UserBiometricsGroupByOutputType = {
+    id: string
+    userId: string
+    timestamp: Date
+    heartRate: number
+    _count: UserBiometricsCountAggregateOutputType | null
+    _avg: UserBiometricsAvgAggregateOutputType | null
+    _sum: UserBiometricsSumAggregateOutputType | null
+    _min: UserBiometricsMinAggregateOutputType | null
+    _max: UserBiometricsMaxAggregateOutputType | null
+  }
+
+  type GetUserBiometricsGroupByPayload<T extends UserBiometricsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserBiometricsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserBiometricsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserBiometricsGroupByOutputType[P]>
+            : GetScalarType<T[P], UserBiometricsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserBiometricsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    timestamp?: boolean
+    heartRate?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userBiometrics"]>
+
+  export type UserBiometricsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    timestamp?: boolean
+    heartRate?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userBiometrics"]>
+
+  export type UserBiometricsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    timestamp?: boolean
+    heartRate?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userBiometrics"]>
+
+  export type UserBiometricsSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    timestamp?: boolean
+    heartRate?: boolean
+  }
+
+  export type UserBiometricsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "timestamp" | "heartRate", ExtArgs["result"]["userBiometrics"]>
+  export type UserBiometricsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserBiometricsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserBiometricsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserBiometricsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserBiometrics"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      timestamp: Date
+      heartRate: number
+    }, ExtArgs["result"]["userBiometrics"]>
+    composites: {}
+  }
+
+  type UserBiometricsGetPayload<S extends boolean | null | undefined | UserBiometricsDefaultArgs> = $Result.GetResult<Prisma.$UserBiometricsPayload, S>
+
+  type UserBiometricsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserBiometricsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserBiometricsCountAggregateInputType | true
+    }
+
+  export interface UserBiometricsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserBiometrics'], meta: { name: 'UserBiometrics' } }
+    /**
+     * Find zero or one UserBiometrics that matches the filter.
+     * @param {UserBiometricsFindUniqueArgs} args - Arguments to find a UserBiometrics
+     * @example
+     * // Get one UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserBiometricsFindUniqueArgs>(args: SelectSubset<T, UserBiometricsFindUniqueArgs<ExtArgs>>): Prisma__UserBiometricsClient<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserBiometrics that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserBiometricsFindUniqueOrThrowArgs} args - Arguments to find a UserBiometrics
+     * @example
+     * // Get one UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserBiometricsFindUniqueOrThrowArgs>(args: SelectSubset<T, UserBiometricsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserBiometricsClient<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserBiometrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBiometricsFindFirstArgs} args - Arguments to find a UserBiometrics
+     * @example
+     * // Get one UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserBiometricsFindFirstArgs>(args?: SelectSubset<T, UserBiometricsFindFirstArgs<ExtArgs>>): Prisma__UserBiometricsClient<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserBiometrics that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBiometricsFindFirstOrThrowArgs} args - Arguments to find a UserBiometrics
+     * @example
+     * // Get one UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserBiometricsFindFirstOrThrowArgs>(args?: SelectSubset<T, UserBiometricsFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserBiometricsClient<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserBiometrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBiometricsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.findMany()
+     * 
+     * // Get first 10 UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userBiometricsWithIdOnly = await prisma.userBiometrics.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserBiometricsFindManyArgs>(args?: SelectSubset<T, UserBiometricsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserBiometrics.
+     * @param {UserBiometricsCreateArgs} args - Arguments to create a UserBiometrics.
+     * @example
+     * // Create one UserBiometrics
+     * const UserBiometrics = await prisma.userBiometrics.create({
+     *   data: {
+     *     // ... data to create a UserBiometrics
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserBiometricsCreateArgs>(args: SelectSubset<T, UserBiometricsCreateArgs<ExtArgs>>): Prisma__UserBiometricsClient<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserBiometrics.
+     * @param {UserBiometricsCreateManyArgs} args - Arguments to create many UserBiometrics.
+     * @example
+     * // Create many UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserBiometricsCreateManyArgs>(args?: SelectSubset<T, UserBiometricsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserBiometrics and returns the data saved in the database.
+     * @param {UserBiometricsCreateManyAndReturnArgs} args - Arguments to create many UserBiometrics.
+     * @example
+     * // Create many UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserBiometrics and only return the `id`
+     * const userBiometricsWithIdOnly = await prisma.userBiometrics.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserBiometricsCreateManyAndReturnArgs>(args?: SelectSubset<T, UserBiometricsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserBiometrics.
+     * @param {UserBiometricsDeleteArgs} args - Arguments to delete one UserBiometrics.
+     * @example
+     * // Delete one UserBiometrics
+     * const UserBiometrics = await prisma.userBiometrics.delete({
+     *   where: {
+     *     // ... filter to delete one UserBiometrics
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserBiometricsDeleteArgs>(args: SelectSubset<T, UserBiometricsDeleteArgs<ExtArgs>>): Prisma__UserBiometricsClient<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserBiometrics.
+     * @param {UserBiometricsUpdateArgs} args - Arguments to update one UserBiometrics.
+     * @example
+     * // Update one UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserBiometricsUpdateArgs>(args: SelectSubset<T, UserBiometricsUpdateArgs<ExtArgs>>): Prisma__UserBiometricsClient<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserBiometrics.
+     * @param {UserBiometricsDeleteManyArgs} args - Arguments to filter UserBiometrics to delete.
+     * @example
+     * // Delete a few UserBiometrics
+     * const { count } = await prisma.userBiometrics.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserBiometricsDeleteManyArgs>(args?: SelectSubset<T, UserBiometricsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserBiometrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBiometricsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserBiometricsUpdateManyArgs>(args: SelectSubset<T, UserBiometricsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserBiometrics and returns the data updated in the database.
+     * @param {UserBiometricsUpdateManyAndReturnArgs} args - Arguments to update many UserBiometrics.
+     * @example
+     * // Update many UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserBiometrics and only return the `id`
+     * const userBiometricsWithIdOnly = await prisma.userBiometrics.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserBiometricsUpdateManyAndReturnArgs>(args: SelectSubset<T, UserBiometricsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserBiometrics.
+     * @param {UserBiometricsUpsertArgs} args - Arguments to update or create a UserBiometrics.
+     * @example
+     * // Update or create a UserBiometrics
+     * const userBiometrics = await prisma.userBiometrics.upsert({
+     *   create: {
+     *     // ... data to create a UserBiometrics
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserBiometrics we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserBiometricsUpsertArgs>(args: SelectSubset<T, UserBiometricsUpsertArgs<ExtArgs>>): Prisma__UserBiometricsClient<$Result.GetResult<Prisma.$UserBiometricsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserBiometrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBiometricsCountArgs} args - Arguments to filter UserBiometrics to count.
+     * @example
+     * // Count the number of UserBiometrics
+     * const count = await prisma.userBiometrics.count({
+     *   where: {
+     *     // ... the filter for the UserBiometrics we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserBiometricsCountArgs>(
+      args?: Subset<T, UserBiometricsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserBiometricsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserBiometrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBiometricsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserBiometricsAggregateArgs>(args: Subset<T, UserBiometricsAggregateArgs>): Prisma.PrismaPromise<GetUserBiometricsAggregateType<T>>
+
+    /**
+     * Group by UserBiometrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserBiometricsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserBiometricsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserBiometricsGroupByArgs['orderBy'] }
+        : { orderBy?: UserBiometricsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserBiometricsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserBiometricsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserBiometrics model
+   */
+  readonly fields: UserBiometricsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserBiometrics.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserBiometricsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserBiometrics model
+   */
+  interface UserBiometricsFieldRefs {
+    readonly id: FieldRef<"UserBiometrics", 'String'>
+    readonly userId: FieldRef<"UserBiometrics", 'String'>
+    readonly timestamp: FieldRef<"UserBiometrics", 'DateTime'>
+    readonly heartRate: FieldRef<"UserBiometrics", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserBiometrics findUnique
+   */
+  export type UserBiometricsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserBiometrics to fetch.
+     */
+    where: UserBiometricsWhereUniqueInput
+  }
+
+  /**
+   * UserBiometrics findUniqueOrThrow
+   */
+  export type UserBiometricsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserBiometrics to fetch.
+     */
+    where: UserBiometricsWhereUniqueInput
+  }
+
+  /**
+   * UserBiometrics findFirst
+   */
+  export type UserBiometricsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserBiometrics to fetch.
+     */
+    where?: UserBiometricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserBiometrics to fetch.
+     */
+    orderBy?: UserBiometricsOrderByWithRelationInput | UserBiometricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserBiometrics.
+     */
+    cursor?: UserBiometricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserBiometrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserBiometrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserBiometrics.
+     */
+    distinct?: UserBiometricsScalarFieldEnum | UserBiometricsScalarFieldEnum[]
+  }
+
+  /**
+   * UserBiometrics findFirstOrThrow
+   */
+  export type UserBiometricsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserBiometrics to fetch.
+     */
+    where?: UserBiometricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserBiometrics to fetch.
+     */
+    orderBy?: UserBiometricsOrderByWithRelationInput | UserBiometricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserBiometrics.
+     */
+    cursor?: UserBiometricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserBiometrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserBiometrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserBiometrics.
+     */
+    distinct?: UserBiometricsScalarFieldEnum | UserBiometricsScalarFieldEnum[]
+  }
+
+  /**
+   * UserBiometrics findMany
+   */
+  export type UserBiometricsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserBiometrics to fetch.
+     */
+    where?: UserBiometricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserBiometrics to fetch.
+     */
+    orderBy?: UserBiometricsOrderByWithRelationInput | UserBiometricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserBiometrics.
+     */
+    cursor?: UserBiometricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserBiometrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserBiometrics.
+     */
+    skip?: number
+    distinct?: UserBiometricsScalarFieldEnum | UserBiometricsScalarFieldEnum[]
+  }
+
+  /**
+   * UserBiometrics create
+   */
+  export type UserBiometricsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserBiometrics.
+     */
+    data: XOR<UserBiometricsCreateInput, UserBiometricsUncheckedCreateInput>
+  }
+
+  /**
+   * UserBiometrics createMany
+   */
+  export type UserBiometricsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserBiometrics.
+     */
+    data: UserBiometricsCreateManyInput | UserBiometricsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserBiometrics createManyAndReturn
+   */
+  export type UserBiometricsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserBiometrics.
+     */
+    data: UserBiometricsCreateManyInput | UserBiometricsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserBiometrics update
+   */
+  export type UserBiometricsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserBiometrics.
+     */
+    data: XOR<UserBiometricsUpdateInput, UserBiometricsUncheckedUpdateInput>
+    /**
+     * Choose, which UserBiometrics to update.
+     */
+    where: UserBiometricsWhereUniqueInput
+  }
+
+  /**
+   * UserBiometrics updateMany
+   */
+  export type UserBiometricsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserBiometrics.
+     */
+    data: XOR<UserBiometricsUpdateManyMutationInput, UserBiometricsUncheckedUpdateManyInput>
+    /**
+     * Filter which UserBiometrics to update
+     */
+    where?: UserBiometricsWhereInput
+    /**
+     * Limit how many UserBiometrics to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserBiometrics updateManyAndReturn
+   */
+  export type UserBiometricsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * The data used to update UserBiometrics.
+     */
+    data: XOR<UserBiometricsUpdateManyMutationInput, UserBiometricsUncheckedUpdateManyInput>
+    /**
+     * Filter which UserBiometrics to update
+     */
+    where?: UserBiometricsWhereInput
+    /**
+     * Limit how many UserBiometrics to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserBiometrics upsert
+   */
+  export type UserBiometricsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserBiometrics to update in case it exists.
+     */
+    where: UserBiometricsWhereUniqueInput
+    /**
+     * In case the UserBiometrics found by the `where` argument doesn't exist, create a new UserBiometrics with this data.
+     */
+    create: XOR<UserBiometricsCreateInput, UserBiometricsUncheckedCreateInput>
+    /**
+     * In case the UserBiometrics was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserBiometricsUpdateInput, UserBiometricsUncheckedUpdateInput>
+  }
+
+  /**
+   * UserBiometrics delete
+   */
+  export type UserBiometricsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+    /**
+     * Filter which UserBiometrics to delete.
+     */
+    where: UserBiometricsWhereUniqueInput
+  }
+
+  /**
+   * UserBiometrics deleteMany
+   */
+  export type UserBiometricsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserBiometrics to delete
+     */
+    where?: UserBiometricsWhereInput
+    /**
+     * Limit how many UserBiometrics to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserBiometrics without action
+   */
+  export type UserBiometricsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBiometrics
+     */
+    select?: UserBiometricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserBiometrics
+     */
+    omit?: UserBiometricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserBiometricsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17385,6 +18592,16 @@ export namespace Prisma {
   };
 
   export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+  export const UserBiometricsScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    timestamp: 'timestamp',
+    heartRate: 'heartRate'
+  };
+
+  export type UserBiometricsScalarFieldEnum = (typeof UserBiometricsScalarFieldEnum)[keyof typeof UserBiometricsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17754,6 +18971,7 @@ export namespace Prisma {
     comments?: CommentListRelationFilter
     createdEvents?: EventListRelationFilter
     participatedEvents?: EventListRelationFilter
+    biometrics?: UserBiometricsListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17771,6 +18989,7 @@ export namespace Prisma {
     comments?: CommentOrderByRelationAggregateInput
     createdEvents?: EventOrderByRelationAggregateInput
     participatedEvents?: EventOrderByRelationAggregateInput
+    biometrics?: UserBiometricsOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17791,6 +19010,7 @@ export namespace Prisma {
     comments?: CommentListRelationFilter
     createdEvents?: EventListRelationFilter
     participatedEvents?: EventListRelationFilter
+    biometrics?: UserBiometricsListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -18424,6 +19644,59 @@ export namespace Prisma {
     createdById?: StringWithAggregatesFilter<"Event"> | string
   }
 
+  export type UserBiometricsWhereInput = {
+    AND?: UserBiometricsWhereInput | UserBiometricsWhereInput[]
+    OR?: UserBiometricsWhereInput[]
+    NOT?: UserBiometricsWhereInput | UserBiometricsWhereInput[]
+    id?: StringFilter<"UserBiometrics"> | string
+    userId?: StringFilter<"UserBiometrics"> | string
+    timestamp?: DateTimeFilter<"UserBiometrics"> | Date | string
+    heartRate?: IntFilter<"UserBiometrics"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserBiometricsOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    timestamp?: SortOrder
+    heartRate?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserBiometricsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_timestamp?: UserBiometricsUserIdTimestampCompoundUniqueInput
+    AND?: UserBiometricsWhereInput | UserBiometricsWhereInput[]
+    OR?: UserBiometricsWhereInput[]
+    NOT?: UserBiometricsWhereInput | UserBiometricsWhereInput[]
+    userId?: StringFilter<"UserBiometrics"> | string
+    timestamp?: DateTimeFilter<"UserBiometrics"> | Date | string
+    heartRate?: IntFilter<"UserBiometrics"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_timestamp">
+
+  export type UserBiometricsOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    timestamp?: SortOrder
+    heartRate?: SortOrder
+    _count?: UserBiometricsCountOrderByAggregateInput
+    _avg?: UserBiometricsAvgOrderByAggregateInput
+    _max?: UserBiometricsMaxOrderByAggregateInput
+    _min?: UserBiometricsMinOrderByAggregateInput
+    _sum?: UserBiometricsSumOrderByAggregateInput
+  }
+
+  export type UserBiometricsScalarWhereWithAggregatesInput = {
+    AND?: UserBiometricsScalarWhereWithAggregatesInput | UserBiometricsScalarWhereWithAggregatesInput[]
+    OR?: UserBiometricsScalarWhereWithAggregatesInput[]
+    NOT?: UserBiometricsScalarWhereWithAggregatesInput | UserBiometricsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserBiometrics"> | string
+    userId?: StringWithAggregatesFilter<"UserBiometrics"> | string
+    timestamp?: DateTimeWithAggregatesFilter<"UserBiometrics"> | Date | string
+    heartRate?: IntWithAggregatesFilter<"UserBiometrics"> | number
+  }
+
   export type PostCreateInput = {
     name: string
     description?: string | null
@@ -18688,6 +19961,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -18705,6 +19979,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -18722,6 +19997,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -18739,6 +20015,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -19397,6 +20674,54 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UserBiometricsCreateInput = {
+    id?: string
+    timestamp: Date | string
+    heartRate: number
+    user: UserCreateNestedOneWithoutBiometricsInput
+  }
+
+  export type UserBiometricsUncheckedCreateInput = {
+    id?: string
+    userId: string
+    timestamp: Date | string
+    heartRate: number
+  }
+
+  export type UserBiometricsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    heartRate?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneRequiredWithoutBiometricsNestedInput
+  }
+
+  export type UserBiometricsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    heartRate?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserBiometricsCreateManyInput = {
+    id?: string
+    userId: string
+    timestamp: Date | string
+    heartRate: number
+  }
+
+  export type UserBiometricsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    heartRate?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserBiometricsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    heartRate?: IntFieldUpdateOperationsInput | number
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -19767,6 +21092,12 @@ export namespace Prisma {
     none?: EventWhereInput
   }
 
+  export type UserBiometricsListRelationFilter = {
+    every?: UserBiometricsWhereInput
+    some?: UserBiometricsWhereInput
+    none?: UserBiometricsWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -19788,6 +21119,10 @@ export namespace Prisma {
   }
 
   export type EventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserBiometricsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20287,6 +21622,40 @@ export namespace Prisma {
     maxAttendees?: SortOrder
   }
 
+  export type UserBiometricsUserIdTimestampCompoundUniqueInput = {
+    userId: string
+    timestamp: Date | string
+  }
+
+  export type UserBiometricsCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    timestamp?: SortOrder
+    heartRate?: SortOrder
+  }
+
+  export type UserBiometricsAvgOrderByAggregateInput = {
+    heartRate?: SortOrder
+  }
+
+  export type UserBiometricsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    timestamp?: SortOrder
+    heartRate?: SortOrder
+  }
+
+  export type UserBiometricsMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    timestamp?: SortOrder
+    heartRate?: SortOrder
+  }
+
+  export type UserBiometricsSumOrderByAggregateInput = {
+    heartRate?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutPostsInput = {
     create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPostsInput
@@ -20573,6 +21942,13 @@ export namespace Prisma {
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
+  export type UserBiometricsCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserBiometricsCreateWithoutUserInput, UserBiometricsUncheckedCreateWithoutUserInput> | UserBiometricsCreateWithoutUserInput[] | UserBiometricsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserBiometricsCreateOrConnectWithoutUserInput | UserBiometricsCreateOrConnectWithoutUserInput[]
+    createMany?: UserBiometricsCreateManyUserInputEnvelope
+    connect?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20631,6 +22007,13 @@ export namespace Prisma {
     create?: XOR<EventCreateWithoutParticipantsInput, EventUncheckedCreateWithoutParticipantsInput> | EventCreateWithoutParticipantsInput[] | EventUncheckedCreateWithoutParticipantsInput[]
     connectOrCreate?: EventCreateOrConnectWithoutParticipantsInput | EventCreateOrConnectWithoutParticipantsInput[]
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+  }
+
+  export type UserBiometricsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserBiometricsCreateWithoutUserInput, UserBiometricsUncheckedCreateWithoutUserInput> | UserBiometricsCreateWithoutUserInput[] | UserBiometricsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserBiometricsCreateOrConnectWithoutUserInput | UserBiometricsCreateOrConnectWithoutUserInput[]
+    createMany?: UserBiometricsCreateManyUserInputEnvelope
+    connect?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -20760,6 +22143,20 @@ export namespace Prisma {
     deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
   }
 
+  export type UserBiometricsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserBiometricsCreateWithoutUserInput, UserBiometricsUncheckedCreateWithoutUserInput> | UserBiometricsCreateWithoutUserInput[] | UserBiometricsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserBiometricsCreateOrConnectWithoutUserInput | UserBiometricsCreateOrConnectWithoutUserInput[]
+    upsert?: UserBiometricsUpsertWithWhereUniqueWithoutUserInput | UserBiometricsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserBiometricsCreateManyUserInputEnvelope
+    set?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
+    disconnect?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
+    delete?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
+    connect?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
+    update?: UserBiometricsUpdateWithWhereUniqueWithoutUserInput | UserBiometricsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserBiometricsUpdateManyWithWhereWithoutUserInput | UserBiometricsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserBiometricsScalarWhereInput | UserBiometricsScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20881,6 +22278,20 @@ export namespace Prisma {
     update?: EventUpdateWithWhereUniqueWithoutParticipantsInput | EventUpdateWithWhereUniqueWithoutParticipantsInput[]
     updateMany?: EventUpdateManyWithWhereWithoutParticipantsInput | EventUpdateManyWithWhereWithoutParticipantsInput[]
     deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  }
+
+  export type UserBiometricsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserBiometricsCreateWithoutUserInput, UserBiometricsUncheckedCreateWithoutUserInput> | UserBiometricsCreateWithoutUserInput[] | UserBiometricsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserBiometricsCreateOrConnectWithoutUserInput | UserBiometricsCreateOrConnectWithoutUserInput[]
+    upsert?: UserBiometricsUpsertWithWhereUniqueWithoutUserInput | UserBiometricsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserBiometricsCreateManyUserInputEnvelope
+    set?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
+    disconnect?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
+    delete?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
+    connect?: UserBiometricsWhereUniqueInput | UserBiometricsWhereUniqueInput[]
+    update?: UserBiometricsUpdateWithWhereUniqueWithoutUserInput | UserBiometricsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserBiometricsUpdateManyWithWhereWithoutUserInput | UserBiometricsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserBiometricsScalarWhereInput | UserBiometricsScalarWhereInput[]
   }
 
   export type UserCreateNestedManyWithoutSaunasInput = {
@@ -21357,6 +22768,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutBiometricsInput = {
+    create?: XOR<UserCreateWithoutBiometricsInput, UserUncheckedCreateWithoutBiometricsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBiometricsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutBiometricsNestedInput = {
+    create?: XOR<UserCreateWithoutBiometricsInput, UserUncheckedCreateWithoutBiometricsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBiometricsInput
+    upsert?: UserUpsertWithoutBiometricsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBiometricsInput, UserUpdateWithoutBiometricsInput>, UserUncheckedUpdateWithoutBiometricsInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -21621,6 +23046,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -21637,6 +23063,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -21811,6 +23238,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -21827,6 +23255,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SaunaSessionUpsertWithoutPostsInput = {
@@ -22007,6 +23436,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -22023,6 +23453,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -22055,6 +23486,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -22071,6 +23503,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -22087,6 +23520,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -22103,6 +23537,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -22135,6 +23570,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -22151,6 +23587,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -22437,6 +23874,28 @@ export namespace Prisma {
     create: XOR<EventCreateWithoutParticipantsInput, EventUncheckedCreateWithoutParticipantsInput>
   }
 
+  export type UserBiometricsCreateWithoutUserInput = {
+    id?: string
+    timestamp: Date | string
+    heartRate: number
+  }
+
+  export type UserBiometricsUncheckedCreateWithoutUserInput = {
+    id?: string
+    timestamp: Date | string
+    heartRate: number
+  }
+
+  export type UserBiometricsCreateOrConnectWithoutUserInput = {
+    where: UserBiometricsWhereUniqueInput
+    create: XOR<UserBiometricsCreateWithoutUserInput, UserBiometricsUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserBiometricsCreateManyUserInputEnvelope = {
+    data: UserBiometricsCreateManyUserInput | UserBiometricsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -22674,6 +24133,32 @@ export namespace Prisma {
     data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyWithoutParticipantsInput>
   }
 
+  export type UserBiometricsUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserBiometricsWhereUniqueInput
+    update: XOR<UserBiometricsUpdateWithoutUserInput, UserBiometricsUncheckedUpdateWithoutUserInput>
+    create: XOR<UserBiometricsCreateWithoutUserInput, UserBiometricsUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserBiometricsUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserBiometricsWhereUniqueInput
+    data: XOR<UserBiometricsUpdateWithoutUserInput, UserBiometricsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserBiometricsUpdateManyWithWhereWithoutUserInput = {
+    where: UserBiometricsScalarWhereInput
+    data: XOR<UserBiometricsUpdateManyMutationInput, UserBiometricsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserBiometricsScalarWhereInput = {
+    AND?: UserBiometricsScalarWhereInput | UserBiometricsScalarWhereInput[]
+    OR?: UserBiometricsScalarWhereInput[]
+    NOT?: UserBiometricsScalarWhereInput | UserBiometricsScalarWhereInput[]
+    id?: StringFilter<"UserBiometrics"> | string
+    userId?: StringFilter<"UserBiometrics"> | string
+    timestamp?: DateTimeFilter<"UserBiometrics"> | Date | string
+    heartRate?: IntFilter<"UserBiometrics"> | number
+  }
+
   export type UserCreateWithoutSaunasInput = {
     id?: string
     name?: string | null
@@ -22688,6 +24173,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSaunasInput = {
@@ -22704,6 +24190,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSaunasInput = {
@@ -22951,6 +24438,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSaunaSessionsInput = {
@@ -22967,6 +24455,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSaunaSessionsInput = {
@@ -23116,6 +24605,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikesInput = {
@@ -23132,6 +24622,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikesInput = {
@@ -23200,6 +24691,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikesInput = {
@@ -23216,6 +24708,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostCreateWithoutImagesInput = {
@@ -23405,6 +24898,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -23421,6 +24915,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -23483,6 +24978,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -23499,6 +24995,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostUpsertWithoutCommentsInput = {
@@ -23576,6 +25073,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedEventsInput = {
@@ -23592,6 +25090,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
     participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedEventsInput = {
@@ -23613,6 +25112,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    biometrics?: UserBiometricsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutParticipatedEventsInput = {
@@ -23629,6 +25129,7 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    biometrics?: UserBiometricsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutParticipatedEventsInput = {
@@ -23692,6 +25193,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedEventsInput = {
@@ -23708,6 +25210,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutParticipatedEventsInput = {
@@ -23724,6 +25227,90 @@ export namespace Prisma {
   export type UserUpdateManyWithWhereWithoutParticipatedEventsInput = {
     where: UserScalarWhereInput
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutParticipatedEventsInput>
+  }
+
+  export type UserCreateWithoutBiometricsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionCreateNestedManyWithoutParticipantsInput
+    likes?: LikeCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventCreateNestedManyWithoutParticipantsInput
+  }
+
+  export type UserUncheckedCreateWithoutBiometricsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    saunas?: SaunaUncheckedCreateNestedManyWithoutUsersInput
+    saunaSessions?: SaunaSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    likes?: LikeUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutCreatedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    participatedEvents?: EventUncheckedCreateNestedManyWithoutParticipantsInput
+  }
+
+  export type UserCreateOrConnectWithoutBiometricsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBiometricsInput, UserUncheckedCreateWithoutBiometricsInput>
+  }
+
+  export type UserUpsertWithoutBiometricsInput = {
+    update: XOR<UserUpdateWithoutBiometricsInput, UserUncheckedUpdateWithoutBiometricsInput>
+    create: XOR<UserCreateWithoutBiometricsInput, UserUncheckedCreateWithoutBiometricsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBiometricsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBiometricsInput, UserUncheckedUpdateWithoutBiometricsInput>
+  }
+
+  export type UserUpdateWithoutBiometricsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBiometricsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    saunas?: SaunaUncheckedUpdateManyWithoutUsersNestedInput
+    saunaSessions?: SaunaSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
   }
 
   export type LikeCreateManyPostInput = {
@@ -23861,6 +25448,12 @@ export namespace Prisma {
     maxAttendees: number
     status?: string
     saunaId: string
+  }
+
+  export type UserBiometricsCreateManyUserInput = {
+    id?: string
+    timestamp: Date | string
+    heartRate: number
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -24169,6 +25762,24 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UserBiometricsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    heartRate?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserBiometricsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    heartRate?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserBiometricsUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    heartRate?: IntFieldUpdateOperationsInput | number
+  }
+
   export type SaunaSessionCreateManySaunaInput = {
     id?: string
     harviaSessionId?: string | null
@@ -24222,6 +25833,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSaunasInput = {
@@ -24238,6 +25850,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutSaunasInput = {
@@ -24395,6 +26008,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSaunaSessionsInput = {
@@ -24411,6 +26025,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     participatedEvents?: EventUncheckedUpdateManyWithoutParticipantsNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutSaunaSessionsInput = {
@@ -24515,6 +26130,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    biometrics?: UserBiometricsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutParticipatedEventsInput = {
@@ -24531,6 +26147,7 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutCreatedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    biometrics?: UserBiometricsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutParticipatedEventsInput = {

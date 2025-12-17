@@ -37,7 +37,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     POLAR_CLIENT_ID: process.env.POLAR_CLIENT_ID,
-    POLAR_CLIENT_SECRET: process.env.POLAR_SECRET,
+    POLAR_CLIENT_SECRET: process.env.POLAR_CLIENT_SECRET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

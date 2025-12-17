@@ -5,7 +5,9 @@ import {
   refreshHarviaIdToken,
   harviaGraphQLRequest,
   GET_DEVICE_MEASUREMENTS_QUERY,
+  GET_USER_DEVICES_QUERY,
 } from "@/server/api/harvia";
+import { getContinuousHeartRate, refreshPolarToken } from "@/server/api/polar";
 
 // Constants for PIR-based session detection
 const MIN_ACTIVITY_DURATION_MINUTES = 3; // Activity must be detected for at least this many minutes to start a session
@@ -21,101 +23,203 @@ export async function syncHarviaData() {
       process.env.HARVIA_USERNAME!,
       process.env.HARVIA_PASSWORD!,
     );
+
+    const demoDevicesResponse = await harviaGraphQLRequest<{
+      usersDevicesList: {
+        devices: {
+          id: string;
+          type: string;
+          attr: { key: string; value: string }[];
+        }[];
+      };
+    }>(
+      "device",
+      GET_USER_DEVICES_QUERY,
+      {},
+      demoHarviaTokens.idToken,
+      "usersDevicesList",
+    );
+
+    const demoDeviceIds = demoDevicesResponse.usersDevicesList.devices.map(
+      (d) => d.id,
+    );
+
     const demoSaunas = await db.sauna.findMany({
-      where: { harviaDeviceId: { not: "" } },
+      where: { harviaDeviceId: { in: demoDeviceIds } },
     });
     for (const sauna of demoSaunas) {
       await syncSaunaMeasurements(sauna, demoHarviaTokens.idToken);
     }
+  } catch (err) {
+    console.error("failed to sync demo saunas", err);
+  }
 
-    const saunas = await db.sauna.findMany({
-      include: {
-        users: {
-          include: {
-            accounts: {
-              where: { provider: "harvia" },
-            },
+  const saunas = await db.sauna.findMany({
+    include: {
+      users: {
+        include: {
+          accounts: {
+            where: { provider: "harvia" },
           },
+        },
+      },
+    },
+  });
+
+  for (const sauna of saunas) {
+    console.log("syncing sauna: ", sauna.name, sauna.id, sauna.harviaDeviceId);
+    const userWithHarvia = sauna.users.find(
+      (u) => u.accounts && u.accounts.length > 0,
+    );
+
+    if (!userWithHarvia) {
+      console.warn(
+        `Skipping sync for sauna ${sauna.name} ${sauna.id}: No user with a linked Harvia account.`,
+      );
+      continue;
+    }
+
+    const harviaAccount = userWithHarvia.accounts[0]!;
+
+    if (!harviaAccount.refresh_token || !harviaAccount.email) {
+      console.warn(
+        `Skipping sync for sauna ${sauna.id} using user ${userWithHarvia.id}: Harvia account or refresh token/email missing.`,
+      );
+      continue;
+    }
+
+    let harviaIdToken = harviaAccount.id_token;
+    const harviaExpiresAt = harviaAccount.expires_at
+      ? harviaAccount.expires_at * 1000
+      : 0;
+
+    // Refresh token if expired
+    if (!harviaIdToken || Date.now() >= harviaExpiresAt) {
+      try {
+        const newTokens = await refreshHarviaIdToken(
+          harviaAccount.refresh_token,
+          harviaAccount.email,
+        );
+        harviaIdToken = newTokens.idToken;
+
+        // Update the account in the database
+        await db.account.update({
+          where: { id: harviaAccount.id },
+          data: {
+            access_token: newTokens.accessToken,
+            id_token: newTokens.idToken,
+            expires_at: newTokens.expiresIn,
+          },
+        });
+      } catch (error) {
+        console.error(
+          `Failed to refresh Harvia token for user ${userWithHarvia.id}:`,
+          error,
+        );
+        continue; // Skip this sauna if token refresh fails
+      }
+    }
+
+    if (!harviaIdToken) {
+      console.error(
+        `No valid Harvia ID token for user ${userWithHarvia.id} after refresh attempt.`,
+      );
+      continue;
+    }
+
+    try {
+      await syncSaunaMeasurements(sauna, harviaIdToken);
+    } catch (error) {
+      console.error("Failed to sync sauna", sauna.id, error);
+    }
+  }
+
+  console.log("Harvia data synchronization complete.");
+
+  // After syncing Harvia data, also detect and manage sessions based on all measurements
+  await detectAndManageSaunaSessions();
+}
+
+export async function syncPolarData() {
+  console.log("Starting Polar data synchronization...");
+  try {
+    const usersWithPolar = await db.user.findMany({
+      include: {
+        accounts: {
+          where: { provider: "polar" },
+        },
+      },
+      where: {
+        accounts: {
+          some: { provider: "polar" },
         },
       },
     });
 
-    for (const sauna of saunas) {
-      console.log(
-        "syncing sauna: ",
-        sauna.name,
-        sauna.id,
-        sauna.harviaDeviceId,
-      );
-      const userWithHarvia = sauna.users.find(
-        (u) => u.accounts && u.accounts.length > 0,
-      );
+    for (const user of usersWithPolar) {
+      const polarAccount = user.accounts[0];
+      if (!polarAccount?.access_token) continue;
 
-      if (!userWithHarvia) {
-        console.warn(
-          `Skipping sync for sauna ${sauna.name} ${sauna.id}: No user with a linked Harvia account.`,
-        );
-        continue;
+      let accessToken = polarAccount.access_token;
+
+      console.log("syncing for", user.name);
+
+      // Identify sessions the user participated in
+      const userSessions = await db.saunaSession.findMany({
+        where: {
+          participants: { some: { id: user.id } },
+          startTimestamp: {
+            gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // Last 30 days
+          },
+        },
+        orderBy: { startTimestamp: "desc" },
+      });
+
+      console.log(userSessions);
+
+      // Find unique dates of these sessions
+      const sessionDates = new Set<string>();
+      for (const session of userSessions) {
+        const dateString = session.startTimestamp.toISOString().split("T")[0]!;
+        sessionDates.add(dateString);
       }
 
-      const harviaAccount = userWithHarvia.accounts[0]!;
+      for (const date of sessionDates) {
+        console.log(`Fetching Polar HR data for user ${user.id} on ${date}`);
+        const data = await getContinuousHeartRate(accessToken, date);
 
-      if (!harviaAccount.refresh_token || !harviaAccount.email) {
-        console.warn(
-          `Skipping sync for sauna ${sauna.id} using user ${userWithHarvia.id}: Harvia account or refresh token/email missing.`,
-        );
-        continue;
-      }
+        if (data && data.heart_rate_samples) {
+          console.log("got data", data.heart_rate_samples.length);
+          continue;
+          for (const sample of data.heart_rate_samples) {
+            const timestamp = new Date(`${data.date}T${sample.sample_time}`);
 
-      let harviaIdToken = harviaAccount.id_token;
-      const harviaExpiresAt = harviaAccount.expires_at
-        ? harviaAccount.expires_at * 1000
-        : 0;
+            if (isNaN(timestamp.getTime())) continue;
 
-      // Refresh token if expired
-      if (!harviaIdToken || Date.now() >= harviaExpiresAt) {
-        try {
-          const newTokens = await refreshHarviaIdToken(
-            harviaAccount.refresh_token,
-            harviaAccount.email,
-          );
-          harviaIdToken = newTokens.idToken;
-
-          // Update the account in the database
-          await db.account.update({
-            where: { id: harviaAccount.id },
-            data: {
-              access_token: newTokens.accessToken,
-              id_token: newTokens.idToken,
-              expires_at: newTokens.expiresIn,
-            },
-          });
-        } catch (error) {
-          console.error(
-            `Failed to refresh Harvia token for user ${userWithHarvia.id}:`,
-            error,
-          );
-          continue; // Skip this sauna if token refresh fails
+            await db.userBiometrics.upsert({
+              where: {
+                userId_timestamp: {
+                  userId: user.id,
+                  timestamp: timestamp,
+                },
+              },
+              create: {
+                userId: user.id,
+                timestamp: timestamp,
+                heartRate: sample.heart_rate,
+              },
+              update: {
+                heartRate: sample.heart_rate,
+              },
+            });
+          }
         }
       }
-
-      if (!harviaIdToken) {
-        console.error(
-          `No valid Harvia ID token for user ${userWithHarvia.id} after refresh attempt.`,
-        );
-        continue;
-      }
-
-      await syncSaunaMeasurements(sauna, harviaIdToken);
     }
-
-    console.log("Harvia data synchronization complete.");
+    console.log("Polar data synchronization complete.");
   } catch (error) {
-    console.error("Harvia data synchronization failed:", error);
+    console.error("Polar data synchronization failed:", error);
   }
-
-  // After syncing Harvia data, also detect and manage sessions based on all measurements
-  await detectAndManageSaunaSessions();
 }
 
 import type { Sauna } from "../../generated/prisma/client";
