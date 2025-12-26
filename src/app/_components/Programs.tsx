@@ -141,7 +141,7 @@ export function Programs({ removeProgram }: ProgramsProps) {
   };
 
   return (
-    <div className="space-y-3 pt-5 pb-2">
+    <div className="space-y-2 pb-2">
       {/* Active Session Status */}
       {activeSession && (
         <Card className="heat-wave mx-3 overflow-hidden rounded-2xl border-[#2C2B36] bg-[#1F1F23]">
