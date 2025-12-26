@@ -9,7 +9,7 @@ interface YearSummaryProps {
 
 export function YearSummary({ isOpen, onClose }: YearSummaryProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
+  const totalPages = 6;
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -30,7 +30,7 @@ export function YearSummary({ isOpen, onClose }: YearSummaryProps) {
 
   const pageContent = [
     {
-      heading1: "Your Sauna Year 2024",
+      heading1: "Your Sauna Year 2025",
       heading2: "A warm look back at your year in löyly.",
     },
     {
@@ -44,6 +44,10 @@ export function YearSummary({ isOpen, onClose }: YearSummaryProps) {
     {
       heading1: "Your peak month: July",
       heading2: "Summer heat meets sauna heat.",
+    },
+    {
+      heading1: "Your life expectancy increased by 12 days",
+      heading2: "Sauna sessions help you live longer.",
     },
     {
       heading1: "Your #1 sauna this year was your home sauna",

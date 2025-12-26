@@ -232,7 +232,7 @@ export default function YouPage() {
               className="flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#D01400] p-4 font-bold text-white transition-colors hover:bg-[#FF7A28]"
             >
               <Calendar className="mr-2" />
-              View Your 2024 Sauna Wrapped
+              View Your 2025 Sauna Wrapped
             </button>
 
             <div className="mt-4">
@@ -321,7 +321,7 @@ export default function YouPage() {
               </div>
 
               <div className="flex flex-col items-center gap-1 rounded-xl bg-[#2C2B36] p-2">
-                <p className="text-sm text-[#BFC5CA]">2024</p>
+                <p className="text-sm text-[#BFC5CA]">2025</p>
                 <div className="flex gap-1.5">
                   {Array.from({ length: year2024Indicators.flameCount }).map((_, idx) => (
                     <Flame key={idx} className="h-6 w-6" style={{ color: year2024Indicators.flameColor }} />
@@ -332,7 +332,7 @@ export default function YouPage() {
               </div>
             </div>
 
-            <h4 className="mb-3 font-bold text-white text-[16px]">2025</h4>
+            <h4 className="mb-3 font-bold text-white text-[16px]">2026</h4>
 
             <div className="flex justify-start">
               <div className="flex items-center justify-center">
