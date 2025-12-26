@@ -172,7 +172,7 @@ export function Events() {
             >
               <Card className="heat-wave overflow-hidden rounded-2xl border-[#2C2B36] bg-[#1F1F23]">
                 <div className="p-5">
-                  <p className="mb-3 font-normal text-gray-400" style={{ fontSize: "12px" }}>
+                  <p className="mb-1 font-normal text-gray-400" style={{ fontSize: "12px" }}>
                     {event.host} invited you to:
                   </p>
 
