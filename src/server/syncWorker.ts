@@ -240,7 +240,10 @@ export async function syncPolarDataForUser(
         >();
 
         for (const sample of data.heart_rate_samples) {
-          const timestamp = new Date(`${data.date}T${sample.sample_time}`);
+          const timestamp = new Date(
+            `${data.date}T${sample.sample_time}+02:00`,
+          );
+
           if (isNaN(timestamp.getTime())) continue;
 
           // Round down to nearest 30 seconds

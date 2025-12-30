@@ -50,46 +50,51 @@ export async function registerUser(accessToken: string, userId: string) {
   }
 
   if (response.status === 200) {
-      return (await response.json()) as {
-        "polar-user-id": number;
-        "member-id": string;
-        "registration-date": string;
-        "first-name": string;
-        "last-name": string;
-        birthdate: string;
-        gender: string;
-        weight: number;
-        height: number;
-      };
+    return (await response.json()) as {
+      "polar-user-id": number;
+      "member-id": string;
+      "registration-date": string;
+      "first-name": string;
+      "last-name": string;
+      birthdate: string;
+      gender: string;
+      weight: number;
+      height: number;
+    };
   }
 }
 
 export async function getContinuousHeartRate(
-    accessToken: string,
-    date: string
+  accessToken: string,
+  date: string,
 ) {
-    const response = await fetch(`${POLAR_API_BASE_URL}/users/continuous-heart-rate/${date}`, {
-        method: "GET",
-        headers: {
-            "Accept": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-        }
-    });
+  const response = await fetch(
+    `${POLAR_API_BASE_URL}/users/continuous-heart-rate/${date}`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
 
-    if (response.status === 404) {
-        return null; 
-    }
+  if (response.status === 404) {
+    return null;
+  }
 
-    if (!response.ok) {
-         throw new Error(`Failed to fetch continuous heart rate: ${response.statusText}`);
-    }
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch continuous heart rate: ${response.statusText}`,
+    );
+  }
 
-    return (await response.json()) as {
-        polar_user: string;
-        date: string;
-        heart_rate_samples: {
-            heart_rate: number;
-            sample_time: string;
-        }[];
-    };
+  return (await response.json()) as {
+    polar_user: string;
+    date: string;
+    heart_rate_samples: {
+      heart_rate: number;
+      sample_time: string;
+    }[];
+  };
 }

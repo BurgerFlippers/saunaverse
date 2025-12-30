@@ -94,8 +94,6 @@ export const authConfig = {
       clientId: env.POLAR_CLIENT_ID,
       clientSecret: env.POLAR_CLIENT_SECRET,
       profile(profile, t) {
-        console.log(t);
-        console.log(profile);
         return {
           id: String(profile["polar-user-id"]),
         };
