@@ -24,6 +24,7 @@ interface SessionChartProps {
   };
   sessionId?: string;
   postId?: number;
+  hasImages?: boolean;
 }
 
 const CHART_MARGIN = { top: 10, right: 10, left: 10, bottom: 10 };
@@ -58,6 +59,7 @@ const formatLegend = (value: any) => {
 export const SessionChart = memo(function SessionChart({
   measurements: initialMeasurements,
   sessionId,
+  hasImages,
   postId,
 }: SessionChartProps) {
   console.log("rendering sess start", sessionId);
@@ -181,7 +183,13 @@ export const SessionChart = memo(function SessionChart({
   console.log("rendering sessionchart with data", sessionId);
 
   return (
-    <div className="scrollbar-hide mt-0 overflow-x-auto">
+    <div
+      className={
+        "scrollbar-hide mt-0 flex-shrink-0 overflow-x-auto" + hasImages
+          ? "w-[80%]"
+          : "w-full"
+      }
+    >
       <div className="flex gap-3 pb-0">
         {/* Chart */}
         <div className="w-full flex-shrink-0">

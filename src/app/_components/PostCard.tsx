@@ -311,16 +311,12 @@ export function PostCard({ post, session: saunaSession }: PostCardProps) {
         <div className="scrollbar-hide mt-0 overflow-x-auto">
           <div className="ml-5 flex gap-3 pb-0">
             {/* Chart */}
-
-            <div
-              className={`flex-shrink-0 ${(post?.images?.length ?? 0 > 0) ? "w-[80%]" : "w-full"}`}
-            >
-              <SessionChart
-                sessionId={saunaSession.id}
-                postId={post?.id}
-                key={saunaSession.id}
-              />
-            </div>
+            <SessionChart
+              hasImages={post?.images && post.images.length > 0}
+              sessionId={saunaSession.id}
+              postId={post?.id}
+              key={saunaSession.id}
+            />
 
             {/* Photos section - if available */}
             {post?.images && post.images.length > 0 && (
