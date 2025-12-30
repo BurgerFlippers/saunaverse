@@ -185,9 +185,8 @@ export const SessionChart = memo(function SessionChart({
   return (
     <div
       className={
-        "scrollbar-hide mt-0 flex-shrink-0 overflow-x-auto" + hasImages
-          ? "w-[80%]"
-          : "w-full"
+        "scrollbar-hide mt-0 flex-shrink-0 overflow-x-auto " +
+        (hasImages ? "w-[80%]" : "w-full")
       }
     >
       <div className="flex gap-3 pb-0">
